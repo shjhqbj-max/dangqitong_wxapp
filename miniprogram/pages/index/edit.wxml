@@ -64,8 +64,7 @@
         placeholder-class="form-placeholder"
         value="{{title}}"
         maxlength="50"
-        data-field="title"
-        bindinput="onInput"
+        bindinput="onTitleInput"
       />
     </view>
 
@@ -254,59 +253,54 @@
     </view>
   </view>
 
-  <scroll-view scroll-y class="contact-panel-body">
-    <!-- 常用联系人 -->
+  <!-- 常用联系人（可滚动） -->
+  <scroll-view scroll-y class="contact-panel-scroll">
     <view class="panel-section">
       <view class="panel-section-title">常用联系人</view>
-      <view class="frequent-list">
+      <view class="frequent-tags">
         <view
-          class="frequent-item"
+          class="frequent-tag"
           wx:for="{{frequentContacts}}"
           wx:key="index"
           data-contact="{{item}}"
           bindtap="onSelectFrequent"
         >
-          <view class="frequent-avatar">{{item.name[0]}}</view>
-          <view class="frequent-info">
-            <text class="frequent-name">{{item.name}}</text>
-            <text class="frequent-detail">{{item.role}} · {{item.phone}}</text>
-          </view>
-          <text class="icon icon-plus frequent-add"></text>
-        </view>
-      </view>
-    </view>
-
-    <!-- 手动添加 -->
-    <view class="panel-section">
-      <view class="panel-section-title">手动添加</view>
-      <view class="panel-form">
-        <picker mode="selector" range="{{contactRoles}}" value="{{panelContact.roleIndex}}" bindchange="onPanelRoleChange">
-          <view class="form-picker form-picker--panel">
-            <text>{{panelContact.role}}</text>
-            <text class="icon icon-more form-picker-arrow"></text>
-          </view>
-        </picker>
-        <input
-          class="form-input"
-          placeholder="姓名"
-          placeholder-class="form-placeholder"
-          value="{{panelContact.name}}"
-          maxlength="20"
-          bindinput="onPanelNameInput"
-        />
-        <input
-          class="form-input"
-          placeholder="手机号"
-          placeholder-class="form-placeholder"
-          value="{{panelContact.phone}}"
-          type="number"
-          maxlength="11"
-          bindinput="onPanelPhoneInput"
-        />
-        <view class="panel-confirm-btn" bindtap="onConfirmAddContact">
-          <text>确认添加</text>
+          <text>{{item.name}} {{item.phoneTail}}</text>
         </view>
       </view>
     </view>
   </scroll-view>
+
+  <!-- 手动添加（固定底部） -->
+  <view class="contact-panel-form">
+    <view class="panel-section-title">手动添加</view>
+    <view class="panel-form">
+      <picker mode="selector" range="{{contactRoles}}" value="{{panelContact.roleIndex}}" bindchange="onPanelRoleChange">
+        <view class="form-picker form-picker--panel">
+          <text>{{panelContact.role}}</text>
+          <text class="icon icon-more form-picker-arrow"></text>
+        </view>
+      </picker>
+      <input
+        class="form-input panel-form-input"
+        placeholder="姓名"
+        placeholder-class="form-placeholder"
+        value="{{panelContact.name}}"
+        maxlength="20"
+        bindinput="onPanelNameInput"
+      />
+      <input
+        class="form-input panel-form-input"
+        placeholder="手机号"
+        placeholder-class="form-placeholder"
+        value="{{panelContact.phone}}"
+        type="number"
+        maxlength="11"
+        bindinput="onPanelPhoneInput"
+      />
+      <view class="panel-confirm-btn" bindtap="onConfirmAddContact">
+        <text>确认添加</text>
+      </view>
+    </view>
+  </view>
 </view>

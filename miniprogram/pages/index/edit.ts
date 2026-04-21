@@ -27,12 +27,16 @@ Page({
     endTime: '12:00',
     // 基本信息
     title: '',
+    titleEdited: false,
     source: '',
     location: '',
     // 联系人
     contacts: [] as ContactItem[],
     contactRoles: CONTACT_ROLES,
-    frequentContacts: FREQUENT_CONTACTS.slice(0, 20) as FrequentContact[],
+    frequentContacts: FREQUENT_CONTACTS.slice(0, 20).map(c => ({
+      ...c,
+      phoneTail: c.phone ? c.phone.slice(-3) : '',
+    })) as Array<FrequentContact & { phoneTail: string }>,
     // 联系人面板
     contactPanelVisible: false,
     panelContact: { role: '新人', roleIndex: 0, name: '', phone: '' },
@@ -74,10 +78,23 @@ Page({
         })
       }
     } else if (query.date) {
-      this.setData({ date: query.date })
+      const defaultTitle = this.generateDefaultTitle(query.date, this.data.type)
+      this.setData({ date: query.date, title: defaultTitle })
     } else {
-      this.setData({ date: dateStr })
+      const defaultTitle = this.generateDefaultTitle(dateStr, this.data.type)
+      this.setData({ date: dateStr, title: defaultTitle })
     }
+  },
+
+  generateDefaultTitle(date: string, type: ScheduleType) {
+    const typeMap: Record<ScheduleType, string> = {
+      booked: '婚礼拍摄',
+      pending: '预留档期',
+      free: '休息',
+    }
+    const month = date.split('-')[1]
+    const day = date.split('-')[2]
+    return `${parseInt(month)}月${parseInt(day)}日 ${typeMap[type]}`
   },
 
   // ============================
@@ -85,14 +102,27 @@ Page({
   // ============================
   onTypeChange(e: WechatMiniprogram.TouchEvent) {
     const type = e.currentTarget.dataset.value as ScheduleType
-    this.setData({ type })
+    const update: Record<string, unknown> = { type }
+    if (!this.data.titleEdited && !this.data.isEdit) {
+      update.title = this.generateDefaultTitle(this.data.date, type)
+    }
+    this.setData(update)
+  },
+
+  onTitleInput(e: WechatMiniprogram.Input) {
+    this.setData({ title: e.detail.value, titleEdited: true })
   },
 
   // ============================
   // 日期 & 时间
   // ============================
   onDateChange(e: WechatMiniprogram.PickerChange) {
-    this.setData({ date: e.detail.value })
+    const date = e.detail.value as string
+    const update: Record<string, unknown> = { date }
+    if (!this.data.titleEdited && !this.data.isEdit) {
+      update.title = this.generateDefaultTitle(date, this.data.type)
+    }
+    this.setData(update)
   },
 
   onStartTimeChange(e: WechatMiniprogram.PickerChange) {
@@ -113,9 +143,13 @@ Page({
   // ============================
   // 通用输入
   // ============================
-  onInput(e: WechatMiniprogram.InputEvent) {
+  onInput(e: WechatMiniprogram.Input) {
     const field = e.currentTarget.dataset.field as string
-    this.setData({ [field]: e.detail.value })
+    if (field === 'title') {
+      this.setData({ [field]: e.detail.value, titleEdited: true })
+    } else {
+      this.setData({ [field]: e.detail.value })
+    }
   },
 
   // ============================
