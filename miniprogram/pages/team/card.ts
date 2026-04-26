@@ -16,25 +16,6 @@ const proGradients: Record<string, string> = {
   '演出': 'linear-gradient(135deg, #4a1a1a 0%, #9a3030 50%, #7a2424 100%)'
 }
 
-function formatCardDate(dateStr: string): string {
-  if (!dateStr) return ''
-  const m = dateStr.substring(5, 7).replace(/^0/, '')
-  const d = dateStr.substring(8, 10).replace(/^0/, '')
-  return m + '/' + d
-}
-
-function timeAgo(dateStr: string): string {
-  if (!dateStr) return ''
-  const t = new Date(dateStr).getTime()
-  const now = Date.now()
-  const diff = now - t
-  if (diff < 60000) return '刚刚'
-  if (diff < 3600000) return Math.floor(diff / 60000) + '分钟前'
-  if (diff < 86400000) return Math.floor(diff / 3600000) + '小时前'
-  if (diff < 2592000000) return Math.floor(diff / 86400000) + '天前'
-  return Math.floor(diff / 2592000000) + '月前'
-}
-
 Page({
   data: {
     card: null as ScheduleCard | null,

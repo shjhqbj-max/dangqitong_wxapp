@@ -10,9 +10,9 @@
     <view class="sc-topbar-back" bindtap="onBack">
       <span class="iconfont icon-arrow-left sc-topbar-icon"></span>
     </view>
-    <view class="sc-topbar-share" catchtap="onShareAppMessage">
+    <button class="sc-topbar-share" open-type="share">
       <span class="iconfont icon-share sc-topbar-icon"></span>
-    </view>
+    </button>
   </view>
 
   <!-- 头像 + 基本信息 -->
