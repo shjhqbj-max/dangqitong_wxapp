@@ -1,0 +1,78 @@
+<wxs module="h" src="../../utils/helpers.wxs" />
+
+<!-- 团队对外展示页 -->
+<view class="tp-page" wx:if="{{team}}">
+  <!-- Hero 封面图 -->
+  <view class="tp-hero" style="padding-top: {{heroPaddingTop}}">
+    <image class="tp-cover" src="{{team.cover_url}}" mode="aspectFill" />
+    <view class="tp-hero-mask"></view>
+    <view class="tp-hero-back" bindtap="onBack">
+      <view class="iconfont icon-arrow-left tp-hero-back-icon"></view>
+    </view>
+  </view>
+
+  <!-- Hero 占位 -->
+  <view style="height: {{heroHeight}}px"></view>
+
+  <!-- 信息 + Tab 栏 -->
+  <view class="tp-info-bar">
+    <view class="tp-info-left">
+      <view class="tp-team-name">{{team.name}}</view>
+      <view class="tp-team-meta" wx:if="{{team.city}}">
+        <text>{{team.city}}</text>
+        <text wx:if="{{team.member_count}}"> · {{team.member_count}}人</text>
+      </view>
+    </view>
+    <view class="tp-tabs">
+      <view class="tp-tab {{activeTab === 'works' ? 'tp-tab-active' : ''}}" bindtap="onTabTap" data-tab="works">作品</view>
+      <view class="tp-tab {{activeTab === 'members' ? 'tp-tab-active' : ''}}" bindtap="onTabTap" data-tab="members">成员</view>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="tp-body">
+    <!-- 作品 -->
+    <block wx:if="{{activeTab === 'works'}}">
+      <view class="tp-empty" wx:if="{{worksList.length === 0}}">暂无作品</view>
+      <view class="tp-works-grid" wx:if="{{worksList.length > 0}}">
+        <view class="tp-work-card" wx:for="{{worksList}}" wx:key="index"
+          data-uid="{{item.user_id}}" bindtap="onMemberTap">
+          <image class="tp-work-img" src="{{item.image_url}}" mode="aspectFill" />
+          <view class="tp-work-info">
+            <image class="tp-work-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
+            <view class="tp-work-meta">
+              <view class="tp-work-nick">{{item.nickname}}</view>
+              <view class="tp-work-title" wx:if="{{item.title}}">{{item.title}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 成员 -->
+    <block wx:if="{{activeTab === 'members'}}">
+      <view class="card tp-member-card" wx:for="{{members}}" wx:key="user_id"
+        data-uid="{{item.user_id}}" bindtap="onMemberTap">
+        <image class="tp-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
+        <view class="tp-member-body">
+          <view class="tp-member-top">
+            <text class="tp-member-name">{{item.nickname}}</text>
+            <view class="tp-member-pro pro-{{h.getProClass(item.professions[0])}}">{{item.professions[0]}}</view>
+            <view class="badge badge-confirmed" wx:if="{{item.is_verified}}">认证</view>
+          </view>
+          <view class="tp-member-price">{{item.price_text}}</view>
+        </view>
+        <view class="tp-phone" wx:if="{{item.phone}}" catchtap="onPhoneTap" data-phone="{{item.phone}}">
+          <view class="iconfont icon-phone tp-phone-icon"></view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="safe-bottom"></view>
+</view>
+
+<!-- 加载中 -->
+<view class="tp-loading" wx:if="{{loading}}">
+  <view>加载中...</view>
+</view>

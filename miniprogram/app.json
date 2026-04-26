@@ -9,8 +9,9 @@
     "pages/orders/publish",
     "pages/orders/city",
     "pages/team/list",
-    "pages/team/members",
     "pages/team/card",
+    "pages/team/members",
+    "pages/team/profile",
     "pages/chat/list",
     "pages/profile/index",
     "pages/login/index"
