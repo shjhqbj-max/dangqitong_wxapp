@@ -18,6 +18,12 @@ const mockCards: Record<string, ScheduleCard> = {
       { date: '2026-05-03', title: '商业活动', location: '上海浦东新区' },
       { date: '2026-05-10', title: '婚礼跟拍', location: '杭州余杭区' }
     ],
+    works: [
+      { image_url: 'https://picsum.photos/400/300?random=1', title: '西湖婚礼' },
+      { image_url: 'https://picsum.photos/400/300?random=2', title: '草坪婚礼' },
+      { image_url: 'https://picsum.photos/400/300?random=3', title: '室内婚礼' },
+      { image_url: 'https://picsum.photos/400/300?random=4', title: '古镇婚纱' }
+    ],
     updated_at: '2026-04-26T10:00:00',
     qr_code_url: ''
   },
@@ -36,6 +42,11 @@ const mockCards: Record<string, ScheduleCard> = {
       { date: '2026-04-28', title: '婚礼摄像', location: '杭州西湖区' },
       { date: '2026-05-01', title: '企业年会', location: '杭州滨江区' }
     ],
+    works: [
+      { image_url: 'https://picsum.photos/400/300?random=5', title: '婚礼航拍' },
+      { image_url: 'https://picsum.photos/400/300?random=6', title: '年会拍摄' },
+      { image_url: 'https://picsum.photos/400/300?random=7', title: '毕业典礼' }
+    ],
     updated_at: '2026-04-25T16:00:00',
     qr_code_url: ''
   },
@@ -52,6 +63,10 @@ const mockCards: Record<string, ScheduleCard> = {
     background_url: '',
     schedules: [
       { date: '2026-05-02', title: '婚纱摄影', location: '杭州西湖区' }
+    ],
+    works: [
+      { image_url: 'https://picsum.photos/400/300?random=8', title: '清新婚纱' },
+      { image_url: 'https://picsum.photos/400/300?random=9', title: '户外人像' }
     ],
     updated_at: '2026-04-24T09:00:00',
     qr_code_url: ''
@@ -71,6 +86,11 @@ const mockCards: Record<string, ScheduleCard> = {
       { date: '2026-04-29', title: '新娘跟妆', location: '杭州拱墅区' },
       { date: '2026-05-05', title: '活动化妆', location: '杭州上城区' }
     ],
+    works: [
+      { image_url: 'https://picsum.photos/400/300?random=10', title: '新娘妆容' },
+      { image_url: 'https://picsum.photos/400/300?random=11', title: '晚宴造型' },
+      { image_url: 'https://picsum.photos/400/300?random=12', title: '舞台妆' }
+    ],
     updated_at: '2026-04-26T08:00:00',
     qr_code_url: ''
   },
@@ -86,6 +106,10 @@ const mockCards: Record<string, ScheduleCard> = {
     price_text: '3,500/天',
     background_url: '',
     schedules: [],
+    works: [
+      { image_url: 'https://picsum.photos/400/300?random=13', title: '航拍作品' },
+      { image_url: 'https://picsum.photos/400/300?random=14', title: '电影感短片' }
+    ],
     updated_at: '2026-04-23T14:00:00',
     qr_code_url: ''
   },
@@ -103,6 +127,7 @@ const mockCards: Record<string, ScheduleCard> = {
     schedules: [
       { date: '2026-04-28', title: '婚礼灯光', location: '杭州西湖区' }
     ],
+    works: [],
     updated_at: '2026-04-25T11:00:00',
     qr_code_url: ''
   },
@@ -122,6 +147,12 @@ const mockCards: Record<string, ScheduleCard> = {
       { date: '2026-05-02', title: '商业活动', location: '上海浦东新区' },
       { date: '2026-05-08', title: '婚礼跟妆', location: '上海黄浦区' }
     ],
+    works: [
+      { image_url: 'https://picsum.photos/400/300?random=15', title: '高端新娘' },
+      { image_url: 'https://picsum.photos/400/300?random=16', title: '商业妆容' },
+      { image_url: 'https://picsum.photos/400/300?random=17', title: '活动造型' },
+      { image_url: 'https://picsum.photos/400/300?random=18', title: '古风妆容' }
+    ],
     updated_at: '2026-04-26T09:00:00',
     qr_code_url: ''
   },
@@ -138,6 +169,10 @@ const mockCards: Record<string, ScheduleCard> = {
     background_url: '',
     schedules: [
       { date: '2026-05-01', title: '婚礼花艺', location: '上海徐汇区' }
+    ],
+    works: [
+      { image_url: 'https://picsum.photos/400/300?random=19', title: '拱门花艺' },
+      { image_url: 'https://picsum.photos/400/300?random=20', title: '桌花布置' }
     ],
     updated_at: '2026-04-25T15:00:00',
     qr_code_url: ''
@@ -157,6 +192,11 @@ const mockCards: Record<string, ScheduleCard> = {
       { date: '2026-05-06', title: '婚礼跟拍', location: '上海浦东新区' },
       { date: '2026-05-12', title: '婚纱摄影', location: '上海松江区' }
     ],
+    works: [
+      { image_url: 'https://picsum.photos/400/300?random=21', title: '纪实婚礼' },
+      { image_url: 'https://picsum.photos/400/300?random=22', title: '外景婚纱' },
+      { image_url: 'https://picsum.photos/400/300?random=23', title: '情感抓拍' }
+    ],
     updated_at: '2026-04-24T17:00:00',
     qr_code_url: ''
   },
@@ -173,6 +213,10 @@ const mockCards: Record<string, ScheduleCard> = {
     background_url: '',
     schedules: [
       { date: '2026-05-01', title: '婚礼主持', location: '上海静安区' }
+    ],
+    works: [
+      { image_url: 'https://picsum.photos/400/300?random=24', title: '婚礼现场' },
+      { image_url: 'https://picsum.photos/400/300?random=25', title: '年会主持' }
     ],
     updated_at: '2026-04-26T07:00:00',
     qr_code_url: ''

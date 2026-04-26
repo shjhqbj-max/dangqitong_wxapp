@@ -57,6 +57,19 @@
       <view class="sc-empty">暂无档期安排</view>
     </view>
 
+    <!-- 作品展示 -->
+    <view class="sc-card-dark" wx:if="{{card.works.length > 0}}">
+      <view class="sc-sch-title">作品展示</view>
+      <scroll-view class="sc-works-scroll" scroll-x enable-flex>
+        <view class="sc-works-list">
+          <view class="sc-work-item" wx:for="{{card.works}}" wx:key="index">
+            <image class="sc-work-img" src="{{item.image_url}}" mode="aspectFill" />
+            <view class="sc-work-title" wx:if="{{item.title}}">{{item.title}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
     <!-- 底部占位，避免被固定栏遮挡 -->
     <view class="sc-bottom-spacer"></view>
   </view>

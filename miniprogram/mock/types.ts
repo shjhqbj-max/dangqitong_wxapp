@@ -163,6 +163,11 @@ export interface CardSchedule {
   location: string
 }
 
+export interface CardWork {
+  image_url: string
+  title?: string
+}
+
 export interface ScheduleCard {
   card_id: string
   user_id: string
@@ -175,6 +180,7 @@ export interface ScheduleCard {
   price_text: string
   background_url: string
   schedules: CardSchedule[]
+  works: CardWork[]
   updated_at: string
   qr_code_url: string
 }

@@ -216,6 +216,38 @@
   padding: var(--space-4) 0;
 }
 
+/* ====== 作品展示 ====== */
+.sc-works-scroll {
+  white-space: nowrap;
+}
+
+.sc-works-list {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+
+.sc-work-item {
+  display: inline-block;
+  width: 240rpx;
+  flex-shrink: 0;
+}
+
+.sc-work-img {
+  width: 240rpx;
+  height: 180rpx;
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+.sc-work-title {
+  font-size: var(--font-xs);
+  color: rgba(255,255,255,0.6);
+  margin-top: var(--space-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* 底部占位，防止内容被固定栏遮挡 */
 .sc-bottom-spacer {
   height: 140rpx;
