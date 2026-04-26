@@ -5,6 +5,9 @@
   background: #1a1a2e;
   color: #fff;
   padding-bottom: 160rpx;
+  min-height: 100vh;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 /* ====== 背景 ====== */
@@ -32,8 +35,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
+  width: 64rpx;
+  height: 64rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,28 +50,6 @@
 
 .sc-topbar-share {
   right: var(--space-3);
-  border: none;
-  margin: 0;
-  padding: 0;
-  line-height: 44px;
-}
-
-.sc-topbar-share::after {
-  border: none;
-}
-
-.sc-topbar-back,
-.sc-topbar-share {
-  width: 64rpx;
-  height: 64rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-full);
-  background: rgba(0,0,0,0.2);
-}
-
-.sc-topbar-share {
   border: none;
   margin: 0;
   padding: 0;
@@ -99,18 +80,17 @@
 
 .sc-hero-hidden {
   opacity: 0;
-  transform: translateY(-20rpx);
-  height: 0;
-  padding-bottom: 0;
-  overflow: hidden;
+  pointer-events: none;
+  min-height: 240rpx;
 }
 
 .sc-avatar {
-  width: 120rpx;
-  height: 120rpx;
+  width: 128rpx;
+  height: 128rpx;
   border-radius: var(--radius-full);
   border: 4rpx solid rgba(255,255,255,0.5);
   margin-bottom: var(--space-3);
+  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.25);
 }
 
 .sc-name {
@@ -130,6 +110,7 @@
   position: relative;
   z-index: 1;
   padding: 0 var(--space-4);
+  margin-top: var(--space-2);
 }
 
 /* ====== 深色半透明卡片 ====== */
@@ -211,8 +192,9 @@
 
 .sc-sch-date {
   color: rgba(255,255,255,0.6);
-  min-width: 72rpx;
+  min-width: 80rpx;
   flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .sc-sch-name {
@@ -246,6 +228,14 @@
   white-space: nowrap;
 }
 
+/* 隐藏横向滚动条 */
+.sc-works-scroll ::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
 .sc-works-list {
   display: inline-flex;
   gap: var(--space-2);
@@ -275,7 +265,7 @@
 
 /* 底部占位，防止内容被固定栏遮挡 */
 .sc-bottom-spacer {
-  height: 140rpx;
+  height: 160rpx;
 }
 
 /* ====== 底部操作栏 ====== */
@@ -299,30 +289,32 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-1);
-  height: 88rpx;
-  border-radius: var(--radius-lg);
+  height: 92rpx;
+  border-radius: var(--radius-xl);
   font-size: var(--font-base);
   font-weight: var(--weight-medium);
 }
 
 .sc-btn-save {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.12);
   color: #fff;
-  border: 1rpx solid rgba(255,255,255,0.25);
+  border: 1rpx solid rgba(255,255,255,0.2);
+  transition: background 0.2s ease;
 }
 
 .sc-btn-save:active {
-  background: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.22);
 }
 
 .sc-btn-share {
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.92);
   color: #1a1a2e;
   border: none;
   margin: 0;
   padding: 0;
-  line-height: 88rpx;
-  border-radius: var(--radius-lg);
+  line-height: 92rpx;
+  border-radius: var(--radius-xl);
+  transition: background 0.2s ease;
 }
 
 .sc-btn-share::after {
@@ -330,7 +322,7 @@
 }
 
 .sc-btn-share:active {
-  background: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.8);
 }
 
 .sc-btn-icon {
