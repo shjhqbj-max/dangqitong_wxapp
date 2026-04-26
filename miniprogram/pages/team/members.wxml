@@ -1,0 +1,38 @@
+<nav-bar title="成员管理" />
+
+<view class="m-page">
+  <!-- 团队信息 -->
+  <view class="m-team-info">
+    <span class="m-team-name">团队：{{team.name}}</span>
+    <span class="m-team-count">（{{members.length}}人）</span>
+  </view>
+
+  <!-- 成员列表 -->
+  <view class="m-list">
+    <view class="m-item" wx:for="{{members}}" wx:key="user_id"
+      data-uid="{{item.user_id}}" bindtap="onMemberTap">
+      <image class="m-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
+      <view class="m-info">
+        <span class="m-name">{{item.nickname}}</span>
+        <span class="m-pros">{{item.professions.join('·')}}</span>
+      </view>
+      <span class="m-role {{item.role === 'admin' ? 'm-role-admin' : ''}}">{{item.role === 'admin' ? '管理员' : '成员'}}</span>
+      <span class="iconfont icon-more m-action" wx:if="{{isAdmin && item.user_id !== 'u-001'}}"
+            data-idx="{{index}}" catchtap="onMemberAction" />
+    </view>
+  </view>
+
+  <!-- 邀请码 -->
+  <view class="m-invite">
+    <view class="m-invite-label">邀请码</view>
+    <view class="m-invite-row">
+      <span class="m-invite-code">{{inviteCode}}</span>
+      <view class="m-invite-copy" bindtap="onCopyInvite">复制</view>
+    </view>
+  </view>
+
+  <!-- 退出团队 -->
+  <view class="m-leave" wx:if="{{!isAdmin}}" bindtap="onLeaveTeam">退出团队</view>
+</view>
+
+<view class="safe-bottom" />
