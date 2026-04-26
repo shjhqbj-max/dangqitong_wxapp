@@ -16,7 +16,7 @@
   </view>
 
   <!-- 头像 + 基本信息 -->
-  <view class="sc-hero">
+  <view class="sc-hero" style="{{heroStyle}}">
     <image class="sc-avatar" src="{{card.avatar_url}}" mode="aspectFill" />
     <view class="sc-name">{{card.nickname}}</view>
     <view class="sc-sub">

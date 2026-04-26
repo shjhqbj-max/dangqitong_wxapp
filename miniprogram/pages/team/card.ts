@@ -21,7 +21,8 @@ Page({
     card: null as ScheduleCard | null,
     bgGradient: '',
     loading: true,
-    topbarStyle: ''
+    topbarStyle: '',
+    heroStyle: ''
   },
 
   onLoad(options: any) {
@@ -36,11 +37,12 @@ Page({
   },
 
   measureLayout() {
-    const menuRect = wx.getMenuButtonBoundingClientRect()
-    const topbarPadTop = menuRect.top
-    const topbarHeight = menuRect.height + topbarPadTop + 16
+    const windowInfo = wx.getWindowInfo()
+    const totalHeight = windowInfo.statusBarHeight + 44
+    const heroPadTop = totalHeight + 60 // hero 距顶栏下方 60px
     this.setData({
-      topbarStyle: 'padding-top:' + topbarPadTop + 'px; height:' + topbarHeight + 'px'
+      topbarStyle: 'padding-top:' + windowInfo.statusBarHeight + 'px; height:' + totalHeight + 'px',
+      heroStyle: 'padding-top:' + heroPadTop + 'px'
     })
   },
 
