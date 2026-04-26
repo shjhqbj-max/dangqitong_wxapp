@@ -43,7 +43,7 @@
     <!-- 档期列表 -->
     <view class="sc-card-dark" wx:if="{{card.schedules.length > 0}}">
       <view class="sc-sch-title">已定档期</view>
-      <view class="sc-sch-item" wx:for="{{card.schedules}}" wx:key="date">
+      <view class="sc-sch-item" wx:for="{{card.schedules}}" wx:key="index">
         <view class="sc-sch-date">{{item.date}}</view>
         <view class="sc-sch-name">{{item.title}}</view>
         <view class="sc-sch-loc">{{h.getLocationShort(item.location)}}</view>
@@ -61,7 +61,7 @@
   <!-- 底部操作栏 -->
   <view class="sc-bottom safe-bottom">
     <view class="sc-btn-save" bindtap="onSaveImage">
-      <view class="iconfont icon-download sc-btn-icon"></view>
+      <view class="iconfont icon-image sc-btn-icon"></view>
       <view>保存图片</view>
     </view>
     <button class="sc-btn-share" open-type="share">
