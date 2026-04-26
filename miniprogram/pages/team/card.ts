@@ -57,24 +57,6 @@ Page({
     wx.navigateBack()
   },
 
-  async onSaveImage() {
-    if (!this.data.card) return
-    wx.showLoading({ title: '生成中...' })
-    try {
-      const res = await cardApi.getCardImage(this.data.card.user_id)
-      if (res.code === 200 && res.data.image_url) {
-        const dlRes = await wx.downloadFile({ url: res.data.image_url })
-        await wx.saveImageToPhotosAlbum({ filePath: dlRes.tempFilePath })
-        wx.showToast({ title: '已保存到相册', icon: 'none' })
-      } else {
-        wx.showToast({ title: '图片生成中，请稍后', icon: 'none' })
-      }
-    } catch (e) {
-      wx.showToast({ title: '保存失败', icon: 'none' })
-    }
-    wx.hideLoading()
-  },
-
   onBookSchedule() {
     // TODO: 跳转私聊详情页，目前聊天页为骨架，先切换到消息tab
     wx.switchTab({ url: '/pages/chat/list' })
