@@ -2,11 +2,20 @@
 
 /* ====== Hero ====== */
 .m-hero {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
   background: var(--color-bg-card);
   padding: var(--space-3) var(--space-4) var(--space-2);
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.m-hero-spacer {
+  height: 108rpx;
 }
 
 .m-hero-main {
@@ -145,7 +154,20 @@
 .m-setting-divider {
   height: 1rpx;
   background: var(--color-border-light);
-  margin: 0 var(--space-3);
+  margin: var(--space-2) var(--space-3);
+}
+
+/* ====== 服务类型标签 ====== */
+.m-team-tags {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  padding: var(--space-2) var(--space-3);
+}
+
+.m-team-tag {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
 }
 
 /* ====== 邀请卡片 ====== */
@@ -222,4 +244,47 @@
   background: var(--color-bg-card);
   border-radius: var(--radius-lg);
   padding: var(--space-3);
+}
+
+/* ====== 底部操作按钮 ====== */
+.m-bottom-actions {
+  padding: var(--space-4) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.m-action-btn {
+  text-align: center;
+  font-size: var(--font-base);
+  font-weight: var(--weight-medium);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+}
+
+.m-action-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.m-action-primary:active {
+  opacity: 0.85;
+}
+
+.m-action-secondary {
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+}
+
+.m-action-secondary:active {
+  background: var(--color-bg-muted);
+}
+
+.m-action-danger {
+  background: var(--color-bg-card);
+  color: var(--color-danger);
+}
+
+.m-action-danger:active {
+  background: var(--color-danger-light);
 }

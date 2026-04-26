@@ -15,6 +15,9 @@
     </view>
   </view>
 
+  <!-- Hero 占位 -->
+  <view style="height: {{heroHeight}}px"></view>
+
   <!-- 内容区 -->
   <view class="sc-body">
     <!-- 信息卡 -->
@@ -69,11 +72,15 @@
       <view class="sc-empty">暂无档期安排</view>
     </view>
 
+    <view class="sc-bottom-spacer"></view>
   </view>
 
-  <!-- 浮动分享按钮 -->
-  <view class="sc-fab" bindtap="onShareCard">
-    <view class="iconfont icon-share sc-fab-icon"></view>
+  <!-- 底部分享按钮 -->
+  <view class="sc-bottom-bar">
+    <view class="sc-share-btn" bindtap="onShareCard">
+      <view class="iconfont icon-share sc-share-icon"></view>
+      <view>分享档期卡</view>
+    </view>
   </view>
 
   <!-- 作品全屏弹层 -->

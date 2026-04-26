@@ -7,7 +7,11 @@
 
 /* ====== 渐变 Hero ====== */
 .sc-hero {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -204,6 +208,11 @@
   text-overflow: ellipsis;
 }
 
+/* ====== 底部占位 ====== */
+.sc-bottom-spacer {
+  height: calc(160rpx + env(safe-area-inset-bottom, 0px));
+}
+
 /* ====== 作品全屏弹层 ====== */
 .sc-works-overlay {
   position: fixed;
@@ -276,29 +285,38 @@
   text-overflow: ellipsis;
 }
 
-/* ====== 浮动分享按钮 ====== */
-.sc-fab {
+/* ====== 底部分享按钮 ====== */
+.sc-bottom-bar {
   position: fixed;
-  right: var(--space-4);
-  bottom: calc(var(--space-8) + env(safe-area-inset-bottom));
-  width: 96rpx;
-  height: 96rpx;
-  border-radius: var(--radius-full);
-  background: var(--color-primary);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: var(--space-3) var(--space-4);
+  padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+  background: var(--color-bg-card);
+}
+
+.sc-share-btn {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: var(--space-1);
+  height: 92rpx;
+  border-radius: var(--radius-xl);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: var(--font-base);
+  font-weight: var(--weight-medium);
   box-shadow: var(--shadow-primary);
-  z-index: 10;
 }
 
-.sc-fab:active {
+.sc-share-btn:active {
   background: var(--color-primary-hover);
 }
 
-.sc-fab-icon {
-  font-size: var(--font-lg);
-  color: var(--color-on-primary);
+.sc-share-icon {
+  font-size: var(--font-md);
 }
 
 /* ====== 加载状态 ====== */

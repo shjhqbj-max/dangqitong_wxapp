@@ -19,8 +19,8 @@ Page({
     worksList: [] as WorkItem[],
     activeTab: 'works',
     loading: true,
-    heroPaddingTop: '',
-    heroHeight: 0
+    backBtnTop: 0,
+    headerHeight: 0
   },
 
   onLoad(options: any) {
@@ -31,22 +31,25 @@ Page({
       return
     }
     const windowInfo = wx.getWindowInfo()
+    const capsule = wx.getMenuButtonBoundingClientRect()
+    // 返回按钮与原生胶囊垂直居中对齐
+    const backBtnTop = capsule.top + (capsule.height - 32) / 2
     this.setData({
       teamId,
-      heroPaddingTop: windowInfo.statusBarHeight + 'px'
+      backBtnTop
     })
     this.loadData(teamId)
   },
 
   onReady() {
-    this.calcHeroHeight()
+    this.calcHeaderHeight()
   },
 
-  calcHeroHeight() {
+  calcHeaderHeight() {
     const query = this.createSelectorQuery()
-    query.select('.tp-hero').boundingClientRect((rect: any) => {
+    query.select('.tp-header').boundingClientRect((rect: any) => {
       if (rect) {
-        this.setData({ heroHeight: rect.height })
+        this.setData({ headerHeight: rect.height })
       }
     }).exec()
   },
@@ -67,7 +70,7 @@ Page({
       }
       const worksList = this.flattenWorks(members)
       this.setData({ team, members, worksList, loading: false }, () => {
-        this.calcHeroHeight()
+        this.calcHeaderHeight()
       })
     } catch (e) {
       this.setData({ loading: false })

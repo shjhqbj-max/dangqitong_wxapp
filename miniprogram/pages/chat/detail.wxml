@@ -1,0 +1,42 @@
+<wxs module="h" src="../../utils/helpers.wxs" />
+<nav-bar title="{{chatName}}" />
+
+<view class="ch-detail-body">
+  <!-- 消息列表 -->
+  <scroll-view class="ch-scroll" scroll-y scroll-top="{{scrollTop}}" scroll-with-animation>
+    <view class="ch-msg-group" wx:for="{{messages}}" wx:key="message_id">
+      <!-- 时间分割线 -->
+      <view class="ch-msg-time" wx:if="{{item.showTime}}">
+        {{h.timeAgo(item.sent_at)}}
+      </view>
+      <!-- 系统消息 -->
+      <view class="ch-msg-system" wx:if="{{item.msg_type === 'system'}}">
+        <span class="ch-msg-system-text">{{item.content}}</span>
+      </view>
+      <!-- 普通消息气泡 -->
+      <view wx:elif="{{item.msg_type !== 'system'}}" class="ch-msg-row {{item.isSelf ? 'ch-msg-self' : ''}}">
+        <image wx:if="{{!item.isSelf}}" class="ch-msg-avatar" src="{{item.sender_avatar}}" mode="aspectFill" />
+        <view class="ch-msg-bubble">
+          <text wx:if="{{item.msg_type === 'text'}}">{{item.content}}</text>
+          <image wx:if="{{item.msg_type === 'image'}}" class="ch-msg-img" src="{{item.content}}" mode="widthFix"
+                 bindtap="onPreviewImage" data-src="{{item.content}}" />
+          <view wx:if="{{item.msg_type === 'location'}}" class="ch-msg-location" bindtap="onOpenLocation" data-addr="{{item.content}}">
+            <span class="iconfont icon-location ch-msg-location-icon"></span>
+            <span class="ch-msg-location-text">{{item.content}}</span>
+          </view>
+        </view>
+        <image wx:if="{{item.isSelf}}" class="ch-msg-avatar" src="{{item.sender_avatar}}" mode="aspectFill" />
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 底部输入栏 -->
+<view class="ch-input-bar">
+  <input class="ch-input" placeholder="输入消息" value="{{inputValue}}"
+         bindinput="onInput" bindconfirm="onSendText" confirm-type="send" />
+  <view class="ch-input-icons">
+    <span class="iconfont icon-image ch-input-icon" bindtap="onSendImage"></span>
+    <span class="iconfont icon-location ch-input-icon" bindtap="onSendLocation"></span>
+  </view>
+</view>

@@ -1,0 +1,169 @@
+.login-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding-bottom: env(safe-area-inset-bottom, 45px);
+  background-color: var(--color-bg-page);
+  overflow: hidden;
+}
+
+/* ====== 装饰背景圆 ====== */
+.login-deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.login-deco-1 {
+  width: 500rpx;
+  height: 500rpx;
+  background: var(--color-primary-light);
+  opacity: 0.3;
+  top: -180rpx;
+  right: -160rpx;
+}
+
+.login-deco-2 {
+  width: 360rpx;
+  height: 360rpx;
+  background: var(--color-primary-light);
+  opacity: 0.2;
+  bottom: 280rpx;
+  left: -120rpx;
+}
+
+/* ====== 品牌区域 ====== */
+.login-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-4) 0;
+}
+
+.login-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.login-logo-wrap {
+  position: relative;
+  width: 180rpx;
+  height: 180rpx;
+  margin-bottom: var(--space-3);
+}
+
+.login-logo {
+  position: relative;
+  z-index: 1;
+  width: 180rpx;
+  height: 180rpx;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-on-primary);
+  font-size: 88rpx;
+  box-shadow: var(--shadow-primary);
+}
+
+.login-logo-ring {
+  position: absolute;
+  top: -16rpx;
+  left: -16rpx;
+  right: -16rpx;
+  bottom: -16rpx;
+  border-radius: calc(var(--radius-xl) + 16rpx);
+  border: 2rpx solid var(--color-primary-light);
+  opacity: 0.5;
+}
+
+.login-app-name {
+  font-size: var(--font-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  letter-spacing: 4rpx;
+}
+
+.login-slogan {
+  font-size: var(--font-base);
+  color: var(--color-text-tertiary);
+  letter-spacing: 2rpx;
+}
+
+/* ====== 功能亮点 ====== */
+.login-features {
+  display: flex;
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+}
+
+.login-feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.login-feature-icon {
+  font-size: var(--font-xl);
+  color: var(--color-primary);
+  margin-bottom: var(--space-0-5);
+}
+
+.login-feature-item span:last-child {
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ====== 底部登录区 ====== */
+.login-footer {
+  padding: var(--space-6) var(--space-4);
+  margin-bottom: var(--space-12);
+}
+
+.login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  height: 96rpx;
+  background: #07C160;
+  color: #FFFFFF;
+  border-radius: var(--radius-md);
+  font-size: var(--font-md);
+  font-weight: var(--weight-medium);
+  border: none;
+  box-shadow: 0 4rpx 16rpx rgba(7, 193, 96, 0.3);
+}
+
+.login-btn::after {
+  border: none;
+}
+
+.login-btn.loading {
+  opacity: 0.7;
+}
+
+.login-btn-icon {
+  font-size: var(--font-lg);
+}
+
+.login-agreement {
+  margin-top: var(--space-3);
+  text-align: center;
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  line-height: var(--leading-relaxed);
+}
+
+.login-link {
+  color: var(--color-text-link);
+}

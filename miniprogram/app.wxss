@@ -1,0 +1,3 @@
+@import "./styles/variables.wxss";
+@import "./styles/global.wxss";
+@import "./styles/iconfont.wxss";

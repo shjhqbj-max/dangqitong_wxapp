@@ -1,0 +1,410 @@
+/* 团队主页 */
+
+/* ====== 空团队状态 ====== */
+.t-empty-hero {
+  padding: var(--space-8) var(--space-4) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.t-empty-title {
+  font-size: var(--font-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.t-empty-desc {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-6);
+}
+
+.t-empty-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.t-empty-btn {
+  font-size: var(--font-base);
+  font-weight: var(--weight-medium);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2-5) var(--space-5);
+}
+
+.t-empty-btn-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.t-empty-btn-primary:active {
+  opacity: 0.85;
+}
+
+.t-empty-btn-secondary {
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+}
+
+.t-empty-btn-secondary:active {
+  background: var(--color-bg-muted);
+}
+
+/* ====== Hero 区 ====== */
+.t-hero {
+  background: var(--color-bg-card);
+  padding: var(--space-3) var(--space-4) var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  z-index: 50;
+}
+
+.t-hero-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.t-team-switcher {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+.t-team-name {
+  font-size: var(--font-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.t-team-arrow {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  transition: transform 0.2s;
+}
+
+.t-team-arrow-up {
+  transform: rotate(180deg);
+}
+
+.t-team-tags {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.t-team-tag {
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-muted);
+  padding: var(--space-0-5) var(--space-2-5);
+  border-radius: var(--radius-full);
+}
+
+/* 团队主页入口 */
+.t-hero-profile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-0-5);
+  margin-left: var(--space-3);
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.t-hero-profile:active {
+  opacity: 0.6;
+}
+
+.t-hero-profile-arrow {
+  font-size: 20rpx;
+}
+
+/* ====== 团队下拉 ====== */
+.t-picker-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--color-overlay);
+}
+
+.t-team-dropdown {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--color-bg-card);
+  padding: var(--space-1) 0;
+  transform: translateY(-10rpx);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.t-team-dropdown-open {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.t-team-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+}
+
+.t-team-option:active {
+  background: var(--color-bg-muted);
+}
+
+.t-team-option-active .t-team-option-name {
+  color: var(--color-primary);
+  font-weight: var(--weight-semibold);
+}
+
+.t-team-option-name {
+  font-size: var(--font-base);
+  color: var(--color-text-primary);
+}
+
+.t-team-option-meta {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* ====== 周日历 ====== */
+.t-week-cal {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-1);
+  margin: var(--space-3) var(--space-3) 0;
+}
+
+.t-week-arrow {
+  padding: var(--space-2);
+  position: relative;
+  z-index: 2;
+}
+
+.t-week-arrow:first-child {
+  background: linear-gradient(to right, var(--color-bg-card) 40%, transparent);
+}
+
+.t-week-arrow:last-child {
+  background: linear-gradient(to left, var(--color-bg-card) 40%, transparent);
+}
+
+.t-week-arrow-icon {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+}
+
+.t-week-scroll-wrap {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.t-week-scroll {
+  white-space: nowrap;
+}
+
+.t-week-month {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 120rpx;
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.t-week-cell {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+  padding: var(--space-1-5) 0;
+  border-radius: var(--radius-lg);
+  width: 88rpx;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.t-week-day {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+.t-week-num {
+  font-size: var(--font-md);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+}
+
+.t-cell-today .t-week-num {
+  color: var(--color-primary);
+  font-weight: var(--weight-bold);
+}
+
+.t-cell-selected {
+  background: var(--color-primary);
+  border-radius: var(--radius-xl);
+}
+
+.t-cell-selected .t-week-day,
+.t-cell-selected .t-week-num {
+  color: var(--color-on-primary);
+}
+
+/* ====== 分区 ====== */
+.t-section {
+  padding: var(--space-1) var(--space-3);
+}
+
+.t-section-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-1) var(--space-2);
+}
+
+.t-section-title {
+  font-size: var(--font-md);
+  color: var(--color-text-primary);
+  font-weight: var(--weight-semibold);
+}
+
+.t-section-count {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  font-weight: var(--weight-normal);
+}
+
+/* ====== 已排期成员卡片 ====== */
+.t-member-card {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) !important;
+  margin-bottom: var(--space-2);
+}
+
+.t-member-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.t-member-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-1-5);
+}
+
+.t-member-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.t-member-name {
+  font-size: var(--font-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  flex-shrink: 0;
+}
+
+.t-member-pro {
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+/* 状态 badge 颜色覆盖 */
+.t-status-badge-confirmed {
+  background: var(--color-success-light);
+  color: var(--color-success-dark);
+}
+
+.t-status-badge-pending {
+  background: var(--color-warning-light);
+  color: var(--color-warning-dark);
+}
+
+.t-status-badge-rest {
+  background: var(--color-neutral-bg);
+  color: var(--color-neutral-text);
+}
+
+.t-member-bottom {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.t-member-detail {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-0-5);
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+}
+
+.t-detail-icon {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* ====== 空闲成员 ====== */
+.t-free-card {
+  padding: var(--space-1) 0 !important;
+}
+
+.t-free-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+  padding: var(--space-2) var(--space-3);
+}
+
+.t-free-item:not(:last-child) {
+  border-bottom: 1rpx solid var(--color-border-light);
+}
+
+.t-free-avatar {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.t-free-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1-5);
+}
+
+.t-free-name {
+  font-size: var(--font-base);
+  color: var(--color-text-primary);
+  font-weight: var(--weight-medium);
+}
+
+.t-free-pro {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}

@@ -1,0 +1,78 @@
+<!-- 自定义底部 TabBar -->
+<view class="tab-bar-wrap" wx:if="{{visible}}">
+  <view class="tab-bar-gradient tab-bar-gradient-background" wx:if="{{showGradient}}"></view>
+  <view class="tab-bar tab-bar-background" >
+    <view class="tab-bar-inner">
+      <!-- 四个 Tab（弹出时隐藏） -->
+      <view class="tab-item {{active === 0 ? 'active' : ''}}" wx:if="{{!showSheet}}" data-index="0" bindtap="switchTab">
+        <image class="tab-icon" src="{{active === 0 ? list[0].selectedIconPath : list[0].iconPath}}" mode="aspectFit" />
+        <span class="tab-text tab-text-color">{{list[0].text}}</span>
+      </view>
+      <view class="tab-item {{active === 1 ? 'active' : ''}}" wx:if="{{!showSheet}}" data-index="1" bindtap="switchTab">
+        <image class="tab-icon" src="{{active === 1 ? list[1].selectedIconPath : list[1].iconPath}}" mode="aspectFit" />
+        <span class="tab-text">{{list[1].text}}</span>
+      </view>
+      <!-- 中间添加按钮 -->
+      <view class="tab-add" bindtap="{{showSheet ? 'onCloseSheet' : 'onAdd'}}">
+        <view class="tab-add-circle {{showSheet ? 'tab-add-open' : ''}}">
+          <span class="iconfont icon-plus tab-add-icon"></span>
+        </view>
+      </view>
+      <view class="tab-item {{active === 2 ? 'active' : ''}}" wx:if="{{!showSheet}}" data-index="2" bindtap="switchTab">
+        <image class="tab-icon" src="{{active === 2 ? list[2].selectedIconPath : list[2].iconPath}}" mode="aspectFit" />
+        <span class="tab-text">{{list[2].text}}</span>
+      </view>
+      <view class="tab-item {{active === 3 ? 'active' : ''}}" wx:if="{{!showSheet}}" data-index="3" bindtap="switchTab">
+        <image class="tab-icon" src="{{active === 3 ? list[3].selectedIconPath : list[3].iconPath}}" mode="aspectFit" />
+        <span class="tab-text">{{list[3].text}}</span>
+      </view>
+    </view>
+    <view class="safe-bottom"></view>
+  </view>
+</view>
+<!-- 底部弹出菜单 -->
+<view class="sheet sheet-background {{showSheet ? 'show' : ''}}">
+  <view class="sheet-grid">
+    <view class="sheet-item sheet-item-wide" data-action="schedule" bindtap="onAddAction">
+      <view class="sheet-icon-box sheet-icon-schedule">
+        <span class="iconfont icon-calendar"></span>
+        <view class="sheet-label-group">
+          <span class="sheet-label">添加档期</span>
+          <span class="sheet-desc sheet-desc-color">新增档期，支持团队管理，支持团队指派</span>
+        </view>
+      </view>
+    </view>
+    <view class="sheet-row">
+      <view class="sheet-item sheet-item-big" data-action="schedule-order" bindtap="onAddAction">
+        <view class="sheet-icon-box sheet-icon-card">
+          <span class="iconfont icon-send"></span>
+          <view class="sheet-label-group">
+            <span class="sheet-label">发单</span>
+            <span class="sheet-desc sheet-desc-color">发布订单到抢单大厅</span>
+          </view>
+        </view>
+      </view>
+      <view class="sheet-col">
+        <view class="sheet-item" data-action="schedule-share" bindtap="onAddAction">
+          <view class="sheet-icon-box sheet-icon-share">
+            <span class="iconfont icon-share"></span>
+            <span class="sheet-label">分享档期卡</span>
+          </view>
+        </view>
+        <view class="sheet-item" data-action="work" bindtap="onAddAction">
+          <view class="sheet-icon-box sheet-icon-work">
+            <span class="iconfont icon-camera"></span>
+            <span class="sheet-label">发布作品</span>
+          </view>
+        </view>
+        <view class="sheet-item" data-action="post" bindtap="onAddAction">
+          <view class="sheet-icon-box sheet-icon-post">
+            <span class="iconfont icon-edit"></span>
+            <span class="sheet-label">发布动态</span>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="safe-bottom"></view>
+</view>

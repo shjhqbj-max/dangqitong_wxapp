@@ -22,6 +22,7 @@ Page({
     bgGradient: '',
     loading: true,
     heroPaddingTop: '',
+    heroHeight: 0,
     showWorksFull: false
   },
 
@@ -46,7 +47,9 @@ Page({
       }
       const card = res.data
       const bgGradient = proGradients[card.profession] || proGradients['摄影']
-      this.setData({ card, bgGradient, loading: false })
+      this.setData({ card, bgGradient, loading: false }, () => {
+        this.calcHeroHeight()
+      })
     } catch (e) {
       this.setData({ loading: false })
       wx.showToast({ title: '加载失败', icon: 'none' })
@@ -55,6 +58,15 @@ Page({
 
   onBack() {
     wx.navigateBack()
+  },
+
+  calcHeroHeight() {
+    const query = this.createSelectorQuery()
+    query.select('.sc-hero').boundingClientRect((rect) => {
+      if (rect) {
+        this.setData({ heroHeight: rect.height })
+      }
+    }).exec()
   },
 
   onBookSchedule() {
@@ -71,16 +83,23 @@ Page({
         wx.showToast({ title: '图片生成中，请稍后', icon: 'none' })
         return
       }
-      const dlRes = await wx.downloadFile({ url: res.data.image_url })
+      const dlRes = await new Promise<WechatMiniprogram.DownloadFileSuccessCallbackResult>((resolve, reject) => {
+        wx.downloadFile({
+          url: res.data.image_url,
+          success: resolve,
+          fail: reject
+        })
+      })
       if (dlRes.statusCode === 200) {
-        wx.shareImageMessage({
+        (wx as any).shareImageMessage({
           imagePath: dlRes.tempFilePath
         })
       }
     } catch (e) {
       wx.showToast({ title: '分享失败', icon: 'none' })
+    } finally {
+      wx.hideLoading()
     }
-    wx.hideLoading()
   },
 
   onExpandWorks() {

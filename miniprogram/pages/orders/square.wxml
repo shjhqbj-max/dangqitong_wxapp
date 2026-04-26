@@ -1,0 +1,125 @@
+<!-- 工单广场页 -->
+<wxs module="h" src="../../utils/helpers.wxs" />
+
+<view class="square-page">
+  <!-- 筛选栏（与 nav-bar 一体） -->
+  <view class="square-hero card-top">
+    <!-- 左侧：城市 + 排序 + 职业 -->
+    <view class="square-filters">
+      <view class="filter-chip {{selectedCity ? 'filter-chip-active' : ''}}" bindtap="onGoCity">
+        <span class="iconfont icon-location filter-chip-icon"></span>
+        <span>{{selectedCity || '城市'}}</span>
+      </view>
+      <view class="filter-chip {{selectedSort ? 'filter-chip-active' : ''}}" bindtap="onToggleSortPicker">
+        <span>{{sortLabel}}</span>
+        <span class="iconfont icon-arrow-down filter-chip-arrow {{showSortPicker ? 'filter-chip-arrow-up' : ''}}"></span>
+      </view>
+      <view class="filter-chip {{selectedProfession ? 'filter-chip-active' : ''}}" bindtap="onToggleProPicker">
+        <span class="iconfont icon-job filter-chip-icon"></span>
+        <span>{{selectedProfession || '职业'}}</span>
+        <span class="iconfont icon-arrow-down filter-chip-arrow {{showProPicker ? 'filter-chip-arrow-up' : ''}}"></span>
+      </view>
+    </view>
+    <!-- 右侧：我的 -->
+    <view class="square-my-btn {{myOnly ? 'square-my-btn-active' : ''}}" bindtap="onMyGrabs">
+      <span class="iconfont icon-buy"></span>
+      <span>我的</span>
+    </view>
+  </view>
+
+  <!-- 下拉遮罩 -->
+  <view class="picker-mask" wx:if="{{showSortPicker || showProPicker}}" bindtap="onClosePickers"></view>
+
+  <!-- 排序下拉 -->
+  <view class="sort-dropdown {{showSortPicker ? 'sort-dropdown-open' : ''}}">
+    <view class="sort-item {{selectedSort === item.value ? 'sort-item-active' : ''}}"
+          wx:for="{{sortOptions}}" wx:key="value" data-value="{{item.value}}" bindtap="onSortSelect">
+      {{item.label}}
+    </view>
+  </view>
+
+  <!-- 职业下拉（胶囊网格） -->
+  <view class="pro-dropdown {{showProPicker ? 'pro-dropdown-open' : ''}}">
+    <view class="pro-grid">
+      <view class="pro-pill {{!selectedProfession ? 'pro-pill-active' : ''}}" bindtap="onProfessionClear">全部</view>
+      <view class="pro-pill {{selectedProfession === item.label ? 'pro-pill-active' : ''}}"
+            wx:for="{{professions}}" wx:key="label" bindtap="onProfessionSelect" data-value="{{item.label}}">
+        <span class="pro-dot pro-{{item.css}}">●</span>
+        <span>{{item.label}}</span>
+      </view>
+    </view>
+  </view>
+
+  <!-- 列表区 -->
+  <view class="square-body">
+    <view class="order-card" wx:for="{{orderList}}" wx:key="order_id" data-id="{{item.order_id}}" bindtap="onOrderTap">
+      <!-- 上行：发布者 + 价格 -->
+      <view class="order-card-top">
+        <view class="order-publisher">
+          <image class="order-avatar" src="{{item.publisher.avatar_url}}" mode="aspectFill" />
+          <view class="order-publisher-info">
+            <span class="order-publisher-name">{{item.publisher.nickname}}</span>
+            <span class="order-publisher-time">{{h.timeAgo(item.created_at)}}</span>
+          </view>
+        </view>
+        <view class="order-price">¥{{h.formatPrice(item.total_price)}}</view>
+      </view>
+      <!-- 中行：时间 + 地点 -->
+      <view class="order-card-mid">
+        <span class="order-time">{{h.formatOrderTime(item.date, item.start_time, item.end_time)}}</span>
+        <span class="order-dot">·</span>
+        <span class="order-location">{{h.getLocationShort(item.location)}}</span>
+      </view>
+      <!-- 描述 -->
+      <view class="order-desc">{{item.description}}</view>
+      <!-- 下行：正常=职业+抢单数 / 我的=抢单进度 -->
+      <view class="order-card-bottom">
+        <block wx:if="{{!myOnly}}">
+          <view class="order-pros">
+            <block wx:if="{{item.profession_slots.length < 2}}">
+              <view class="order-pro pro-{{h.getProClass(slot.profession)}}" wx:for="{{item.profession_slots}}" wx:for-item="slot" wx:key="profession">
+                <span class="iconfont icon-job order-pro-icon"></span>
+                <span>{{slot.profession}}</span>
+                <span class="order-pro-price">¥{{slot.price}}</span>
+              </view>
+            </block>
+            <block wx:elif="{{item.profession_slots.length >= 2}}">
+              <view class="order-pro">
+                <span class="iconfont icon-job order-pro-icon"></span>
+                <span>多职业</span>
+              </view>
+            </block>
+          </view>
+          <view class="order-grab-count" wx:if="{{item.grab_count > 0}}">
+            <span class="iconfont icon-buy order-grab-icon"></span>
+            <span>{{item.grab_count}}人抢单</span>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="order-progress order-progress-{{item.my_grab_status}}">
+            <span class="order-progress-dot"></span>
+            <span>{{h.getGrabStatusText(item.my_grab_status)}}</span>
+          </view>
+        </block>
+        <view class="order-deadline">{{h.deadlineText(item.deadline)}}</view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!loading && orderList.length === 0}}">
+      <span class="iconfont icon-empty empty-icon"></span>
+      <span class="empty-title">暂无工单</span>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{loadingMore}}">
+      <view class="load-more-spinner"></view>
+      <span class="load-more-text">加载中...</span>
+    </view>
+    <view class="load-more" wx:if="{{!hasMore && orderList.length > 0 && !loadingMore}}">
+      <span class="load-more-text">— 没有更多了 —</span>
+    </view>
+
+    <view class="safe-bottom"></view>
+  </view>
+</view>

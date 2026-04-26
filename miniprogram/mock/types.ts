@@ -87,6 +87,13 @@ export interface TeamScheduleItem {
 }
 
 // ====== 工单 ======
+export interface ProfessionSlot {
+  profession: string
+  price: number
+  need_count: number
+  filled_count: number
+}
+
 export interface Order {
   order_id: string
   title: string
@@ -94,8 +101,8 @@ export interface Order {
   start_time: string
   end_time: string
   location: string
-  profession: string
-  price: number
+  profession_slots: ProfessionSlot[]
+  total_price: number
   description: string
   status: 'active' | 'grabbed' | 'closed' | 'completed'
   publisher: {
@@ -115,6 +122,7 @@ export interface Order {
     nickname: string
     avatar_url: string
     professions: string[]
+    grabbed_profession: string
     city: string
     grabbed_at: string
   }>
@@ -124,8 +132,11 @@ export interface Order {
 export interface Chat {
   chat_id: string
   chat_name: string
+  chat_type: 'private' | 'team' | 'schedule_temp'
   schedule_id: string
+  team_id: string
   member_count: number
+  expire_at: string
   last_message: {
     sender_name: string
     content: string
@@ -140,7 +151,7 @@ export interface Message {
   sender_id: string
   sender_name: string
   sender_avatar: string
-  msg_type: 'text' | 'image' | 'location'
+  msg_type: 'text' | 'image' | 'location' | 'system'
   content: string
   sent_at: string
 }
@@ -183,4 +194,36 @@ export interface ScheduleCard {
   works: CardWork[]
   updated_at: string
   qr_code_url: string
+}
+
+// ====== 团队对外展示 ======
+export interface MemberWork {
+  image_url: string
+  video_url?: string
+  title?: string
+}
+
+export interface TeamProfileMember {
+  user_id: string
+  nickname: string
+  avatar_url: string
+  professions: string[]
+  price_text: string
+  phone: string
+  works: MemberWork[]
+  is_verified?: boolean
+}
+
+export interface TeamProfile {
+  team_id: string
+  name: string
+  logo_url: string
+  cover_url: string
+  description: string
+  city: string
+  service_types: string[]
+  contact_phone: string
+  member_count: number
+  view_count: number
+  created_at: string
 }

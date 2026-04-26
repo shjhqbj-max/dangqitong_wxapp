@@ -1,0 +1,134 @@
+<!-- 档期编辑页（新建 / 编辑） -->
+<wxs module="h" src="../../utils/helpers.wxs" />
+
+<view class="edit-page">
+  <!-- Hero 头部（与 nav-bar 一体） -->
+  <view class="edit-hero card-top">
+    <view class="hero-content">
+      <view class="hero-top">
+        <view class="hero-date">
+          <span class="hero-date-day">{{form.date ? h.getDayNum(form.date) : '--'}}</span>
+          <view class="hero-date-sub">
+            <span wx:if="{{form.date}}">{{h.getYear(form.date)}}年{{h.getMonth(form.date)}}月</span>
+            <picker mode="date" value="{{form.date}}" bindchange="onDateChange">
+              <span class="iconfont icon-edit hero-date-edit"></span>
+            </picker>
+          </view>
+        </view>
+        <view class="hero-badges">
+          <view class="completion-pill {{statusExpanded ? 'completion-pill-expanded' : ''}}">
+            <view class="completion-pill-trigger badge-{{form.status}}" bindtap="onStatusToggle">
+              <span>{{statusLabel}}</span>
+              <span class="iconfont icon-arrow-down completion-pill-arrow {{statusExpanded ? 'completion-pill-arrow-up' : ''}}"></span>
+            </view>
+            <view class="completion-pill-options" wx:if="{{statusExpanded}}">
+              <view class="completion-pill-option" bindtap="onStatusSelect" data-value="confirmed">已定</view>
+              <view class="completion-pill-option" bindtap="onStatusSelect" data-value="pending">预定</view>
+              <view class="completion-pill-option" bindtap="onStatusSelect" data-value="rest">休息</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="hero-meta" wx:if="{{form.status !== 'rest'}}">
+        <picker mode="multiSelector" range="{{timeRanges}}" value="{{timeValues}}" bindchange="onTimeChange">
+          <view class="hero-time-capsule">
+            <span class="hero-time-text">{{form.start_time || '开始'}}</span>
+            <span class="hero-time-sep">~</span>
+            <span class="hero-time-text">{{form.end_time || '结束'}}</span>
+            <span class="iconfont icon-edit hero-time-edit"></span>
+          </view>
+        </picker>
+      </view>
+      <view class="hero-actions">
+        <view class="hero-action-btn hero-action-btn-save" bindtap="onSave">保存</view>
+        <view class="hero-action-btn" bindtap="onCancel">取消</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="edit-body" style="padding-top: {{heroH}}rpx">
+    <!-- 场地信息 -->
+    <view class="info-card" wx:if="{{form.status !== 'rest'}}">
+      <view class="info-card-header">
+        <span class="iconfont icon-dizhi info-card-icon"></span>
+        <span class="info-card-title">场地信息</span>
+      </view>
+      <view class="form-row">
+        <span class="form-label">来源</span>
+        <input class="form-input" placeholder="请输入来源" value="{{form.source}}" bindinput="onFieldInput" data-field="source" />
+      </view>
+      <view class="form-row">
+        <span class="form-label">地点</span>
+        <view class="form-input-group">
+          <input class="form-input" placeholder="请输入或选择地点" value="{{form.location}}" bindinput="onFieldInput" data-field="location" />
+          <view class="form-location-btn" bindtap="onChooseLocation">
+            <span class="iconfont icon-location form-location-icon"></span>
+          </view>
+        </view>
+      </view>
+      <view class="form-row">
+        <span class="form-label">联系人</span>
+        <input class="form-input" placeholder="请输入联系人" value="{{form.contact_name}}" bindinput="onFieldInput" data-field="contact_name" />
+      </view>
+      <view class="form-row form-row-last">
+        <span class="form-label">电话</span>
+        <input class="form-input" placeholder="请输入电话" type="number" value="{{form.contact_phone}}" bindinput="onFieldInput" data-field="contact_phone" />
+      </view>
+    </view>
+
+    <!-- 附加联系人 -->
+    <view class="info-card" wx:if="{{form.status !== 'rest'}}">
+      <view class="info-card-header">
+        <span class="iconfont icon-people info-card-icon"></span>
+        <span class="info-card-title">附加联系人</span>
+        <view class="form-add-btn" bindtap="onAddContact">
+          <span class="iconfont icon-plus form-add-icon"></span>
+        </view>
+      </view>
+      <block wx:if="{{form.extra_contacts && form.extra_contacts.length > 0}}">
+        <view class="contact-row" wx:for="{{form.extra_contacts}}" wx:key="index">
+          <input class="contact-role" placeholder="角色" value="{{item.role}}" bindinput="onContactInput" data-idx="{{index}}" data-field="role" />
+          <input class="contact-name" placeholder="姓名" value="{{item.name}}" bindinput="onContactInput" data-idx="{{index}}" data-field="name" />
+          <input class="contact-phone" placeholder="电话" type="number" value="{{item.phone}}" bindinput="onContactInput" data-idx="{{index}}" data-field="phone" />
+          <view class="contact-del" bindtap="onRemoveContact" data-idx="{{index}}">
+            <span class="iconfont icon-close"></span>
+          </view>
+        </view>
+      </block>
+      <view class="form-empty" wx:else>
+        <span class="form-empty-text">点击右上角 + 添加联系人</span>
+      </view>
+    </view>
+
+    <!-- 费用信息 -->
+    <view class="info-card" wx:if="{{form.status !== 'rest'}}">
+      <view class="info-card-header">
+        <span class="iconfont icon-wallet info-card-icon"></span>
+        <span class="info-card-title">费用信息</span>
+        <view class="payment-tag payment-{{form.payment_status}}">
+          <span>{{paymentLabel}}</span>
+        </view>
+      </view>
+      <view class="form-row">
+        <span class="form-label">总价</span>
+        <input class="form-input" type="digit" placeholder="0" value="{{form.total_price}}" bindinput="onFieldInput" data-field="total_price" />
+      </view>
+      <view class="form-row form-row-last">
+        <span class="form-label">已付</span>
+        <input class="form-input" type="digit" placeholder="0" value="{{form.paid_amount}}" bindinput="onFieldInput" data-field="paid_amount" />
+      </view>
+    </view>
+
+    <!-- 备注 -->
+    <view class="info-card">
+      <view class="info-card-header">
+        <span class="iconfont icon-note info-card-icon"></span>
+        <span class="info-card-title">备注</span>
+      </view>
+      <textarea class="form-textarea" placeholder="请输入备注信息" value="{{form.notes}}" bindinput="onFieldInput" data-field="notes" maxlength="500" />
+    </view>
+
+    <view class="safe-bottom"></view>
+  </view>
+</view>

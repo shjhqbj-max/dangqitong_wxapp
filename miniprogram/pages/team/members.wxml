@@ -3,99 +3,138 @@
 
 <!-- 团队信息 Hero -->
 <view class="m-hero card-top">
-  <view class="m-hero-main">
-    <span class="m-hero-name">{{team.name || '团队'}}</span>
-    <span class="m-hero-count">{{members.length}}人</span>
-  </view>
-  <span class="iconfont icon-edit m-hero-edit" wx:if="{{isAdmin}}" bindtap="onEditName"></span>
+	<view class="m-hero-main">
+		<span class="m-hero-name">{{isCreateMode ? '创建新团队' : (team.name || '团队')}}</span>
+		<span class="m-hero-count" wx:if="{{!isCreateMode}}">{{members.length}}人</span>
+	</view>
 </view>
+<!-- Hero 撑开占位 -->
+<view class="m-hero-spacer" />
 
 <!-- 团队设置 -->
 <view class="m-section" wx:if="{{isAdmin}}">
-  <view class="card">
-    <view class="m-setting-row" bindtap="onUploadCover">
-      <view class="m-setting-left">
-        <span class="iconfont icon-image m-setting-icon"></span>
-        <view class="m-setting-text">
-          <span class="m-setting-label">团队背景</span>
-          <span class="m-setting-desc">上传封面图，展示在团队主页</span>
-        </view>
-      </view>
-      <view class="m-setting-arrow">
-        <span class="iconfont icon-arrow-right m-setting-arrow-icon"></span>
-      </view>
-    </view>
-    <view class="m-setting-divider"></view>
-    <view class="m-setting-row" bindtap="onEditServiceTypes">
-      <view class="m-setting-left">
-        <span class="iconfont icon-job m-setting-icon"></span>
-        <view class="m-setting-text">
-          <span class="m-setting-label">服务类型</span>
-          <span class="m-setting-desc">{{team.service_types.length > 0 ? team.service_types.join(' / ') : '未设置'}}</span>
-        </view>
-      </view>
-      <view class="m-setting-arrow">
-        <span class="iconfont icon-arrow-right m-setting-arrow-icon"></span>
-      </view>
-    </view>
-  </view>
+	<view class="card">
+		<view class="m-setting-row" bindtap="onEditName" wx:if="{{isAdmin}}">
+			<view class="m-setting-left">
+				<span class="iconfont icon-edit m-setting-icon" />
+				<view class="m-setting-text">
+					<span class="m-setting-label">团队名称</span>
+					<span class="m-setting-desc">{{team.name || '未设置'}}</span>
+				</view>
+			</view>
+			<view class="m-setting-arrow">
+				<span class="iconfont icon-arrow-right m-setting-arrow-icon" />
+			</view>
+		</view>
+		<view wx:if="{{isAdmin}}">
+			<view class="m-setting-divider" />
+			<view class="m-setting-row" bindtap="onUploadCover">
+				<view class="m-setting-left">
+					<span class="iconfont icon-image m-setting-icon" />
+					<view class="m-setting-text">
+						<span class="m-setting-label">团队背景</span>
+						<span class="m-setting-desc">上传封面图，展示在团队主页</span>
+					</view>
+				</view>
+				<view class="m-setting-arrow">
+					<span class="iconfont icon-arrow-right m-setting-arrow-icon" />
+				</view>
+			</view>
+			<view class="m-setting-divider" />
+			<view class="m-setting-row" bindtap="onEditServiceTypes">
+				<view class="m-setting-left">
+					<span class="iconfont icon-job m-setting-icon" />
+					<view class="m-setting-text">
+						<span class="m-setting-label">服务类型</span>
+						<span class="m-setting-desc">{{h.formatServiceTypes(team.service_types)}}</span>
+					</view>
+				</view>
+				<view class="m-setting-arrow">
+					<span class="iconfont icon-arrow-right m-setting-arrow-icon" />
+				</view>
+			</view>
+		</view>
+	</view>
 </view>
 
 <!-- 成员列表 -->
-<view class="m-section">
-  <view class="card m-member-card">
-    <view class="m-item" wx:for="{{members}}" wx:key="user_id"
-      data-uid="{{item.user_id}}" bindtap="onMemberTap">
-      <image class="m-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
-      <view class="m-info">
-        <span class="m-name">{{item.nickname}}</span>
-        <view class="m-pros">
-          <span wx:for="{{item.professions}}" wx:key="*this" wx:for-item="pro"
-            class="m-pro pro-{{h.getProClass(pro)}}">{{pro}}</span>
-        </view>
-      </view>
-      <view class="badge {{item.role === 'admin' ? 'badge-confirmed' : ''}} m-role-badge">
-        {{item.role === 'admin' ? '管理员' : '成员'}}
-      </view>
-      <span class="iconfont icon-more m-action" wx:if="{{isAdmin && item.user_id !== 'u-001'}}"
-            data-idx="{{index}}" catchtap="onMemberAction" />
-    </view>
-  </view>
+<view class="m-section" wx:if="{{!isCreateMode}}">
+	<view class="card m-member-card">
+		<view
+		 class="m-item"
+		 wx:for="{{members}}"
+		 wx:key="user_id"
+		 data-uid="{{item.user_id}}"
+		 bindtap="onMemberTap"
+		>
+			<image class="m-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
+			<view class="m-info">
+				<span class="m-name">{{item.nickname}}</span>
+				<view class="m-pros">
+					<span
+					 wx:for="{{item.professions}}"
+					 wx:key="*this"
+					 wx:for-item="pro"
+					 class="m-pro pro-{{h.getProClass(pro)}}"
+					>{{pro}}
+					</span>
+				</view>
+			</view>
+			<view class="badge {{item.role === 'admin' ? 'badge-confirmed' : ''}} m-role-badge">
+				{{item.role === 'admin' ? '管理员' : '成员'}}
+			</view>
+			<span
+			 class="iconfont icon-more m-action"
+			 wx:if="{{isAdmin && item.user_id !== 'u-001'}}"
+			 data-idx="{{index}}"
+			 catchtap="onMemberAction"
+			/>
+		</view>
+	</view>
 </view>
 
 <!-- 邀请区 -->
-<view class="m-section">
-  <view class="card m-invite-card">
-    <!-- 邀请码 -->
-    <view class="m-invite-row">
-      <view class="m-invite-left">
-        <span class="iconfont icon-schedule m-invite-icon"></span>
-        <view class="m-invite-text">
-          <span class="m-invite-label">邀请码</span>
-          <span class="m-invite-code">{{inviteCode}}</span>
-        </view>
-      </view>
-      <view class="m-invite-btn" bindtap="onCopyInvite">复制</view>
-    </view>
-    <!-- 分割线 -->
-    <view class="m-invite-divider"></view>
-    <!-- 邀请链接 -->
-    <view class="m-invite-row">
-      <view class="m-invite-left">
-        <span class="iconfont icon-share m-invite-icon"></span>
-        <view class="m-invite-text">
-          <span class="m-invite-label">邀请链接</span>
-          <span class="m-invite-link-text">分享链接邀请成员加入</span>
-        </view>
-      </view>
-      <view class="m-invite-btn" bindtap="onShareInvite">分享</view>
-    </view>
-  </view>
+<view class="m-section" wx:if="{{!isCreateMode}}">
+	<view class="card m-invite-card">
+		<!-- 邀请码 -->
+		<view class="m-invite-row">
+			<view class="m-invite-left">
+				<span class="iconfont icon-schedule m-invite-icon" />
+				<view class="m-invite-text">
+					<span class="m-invite-label">邀请码</span>
+					<span class="m-invite-code">{{inviteCode}}</span>
+				</view>
+			</view>
+			<view class="m-invite-btn" bindtap="onCopyInvite">复制</view>
+		</view>
+		<!-- 分割线 -->
+		<view class="m-invite-divider" />
+		<!-- 邀请链接 -->
+		<view class="m-invite-row">
+			<view class="m-invite-left">
+				<span class="iconfont icon-share m-invite-icon" />
+				<view class="m-invite-text">
+					<span class="m-invite-label">邀请链接</span>
+					<span class="m-invite-link-text">分享链接邀请成员加入</span>
+				</view>
+			</view>
+			<view class="m-invite-btn" bindtap="onShareInvite">分享</view>
+		</view>
+	</view>
 </view>
 
 <!-- 退出团队 -->
-<view class="m-section" wx:if="{{!isAdmin}}">
-  <view class="m-leave" bindtap="onLeaveTeam">退出团队</view>
+<view class="m-section" wx:if="{{!isAdmin && !isCreateMode}}">
+	<view class="m-leave" bindtap="onLeaveTeam">退出团队</view>
+</view>
+
+<!-- 底部操作按钮 -->
+<view class="m-bottom-actions" wx:if="{{isCreateMode || isAdmin}}">
+	<view class="m-action-btn m-action-primary" bindtap="onCreateTeam" wx:if="{{isCreateMode}}">创建团队</view>
+	<block wx:if="{{isAdmin && !isCreateMode}}">
+		<view class="m-action-btn m-action-danger" bindtap="onDissolveTeam">解散团队</view>
+	</block>
 </view>
 
 <view class="safe-bottom" />
+

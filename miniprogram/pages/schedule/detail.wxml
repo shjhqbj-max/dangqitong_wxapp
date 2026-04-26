@@ -1,0 +1,186 @@
+<!-- 档期详情查看页（只读） -->
+<wxs module="h" src="../../utils/helpers.wxs" />
+
+<view class="detail-page">
+  <!-- Hero 头部（与 nav-bar 一体） -->
+  <view class="detail-hero card-top">
+    <view class="hero-content">
+      <view class="hero-top">
+        <view class="hero-date">
+          <span class="hero-date-day">{{schedule.date ? h.getDayNum(schedule.date) : '--'}}</span>
+          <view class="hero-date-info">
+            <view class="hero-date-sub">
+              <span wx:if="{{schedule.date}}">{{h.getYear(schedule.date)}}年{{h.getMonth(schedule.date)}}月</span>
+            </view>
+            <view class="hero-date-badges">
+              <view class="hero-badge badge-{{schedule.status}}">
+                <span>{{statusLabel}}档期</span>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="completion-pill {{assignedToMe ? 'completion-pill-disabled' : ''}} {{completionExpanded ? 'completion-pill-expanded' : ''}}" wx:if="{{schedule.status !== 'rest'}}">
+          <view class="completion-pill-trigger" bindtap="onCompletionToggle">
+            <span>{{completionLabel}}</span>
+            <span class="iconfont icon-arrow-down completion-pill-arrow {{completionExpanded ? 'completion-pill-arrow-up' : ''}}"></span>
+          </view>
+          <view class="completion-pill-options" wx:if="{{completionExpanded}}">
+            <view class="completion-pill-option" bindtap="onCompletionSelect" data-value="uncompleted">未完成</view>
+            <view class="completion-pill-option" bindtap="onCompletionSelect" data-value="completed">已完成</view>
+            <view class="completion-pill-option" bindtap="onCompletionSelect" data-value="cancelled">已取消</view>
+          </view>
+        </view>
+      </view>
+      <view class="hero-meta" wx:if="{{schedule.status !== 'rest'}}">
+        <view class="hero-time-row">
+          <span class="iconfont icon-clock hero-meta-icon"></span>
+          <span class="hero-time-text">{{schedule.start_time || '--'}} ~ {{schedule.end_time || '--'}}</span>
+        </view>
+      </view>
+      <view class="hero-actions" wx:if="{{isMine || assignedToMe}}">
+        <block wx:if="{{isMine}}">
+          <view class="hero-action-btn hero-action-btn-main" bindtap="onEdit">编辑</view>
+          <view class="hero-action-btn hero-action-btn-delete" bindtap="onDelete">删除</view>
+          <view class="hero-action-btn hero-action-btn-assign" wx:if="{{canAssign}}" bindtap="onOpenAssign">指派</view>
+        </block>
+        <block wx:if="{{assignedToMe}}">
+          <view class="hero-action-btn hero-action-btn-accept" bindtap="onAccept">接受</view>
+          <view class="hero-action-btn hero-action-btn-reject" bindtap="onReject">拒绝</view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="detail-body" style="padding-top: {{heroH}}rpx">
+    <!-- 场地信息 -->
+    <view class="info-card" wx:if="{{schedule.status !== 'rest'}}">
+      <view class="info-card-header">
+        <span class="info-card-title">场地信息</span>
+      </view>
+      <view class="info-card-row" wx:if="{{schedule.source}}">
+        <span class="info-card-label">来源</span>
+        <span class="info-card-value">{{schedule.source}}</span>
+      </view>
+      <view class="info-card-row" wx:if="{{schedule.location}}">
+        <span class="info-card-label">地点</span>
+        <span class="info-card-value">{{schedule.location}}</span>
+      </view>
+      <view class="info-card-row" wx:if="{{schedule.contact_name}}">
+        <span class="info-card-label">联系人</span>
+        <span class="info-card-value">{{schedule.contact_name}}</span>
+      </view>
+      <view class="info-card-row" wx:if="{{schedule.contact_phone}}">
+        <span class="info-card-label">电话</span>
+        <view class="info-card-value info-card-phone" bindtap="onCallPhone" data-phone="{{schedule.contact_phone}}">
+          <span>{{schedule.contact_phone}}</span>
+        </view>
+      </view>
+    </view>
+
+    <!-- 附加联系人 -->
+    <view class="info-card" wx:if="{{schedule.extra_contacts && schedule.extra_contacts.length > 0}}">
+      <view class="info-card-header">
+        <span class="info-card-title">附加联系人</span>
+      </view>
+      <view class="info-card-row flex-between" wx:for="{{schedule.extra_contacts}}" wx:key="index">
+        <span class="info-card-label info-card-label-hidden">{{item.role}}</span>
+        <span class="info-card-phone" bindtap="onCallPhone" data-phone="{{item.phone}}">{{item.name}} / {{item.phone}}</span>
+      </view>
+    </view>
+
+    <!-- 费用信息 -->
+    <view class="info-card" wx:if="{{schedule.status !== 'rest'}}">
+      <view class="info-card-header">
+        <span class="info-card-title">费用信息</span>
+        <view class="payment-toggle {{schedule.payment_status === 'paid' ? 'payment-toggle-on' : ''}} {{assignedToMe ? 'payment-toggle-disabled' : ''}}" wx:if="{{!assignedToMe}}" bindtap="onPaymentToggle">
+          <view class="payment-toggle-thumb"></view>
+          <span class="payment-toggle-text">{{schedule.payment_status === 'paid' ? '结清' : '未结'}}</span>
+        </view>
+      </view>
+      <view class="fee-row" wx:if="{{schedule.total_price}}">
+        <span class="fee-label">总价</span>
+        <span class="fee-total">¥{{h.formatPrice(schedule.total_price)}}</span>
+      </view>
+      <view class="fee-row" wx:if="{{schedule.total_price}}">
+        <span class="fee-label">已付</span>
+        <span class="fee-value">¥{{h.formatPrice(schedule.paid_amount)}}</span>
+      </view>
+    </view>
+
+    <!-- 备注 -->
+    <view class="info-card" wx:if="{{schedule.notes}}">
+      <view class="info-card-header">
+        <span class="info-card-title">备注</span>
+      </view>
+      <view class="notes-content">{{schedule.notes}}</view>
+    </view>
+
+    <!-- 分享/收藏 -->
+    <view class="action-links">
+      <view class="action-link" bindtap="onShare">
+        <span class="iconfont icon-share action-link-icon"></span>分享
+      </view>
+      <view class="action-link-divider"></view>
+      <view class="action-link {{isFavorited ? 'action-link-active' : ''}}" bindtap="onFavorite">
+        <span class="iconfont icon-favorite action-link-icon"></span>{{isFavorited ? '已收藏' : '收藏'}}
+      </view>
+    </view>
+
+    <view class="safe-bottom"></view>
+  </view>
+
+  <!-- 跟随键盘浮动的输入条 -->
+  <view class="float-bar" wx:if="{{popupVisible}}" style="bottom: {{keyboardHeight}}px">
+    <view class="float-bar-inner">
+      <view class="float-bar-input-wrap">
+        <input class="float-bar-input" placeholder="{{popupPlaceholder}}" value="{{popupValue}}" type="{{popupType === 'reject' ? 'text' : 'digit'}}" focus="{{popupVisible}}" confirm-type="done" adjust-position="{{false}}" bindinput="onPopupInput" bindfocus="onPopupFocus" bindconfirm="onPopupConfirm" bindblur="onPopupBlur" />
+        <span class="float-bar-unit">{{popupUnit}}</span>
+      </view>
+    </view>
+  </view>
+  <view class="float-bar-mask" wx:if="{{popupVisible}}" bindtap="onPopupClose"></view>
+
+  <!-- 指派面板（底部弹出） -->
+  <view class="assign-mask" wx:if="{{showAssignSheet}}" bindtap="onCloseAssign"></view>
+  <view class="assign-sheet {{showAssignSheet ? 'assign-sheet-open' : ''}}">
+    <view class="assign-sheet-header">
+      <span class="assign-sheet-title">指派成员</span>
+      <view class="assign-sheet-close" bindtap="onCloseAssign">
+        <span class="iconfont icon-close"></span>
+      </view>
+    </view>
+    <view class="assign-sheet-body">
+      <view class="assign-team" wx:for="{{teamGroups}}" wx:key="team_id">
+        <view class="assign-team-header" bindtap="onToggleTeam" data-id="{{item.team_id}}">
+          <span class="assign-team-name">{{item.team_name}}</span>
+          <span class="assign-team-count">{{item.members.length}}人</span>
+          <span class="assign-team-check iconfont icon-check {{item.allChecked ? 'assign-team-check-on' : ''}}"></span>
+        </view>
+        <view class="assign-member {{m.checked ? 'assign-member-checked' : ''}}" wx:for="{{item.members}}" wx:for-item="m" wx:key="user_id" bindtap="onToggleMember" data-id="{{m.user_id}}">
+          <view class="assign-member-avatar">
+            <span wx:if="{{!m.avatar_url}}" class="assign-member-initial">{{m.nickname.charAt(0)}}</span>
+            <image wx:else src="{{m.avatar_url}}" class="assign-member-img" />
+          </view>
+          <view class="assign-member-info">
+            <span class="assign-member-name">{{m.nickname}}</span>
+            <span class="assign-member-role">{{m.professions.join('、')}}</span>
+          </view>
+          <view class="assign-member-check">
+            <span class="iconfont icon-check"></span>
+          </view>
+        </view>
+      </view>
+      <view class="assign-empty" wx:if="{{teamGroups.length === 0}}">
+        <span class="assign-empty-text">暂无可指派成员</span>
+      </view>
+    </view>
+    <view class="assign-sheet-footer">
+      <view class="assign-selected-info">
+        <span wx:if="{{selectedMemberIds.length > 0}}">已选 {{selectedMemberIds.length}} 人</span>
+        <span wx:else class="assign-selected-hint">请勾选要指派的成员</span>
+      </view>
+      <view class="assign-confirm-btn {{selectedMemberIds.length > 0 ? 'assign-confirm-active' : ''}}" bindtap="onConfirmAssign">确认指派</view>
+    </view>
+  </view>
+</view>

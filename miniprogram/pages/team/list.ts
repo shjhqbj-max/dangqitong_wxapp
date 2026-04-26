@@ -1,6 +1,7 @@
 // 团队主页 — 周日历 + 成员档期状态
 import authGuard from '../../behaviors/auth-guard'
 import * as teamApi from '../../apis/team'
+import * as chatApi from '../../apis/chat'
 import { Team, TeamScheduleItem } from '../../mock/types'
 
 const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六']
@@ -35,6 +36,7 @@ Page({
     teams: [] as Team[],
     currentTeamIdx: 0,
     currentTeamId: '',
+    isAdmin: false,
     showTeamPicker: false,
     weekdays: WEEKDAYS,
     dateList: [] as Array<{ day: number, date: string, weekday: string, isToday: boolean, isSelected: boolean }>,
@@ -46,10 +48,13 @@ Page({
     loading: false,
     dropTop: 0,
     currentMonth: '',
-    scrollTarget: ''
+    scrollTarget: '',
+    navBarHeight: 0
   },
 
   onLoad() {
+    var info = wx.getWindowInfo()
+    this.setData({ navBarHeight: info.statusBarHeight + 44 })
     this.loadTeams()
   },
 
@@ -64,7 +69,7 @@ Page({
     if (res.code !== 200) return
     const teams = res.data
     if (teams.length === 0) return
-    this.setData({ teams, currentTeamId: teams[0].team_id })
+    this.setData({ teams, currentTeamId: teams[0].team_id, isAdmin: teams[0].my_role === 'admin' })
     this.buildDateList('day-' + this.data.selectedDate)
     this.loadSchedule()
   },
@@ -73,16 +78,11 @@ Page({
 
   onToggleTeamPicker() {
     var show = !this.data.showTeamPicker
-    if (show && !this.data.dropTop) {
-      var query = wx.createSelectorQuery()
-      query.select('.t-hero').boundingClientRect()
-      query.exec((res) => {
-        var top = res[0] ? res[0].top : 0
-        this.setData({ showTeamPicker: true, dropTop: top })
-      })
+    if (show) {
+      this.setData({ showTeamPicker: true, dropTop: this.data.navBarHeight })
       return
     }
-    this.setData({ showTeamPicker: show })
+    this.setData({ showTeamPicker: false })
   },
 
   onCloseTeamPicker() {
@@ -95,6 +95,7 @@ Page({
     this.setData({
       currentTeamIdx: idx,
       currentTeamId: team.team_id,
+      isAdmin: team.my_role === 'admin',
       showTeamPicker: false
     })
     this.loadSchedule()
@@ -182,6 +183,54 @@ Page({
   },
 
   onGoManage() {
-    wx.navigateTo({ url: '/pages/team/members?teamId=' + this.data.currentTeamId })
+    if (this.data.isAdmin) {
+      wx.navigateTo({ url: '/pages/team/members?teamId=' + this.data.currentTeamId })
+    } else {
+      wx.navigateTo({ url: '/pages/team/profile?teamId=' + this.data.currentTeamId })
+    }
+  },
+
+  onGoProfile() {
+    wx.navigateTo({ url: '/pages/team/profile?teamId=' + this.data.currentTeamId })
+  },
+
+  onGoCard() {
+    wx.navigateTo({ url: '/pages/team/profile?teamId=' + this.data.currentTeamId })
+  },
+
+  onCreateTeam() {
+    wx.navigateTo({ url: '/pages/team/members' })
+  },
+
+  onJoinTeam() {
+    wx.showModal({
+      title: '加入团队',
+      editable: true,
+      placeholderText: '请输入邀请码',
+      success: async (res) => {
+        if (!res.confirm) return
+        var code = (res.content || '').trim()
+        if (!code) return
+        const result = await teamApi.joinTeam(code)
+        if (result.code === 200) {
+          wx.showToast({ title: '已加入', icon: 'none' })
+          // 加入团队群
+          if (result.data) {
+            try {
+              var chatsRes = await chatApi.getChatList()
+              if (chatsRes.code === 200) {
+                var teamChat = chatsRes.data.find(function(c) {
+                  return c.team_id === result.data.team_id && c.chat_type === 'team'
+                })
+                if (teamChat) {
+                  chatApi.addMember(teamChat.chat_id, 'u-001')
+                }
+              }
+            } catch (e) { /* 静默 */ }
+          }
+          this.loadTeams()
+        }
+      }
+    })
   }
 })

@@ -1,0 +1,160 @@
+<!-- 订单详情页 -->
+<wxs module="h" src="../../utils/helpers.wxs" />
+
+<view class="detail-page">
+  <!-- Hero 头部（与 nav-bar 一体） -->
+  <view class="detail-hero card-top">
+    <view class="hero-content">
+      <view class="hero-top">
+        <view class="hero-date">
+          <span class="hero-date-day">{{order.date ? h.getDayNum(order.date) : '--'}}</span>
+          <view class="hero-date-info">
+            <view class="hero-date-sub">
+              <span wx:if="{{order.date}}">{{h.getYear(order.date)}}年{{h.getMonth(order.date)}}月</span>
+            </view>
+            <view class="hero-date-badges">
+              <view class="hero-badge badge-{{order.status}}">
+                <span>{{statusLabel}}</span>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="hero-price-box">
+          <span class="hero-price">¥{{h.formatPrice(order.total_price)}}</span>
+          <span class="hero-deadline">{{h.deadlineText(order.deadline)}}</span>
+        </view>
+      </view>
+      <view class="hero-meta">
+        <view class="hero-time-row">
+          <span class="iconfont icon-clock hero-meta-icon"></span>
+          <span class="hero-time-text">{{h.formatOrderTime(order.date, order.start_time, order.end_time)}}</span>
+        </view>
+        <view class="hero-time-row" wx:if="{{order.location}}">
+          <span class="iconfont icon-location hero-meta-icon"></span>
+          <span class="hero-time-text">{{order.location}}</span>
+        </view>
+      </view>
+      <view class="hero-actions" wx:if="{{order.status === 'active'}}">
+        <!-- 游客：始终显示「立即抢单」→ 跳转登录 -->
+        <block wx:if="{{isGuest}}">
+          <view class="hero-action-btn hero-action-btn-grab" bindtap="onGrab">
+            <span class="iconfont icon-buy"></span>
+            <span>立即抢单</span>
+          </view>
+        </block>
+        <!-- 已登录：按业务逻辑显示 -->
+        <block wx:else>
+          <block wx:if="{{!isMine && !hasGrabbed}}">
+            <view class="hero-action-btn {{professionMatch ? 'hero-action-btn-grab' : 'hero-action-btn-disabled'}}" bindtap="onGrab">
+              <span class="iconfont icon-buy"></span>
+              <span>{{professionMatch ? '立即抢单' : '职业不匹配'}}</span>
+            </view>
+          </block>
+          <block wx:if="{{hasGrabbed}}">
+            <view class="hero-action-btn hero-action-btn-grabbed">已抢单</view>
+          </block>
+          <block wx:if="{{isMine}}">
+            <view class="hero-action-btn">我是发布者</view>
+          </block>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="detail-body" style="padding-top: {{heroH}}rpx">
+    <!-- 工单信息 -->
+    <view class="info-card">
+      <view class="info-card-header">
+        <span class="iconfont icon-order info-card-icon"></span>
+        <span class="info-card-title">工单信息</span>
+      </view>
+      <view class="info-card-row" wx:if="{{order.title}}">
+        <span class="info-card-label">标题</span>
+        <span class="info-card-value">{{order.title}}</span>
+      </view>
+      <view class="info-card-row" wx:if="{{order.location}}">
+        <span class="info-card-label">地点</span>
+        <span class="info-card-value">{{order.location}}</span>
+      </view>
+      <view class="info-card-row" wx:if="{{order.from_team_name}}">
+        <span class="info-card-label">来源团队</span>
+        <span class="info-card-value">{{order.from_team_name}}</span>
+      </view>
+    </view>
+
+    <!-- 角色需求 -->
+    <view class="info-card" wx:if="{{order.profession_slots && order.profession_slots.length > 0}}">
+      <view class="info-card-header">
+        <span class="iconfont icon-job info-card-icon"></span>
+        <span class="info-card-title">角色需求</span>
+      </view>
+      <view class="role-slot" wx:for="{{order.profession_slots}}" wx:key="profession">
+        <view class="role-pro pro-{{h.getProClass(item.profession)}}">
+          <span>{{item.profession}}</span>
+        </view>
+        <view class="role-price">¥{{item.price}}</view>
+        <view class="role-count">
+          <span class="{{item.filled_count >= item.need_count ? 'role-count-full' : ''}}">{{item.filled_count}}/{{item.need_count}}</span>
+        </view>
+        <view class="role-status">
+          <span class="role-dot {{item.filled_count >= item.need_count ? 'role-dot-full' : ''}}"></span>
+          <span>{{item.filled_count >= item.need_count ? '已满' : '有空位'}}</span>
+        </view>
+      </view>
+    </view>
+
+    <!-- 发布者信息 -->
+    <view class="info-card">
+      <view class="info-card-header">
+        <span class="iconfont icon-profile info-card-icon"></span>
+        <span class="info-card-title">发布者</span>
+      </view>
+      <view class="publisher-row">
+        <image class="publisher-avatar" src="{{order.publisher.avatar_url}}" mode="aspectFill" />
+        <view class="publisher-info">
+          <span class="publisher-name">{{order.publisher.nickname}}</span>
+          <span class="publisher-time">{{h.timeAgo(order.created_at)}} 发布</span>
+        </view>
+        <view class="publisher-contact" wx:if="{{order.contact && !isMine}}" bindtap="onCallPhone">
+          <span class="iconfont icon-phone"></span>
+          <span>联系</span>
+        </view>
+      </view>
+    </view>
+
+    <!-- 工单描述 -->
+    <view class="info-card" wx:if="{{order.description}}">
+      <view class="info-card-header">
+        <span class="iconfont icon-note info-card-icon"></span>
+        <span class="info-card-title">需求描述</span>
+      </view>
+      <view class="desc-content">{{order.description}}</view>
+    </view>
+
+    <!-- 抢单列表 -->
+    <view class="info-card" wx:if="{{order.grabbers && order.grabbers.length > 0}}">
+      <view class="info-card-header">
+        <span class="iconfont icon-buy info-card-icon"></span>
+        <span class="info-card-title">抢单列表（{{order.grabbers.length}}人）</span>
+      </view>
+      <view class="grabber-item" wx:for="{{order.grabbers}}" wx:key="user_id">
+        <image class="grabber-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
+        <view class="grabber-info">
+          <span class="grabber-name">{{item.nickname}}</span>
+          <span class="grabber-meta">{{item.professions.join('、')}} · {{item.city}}</span>
+        </view>
+        <span class="grabber-time">{{h.timeAgo(item.grabbed_at)}}</span>
+      </view>
+    </view>
+
+    <!-- 分享 -->
+    <view class="action-links">
+      <view class="action-link" bindtap="onShare">
+        <span class="iconfont icon-share action-link-icon"></span>分享工单
+      </view>
+    </view>
+
+    <view class="safe-bottom"></view>
+  </view>
+</view>

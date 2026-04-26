@@ -1,0 +1,414 @@
+
+.square-page {
+  min-height: 100vh;
+}
+
+/* ====== 筛选栏（与 nav-bar 一体） ====== */
+.square-hero {
+  position: sticky;
+  top: -1px;
+  z-index: 50;
+  background: var(--color-bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: var(--space-4);
+}
+
+.square-filters {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  padding: var(--space-2) var(--space-4);
+  flex: 1;
+  min-width: 0;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-muted);
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+  transition: all 0.2s;
+}
+
+.filter-chip-active {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.filter-chip-icon {
+  font-size: var(--font-xs);
+}
+
+.filter-chip-arrow {
+  font-size: 18rpx;
+  transition: transform 0.2s;
+}
+
+.filter-chip-arrow-up {
+  transform: rotate(180deg);
+}
+
+.square-my-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-0-5);
+  padding: var(--space-1) var(--space-2-5);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-muted);
+  color: var(--color-text-secondary);
+  font-size: var(--font-sm);
+  font-weight: var(--weight-medium);
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.square-my-btn-active {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-primary);
+}
+
+.square-my-btn .iconfont {
+  font-size: var(--font-sm);
+}
+
+/* ====== 排序下拉 ====== */
+.picker-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--color-overlay);
+}
+
+.sort-dropdown {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  background: var(--color-bg-card);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-1) 0;
+  transform: translateY(-10rpx);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.sort-dropdown-open {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.sort-item {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-base);
+  color: var(--color-text-primary);
+  transition: background 0.15s;
+}
+
+.sort-item:active {
+  background: var(--color-bg-muted);
+}
+
+.sort-item-active {
+  color: var(--color-primary);
+  font-weight: var(--weight-semibold);
+}
+
+/* ====== 职业下拉（胶囊网格） ====== */
+.pro-dropdown {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  background: var(--color-bg-card);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-3) var(--space-3) var(--space-2);
+  transform: translateY(-10rpx);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.pro-dropdown-open {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.pro-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.pro-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-base);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-muted);
+  border: 1rpx solid transparent;
+  transition: all 0.2s;
+}
+
+.pro-pill:active {
+  opacity: 0.7;
+}
+
+.pro-pill-active {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  font-weight: var(--weight-medium);
+}
+
+.pro-dot {
+  font-size: var(--font-xs);
+}
+
+/* ====== 列表区 ====== */
+.square-body {
+  padding: var(--space-3) var(--space-3);
+}
+
+/* ====== 工单卡片 ====== */
+.order-card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  margin-bottom: var(--space-2);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s;
+}
+
+.order-card:active {
+  box-shadow: var(--shadow-md);
+}
+
+.order-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.order-publisher {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.order-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.order-publisher-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rpx;
+}
+
+.order-publisher-name {
+  font-size: var(--font-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+}
+
+.order-publisher-time {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+.order-price {
+  font-size: var(--font-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.order-card-mid {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-bottom: var(--space-1-5);
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+}
+
+.order-dot {
+  color: var(--color-text-placeholder);
+}
+
+.order-desc {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  margin-bottom: var(--space-2);
+}
+
+.order-card-bottom {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1rpx solid var(--color-border-light);
+}
+
+/* 职业 + 抢单数（正常模式） */
+.order-pros {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.order-pro {
+  display: inline-flex;
+  align-items: center;
+  gap: 4rpx;
+  font-size: var(--font-xs);
+  font-weight: var(--weight-medium);
+  padding: var(--space-0-5) var(--space-1-5);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-muted);
+}
+
+.order-pro-price {
+  margin-left: 2rpx;
+  opacity: 0.7;
+}
+
+.order-pro-icon {
+  font-size: var(--font-xs);
+}
+
+.order-grab-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4rpx;
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+.order-grab-icon {
+  font-size: var(--font-xs);
+  color: var(--color-primary);
+}
+
+/* 进度标签（我的模式） */
+.order-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-0-5);
+  font-size: var(--font-xs);
+  font-weight: var(--weight-medium);
+  padding: var(--space-0-5) var(--space-1-5);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-muted);
+  color: var(--color-text-secondary);
+}
+
+.order-progress-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: var(--radius-full);
+  background: var(--color-text-placeholder);
+}
+
+/* 抢单中 */
+.order-progress-pending .order-progress-dot {
+  background: #f59e0b;
+}
+.order-progress-pending {
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+/* 抢单失败 */
+.order-progress-rejected .order-progress-dot {
+  background: #ef4444;
+}
+.order-progress-rejected {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* 抢单成功 */
+.order-progress-accepted .order-progress-dot {
+  background: #22c55e;
+}
+.order-progress-accepted {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+}
+
+/* 已完成 */
+.order-progress-completed .order-progress-dot {
+  background: var(--color-text-tertiary);
+}
+
+.order-deadline {
+  margin-left: auto;
+  font-size: var(--font-xs);
+  color: var(--color-text-placeholder);
+}
+
+/* ====== 空状态 ====== */
+.empty-icon {
+  font-size: 120rpx;
+  color: var(--color-text-placeholder);
+  margin-bottom: var(--space-3);
+}
+
+/* ====== 加载更多 ====== */
+.load-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-4) 0;
+}
+
+.load-more-text {
+  font-size: var(--font-xs);
+  color: var(--color-text-placeholder);
+}
+
+.load-more-spinner {
+  width: 28rpx;
+  height: 28rpx;
+  border: 3rpx solid var(--color-border-light);
+  border-top-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

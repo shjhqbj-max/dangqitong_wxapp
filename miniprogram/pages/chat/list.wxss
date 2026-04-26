@@ -1,0 +1,273 @@
+/* 消息列表页 */
+
+/* ====== hero 区域 ====== */
+.ch-hero {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--color-bg-card);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+}
+
+/* ====== 默认态：系统消息 ====== */
+.ch-hero-default {
+  display: flex;
+  align-items: center;
+}
+
+.ch-hero-default .ch-notify-entry {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ====== 搜索态 ====== */
+.ch-hero-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.ch-search-active {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-full);
+  padding: 0 var(--space-3);
+  height: 72rpx;
+}
+
+.ch-search-icon {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.ch-search-input {
+  flex: 1;
+  font-size: var(--font-sm);
+  color: var(--color-text-primary);
+  height: 72rpx;
+  background: transparent;
+}
+
+.ch-search-clear {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: var(--radius-full);
+  background: var(--color-text-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ch-search-clear-icon {
+  font-size: 20rpx;
+  color: var(--color-on-primary);
+}
+
+.ch-search-cancel {
+  font-size: var(--font-base);
+  color: var(--color-primary);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ====== 系统消息入口 ====== */
+.ch-notify-entry {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-lg);
+}
+
+.ch-notify-entry:active {
+  background: var(--color-bg-hover);
+}
+
+.ch-notify-entry-icon-wrap {
+  position: relative;
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ch-notify-entry-icon {
+  font-size: var(--font-lg);
+  color: var(--color-primary);
+}
+
+.ch-notify-entry-badge {
+  position: absolute;
+  top: -6rpx;
+  right: -6rpx;
+  min-width: 32rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+  font-size: var(--font-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-on-primary);
+  background: var(--color-danger);
+  border-radius: var(--radius-full);
+  padding: 0 6rpx;
+}
+
+.ch-notify-entry-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.ch-notify-entry-label {
+  font-size: var(--font-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+}
+
+.ch-notify-entry-latest {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ch-notify-entry-arrow {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+/* ====== 聊天列表 ====== */
+.ch-body {
+  padding: var(--space-2) var(--space-3);
+}
+
+.ch-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+  padding: var(--space-3) !important;
+  margin-bottom: var(--space-2);
+}
+
+.ch-item:active {
+  background: var(--color-bg-muted);
+}
+
+.ch-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.ch-avatar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ch-avatar-icon .iconfont {
+  font-size: var(--font-lg);
+  color: #fff;
+}
+
+.ch-avatar-team {
+  background: var(--color-primary);
+}
+
+.ch-avatar-temp {
+  background: var(--color-warning, #f0a020);
+}
+
+.ch-item-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.ch-row-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ch-name {
+  font-size: var(--font-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: var(--space-2);
+}
+
+.ch-time {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.ch-row-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.ch-last-msg {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ch-unread {
+  flex-shrink: 0;
+  min-width: 36rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  text-align: center;
+  font-size: var(--font-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-on-primary);
+  background: var(--color-danger);
+  border-radius: var(--radius-full);
+  padding: 0 8rpx;
+}
+
+.ch-row-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.ch-temp-tag {
+  font-size: var(--font-xxs, 20rpx);
+  color: var(--color-warning, #f0a020);
+  border: 1rpx solid var(--color-warning, #f0a020);
+  border-radius: var(--radius-sm);
+  padding: 0 6rpx;
+  line-height: 1.6;
+}

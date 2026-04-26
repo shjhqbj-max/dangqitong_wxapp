@@ -1,14 +1,31 @@
 <wxs module="h" src="../../utils/helpers.wxs" />
-<nav-bar left-text="管理团队" bindlefttap="onGoManage" />
+<nav-bar left-text="我的团队" />
+
+<!-- 空团队状态 -->
+<view class="t-empty-hero" wx:if="{{teams.length === 0}}">
+  <view class="t-empty-title">还没有加入团队</view>
+  <view class="t-empty-desc">创建或加入一个团队，开始协作管理档期</view>
+  <view class="t-empty-actions">
+    <view class="t-empty-btn t-empty-btn-primary" bindtap="onCreateTeam">创建团队</view>
+    <view class="t-empty-btn t-empty-btn-secondary" bindtap="onJoinTeam">加入团队</view>
+  </view>
+</view>
 
 <!-- 团队切换器 -->
-<view class="t-hero card-top">
-  <view class="t-team-switcher" bindtap="onToggleTeamPicker">
-    <span class="t-team-name">{{teams[currentTeamIdx].name || '我的团队'}}</span>
-    <span class="iconfont icon-arrow-down t-team-arrow {{showTeamPicker ? 't-team-arrow-up' : ''}}"></span>
+<view class="t-hero card-top" style="top: {{navBarHeight}}px" wx:if="{{teams.length > 0}}">
+  <view class="t-hero-left">
+    <view class="t-team-switcher" bindtap="onToggleTeamPicker">
+      <span class="t-team-name">{{teams[currentTeamIdx].name || '我的团队'}}</span>
+      <span class="iconfont icon-arrow-down t-team-arrow {{showTeamPicker ? 't-team-arrow-up' : ''}}"></span>
+    </view>
+    <view class="t-team-tags" wx:if="{{teams[currentTeamIdx].service_types}}">
+      <view class="t-team-tag" wx:for="{{teams[currentTeamIdx].service_types}}" wx:key="*this">{{item}}</view>
+    </view>
   </view>
-  <view class="t-team-tags" wx:if="{{teams[currentTeamIdx].service_types}}">
-    <view class="t-team-tag" wx:for="{{teams[currentTeamIdx].service_types}}" wx:key="*this">{{item}}</view>
+  <!-- 团队管理/主页按钮 -->
+  <view class="t-hero-profile" bindtap="onGoManage">
+    <span>{{isAdmin ? '团队管理' : '团队主页'}}</span>
+    <span class="iconfont icon-chevron-right t-hero-profile-arrow"></span>
   </view>
 </view>
 

@@ -1,3 +1,5 @@
 {
+  "navigationStyle": "default",
+  "navigationBarTitleText": "输入",
   "usingComponents": {}
 }

@@ -1,19 +1,19 @@
 // 公共输入页
+import authGuard from '../../behaviors/auth-guard'
+
 Page({
+  behaviors: [authGuard],
   data: {
     title: '',
     type: 'text',
-    value: '',
-    navBarStyle: ''
+    value: ''
   },
 
   onLoad(options: any) {
     const title = decodeURIComponent(options.title || '输入')
     const type = options.type || 'text'
     const value = decodeURIComponent(options.value || '')
-    const windowInfo = wx.getWindowInfo()
-    const navBarStyle = 'padding-top:' + windowInfo.statusBarHeight + 'px'
-    this.setData({ title, type, value, navBarStyle })
+    this.setData({ title, type, value })
     wx.setNavigationBarTitle({ title })
   },
 
@@ -23,10 +23,6 @@ Page({
 
   onClear() {
     this.setData({ value: '' })
-  },
-
-  onBack() {
-    wx.navigateBack()
   },
 
   onSave() {

@@ -1,0 +1,247 @@
+<wxs module="h" src="../../utils/helpers.wxs" />
+<nav-bar
+ title="档期"
+ left-text="{{year}}年{{month}}月"
+ bindheight="onNavBarHeight"
+/>
+<!-- 日历区域（与 nav-bar 一体） -->
+<view class="c-calendar card-top">
+	<!-- 星期标题 -->
+	<view class="c-cal-weekdays">
+		<view class="c-cal-weekday {{index === 0 || index === 6 ? 'wknd' : ''}}" wx:for="{{weekdays}}" wx:key="*this">
+			{{item}}
+		</view>
+	</view>
+	<!-- 日历 Swiper -->
+	<swiper
+	 class="c-cal-swiper"
+	 current="{{calIndex}}"
+	 bindchange="onCalSwiperChange"
+	 circular
+	>
+		<swiper-item>
+			<view class="c-cal-days">
+				<view
+				 class="c-cal-cell {{item.isOther ? 'other-month' : ''}} {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}}"
+				 wx:for="{{calMonth0}}"
+				 wx:key="date"
+				 data-date="{{item.date}}"
+				 bindtap="onDayTap"
+				>
+					<span wx:if="{{item.day > 0}}">{{item.day}}</span>
+					<view class="c-cal-dot-row" wx:if="{{!item.isOther && item.statuses.length > 0}}">
+						<view
+						 class="c-cal-dot {{s === 'confirmed' ? 'dot-conf' : s === 'pending' ? 'dot-pend' : 'dot-rest'}}"
+						 wx:for="{{item.statuses}}"
+						 wx:for-item="s"
+						 wx:key="*this"
+						/>
+					</view>
+				</view>
+			</view>
+		</swiper-item>
+		<swiper-item>
+			<view class="c-cal-days">
+				<view
+				 class="c-cal-cell {{item.isOther ? 'other-month' : ''}} {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}}"
+				 wx:for="{{calMonth1}}"
+				 wx:key="date"
+				 data-date="{{item.date}}"
+				 bindtap="onDayTap"
+				>
+					<span wx:if="{{item.day > 0}}">{{item.day}}</span>
+					<view class="c-cal-dot-row" wx:if="{{!item.isOther && item.statuses.length > 0}}">
+						<view
+						 class="c-cal-dot {{s === 'confirmed' ? 'dot-conf' : s === 'pending' ? 'dot-pend' : 'dot-rest'}}"
+						 wx:for="{{item.statuses}}"
+						 wx:for-item="s"
+						 wx:key="*this"
+						/>
+					</view>
+				</view>
+			</view>
+		</swiper-item>
+		<swiper-item>
+			<view class="c-cal-days">
+				<view
+				 class="c-cal-cell {{item.isOther ? 'other-month' : ''}} {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}}"
+				 wx:for="{{calMonth2}}"
+				 wx:key="date"
+				 data-date="{{item.date}}"
+				 bindtap="onDayTap"
+				>
+					<span wx:if="{{item.day > 0}}">{{item.day}}</span>
+					<view class="c-cal-dot-row" wx:if="{{!item.isOther && item.statuses.length > 0}}">
+						<view
+						 class="c-cal-dot {{s === 'confirmed' ? 'dot-conf' : s === 'pending' ? 'dot-pend' : 'dot-rest'}}"
+						 wx:for="{{item.statuses}}"
+						 wx:for-item="s"
+						 wx:key="*this"
+						/>
+					</view>
+				</view>
+			</view>
+		</swiper-item>
+	</swiper>
+</view>
+<!-- 档期列表区域 -->
+<view class="c-sticky-sentinel" />
+<view class="c-body-header {{headerSticky ? 'c-header-sticky card-top' : ''}}" style="{{headerSticky ? 'top:' + (navBarH - 1) + 'px' : ''}}">
+	<view class="c-body-top">
+		<view class="c-body-title-wrap">
+			<span class="c-body-title" wx:if="{{!selectedDate}}">我的档期</span>
+			<view class="c-date-title" wx:if="{{selectedDate}}">
+				<span>{{h.formatDateShort(selectedDate)}}</span>
+				<span class="iconfont icon-close c-date-close" data-field="date" catchtap="onRemoveFilterTag" />
+			</view>
+		</view>
+		<view class="c-body-tabs">
+			<view class="c-tab {{listTab === 'week' ? 'active' : ''}}" data-tab="week" bindtap="onTabChange">本周</view>
+			<view class="c-tab {{listTab === 'month' ? 'active' : ''}}" data-tab="month" bindtap="onTabChange">本月</view>
+			<view class="c-text-btn" bindtap="onGoSearch">搜索</view>
+			<view class="c-text-btn {{filterStatus || filterPayment || filterCompletion || !filterTeam ? 'active' : ''}}" bindtap="onOpenFilter">筛选</view>
+		</view>
+	</view>
+</view>
+<!-- 激活的筛选标签 -->
+<view class="c-filter-tags" wx:if="{{selectedDate || filterStatus || filterPayment || filterCompletion || !filterTeam}}">
+	<view
+	 class="c-filter-tag"
+	 wx:if="{{filterStatus}}"
+	 data-field="status"
+	 bindtap="onRemoveFilterTag"
+	>
+		{{filterStatus === 'confirmed' ? '已定' : filterStatus === 'pending' ? '预定' : '休息'}}
+		<span class="c-tag-close">×</span>
+	</view>
+	<view
+	 class="c-filter-tag"
+	 wx:if="{{filterPayment}}"
+	 data-field="payment"
+	 bindtap="onRemoveFilterTag"
+	>
+		{{filterPayment === 'paid' ? '已结清' : filterPayment === 'unpaid' ? '未结' : '部分结'}}
+		<span class="c-tag-close">×</span>
+	</view>
+	<view
+	 class="c-filter-tag"
+	 wx:if="{{filterCompletion}}"
+	 data-field="completion"
+	 bindtap="onRemoveFilterTag"
+	>
+		{{filterCompletion === 'completed' ? '已完成' : filterCompletion === 'uncompleted' ? '未完成' : filterCompletion === 'cancelled' ? '已取消' : '延期'}}
+		<span class="c-tag-close">×</span>
+	</view>
+	<view
+	 class="c-filter-tag"
+	 wx:if="{{!filterTeam}}"
+	 data-field="team"
+	 bindtap="onRemoveFilterTag"
+	>
+		仅自己
+		<span class="c-tag-close">×</span>
+	</view>
+</view>
+<view class="c-body">
+	<!-- 档期列表 -->
+	<block wx:for="{{scheduleList}}" wx:key="id" wx:for-index="idx">
+		<!-- 广场入口 -->
+		<view class="c-mini-banner" wx:if="{{orderCount > 0 && !bannerClosed && !searchKeyword && !filterStatus && !filterPayment && !filterCompletion && filterTeam && idx === bannerIdx}}" bindtap="onGoSquare">
+			<view class="c-ban-content">
+				<view>
+					<span class="c-ban-title">工单广场</span>
+					<span class="c-ban-desc">附近 {{orderCount}} 条工单</span>
+				</view>
+				<view class="c-ban-right">
+					<view class="c-ban-btn">去看看</view>
+					<span class="iconfont icon-close c-ban-close" catchtap="onCloseBanner" />
+				</view>
+			</view>
+		</view>
+		<!-- 档期项 -->
+		<view class="schedule-item" data-id="{{item.id}}" bindtap="onScheduleTap">
+			<view class="schedule-item-info">
+				<span class="schedule-item-title">
+					{{h.getDay(item.date)}}日 {{item.notes || item.location || '档期'}}
+				</span>
+				<span class="schedule-item-meta">
+					{{h.getLocationShort(item.location)}} · {{item.start_time || '--'}}-{{item.end_time || '--'}}
+				</span>
+			</view>
+			<view class="schedule-item-badge badge-{{item.status}}">{{getStatusText(item.status)}}</view>
+			<view class="schedule-item-badge badge-{{item.completion_status}}" wx:if="{{item.status !== 'rest' && item.completion_status}}">
+				{{getCompletionText(item.completion_status)}}
+			</view>
+		</view>
+	</block>
+	<!-- 空状态 -->
+	<view class="empty-state" wx:if="{{scheduleList.length === 0}}">
+		<span class="iconfont icon-calendar empty-icon"></span>
+		<span class="empty-title">暂无档期</span>
+	</view>
+</view>
+<!-- 底部占位 -->
+<view class="safe-bottom" />
+<!-- 筛选面板 -->
+<view class="filter-overlay {{showFilterSheet ? 'show' : ''}}" bindtap="onCloseFilter" catchtouchmove="onCloseFilter" />
+<view class="filter-sheet {{showFilterSheet ? 'show' : ''}}">
+	<view class="filter-sheet-header">
+		<span class="filter-sheet-title">筛选条件</span>
+		<span class="iconfont icon-close filter-sheet-close" bindtap="onCloseFilter" />
+	</view>
+	<view class="filter-sheet-body">
+		<view class="filter-group">
+			<view class="filter-group-label">档期类型</view>
+			<view class="filter-options">
+				<view
+				 class="filter-option {{tempFilterStatus === item.value ? 'active' : ''}}"
+				 wx:for="{{statusOptions}}"
+				 wx:key="value"
+				 data-value="{{item.value}}"
+				 bindtap="onFilterStatusTap"
+				>
+					{{item.label}}
+				</view>
+			</view>
+		</view>
+		<view class="filter-group">
+			<view class="filter-group-label">档期状态</view>
+			<view class="filter-options">
+				<view
+				 class="filter-option {{tempFilterCompletion === item.value ? 'active' : ''}}"
+				 wx:for="{{completionOptions}}"
+				 wx:key="value"
+				 data-value="{{item.value}}"
+				 bindtap="onFilterCompletionTap"
+				>
+					{{item.label}}
+				</view>
+			</view>
+		</view>
+		<view class="filter-group">
+			<view class="filter-group-label">结算状态</view>
+			<view class="filter-options">
+				<view
+				 class="filter-option {{tempFilterPayment === item.value ? 'active' : ''}}"
+				 wx:for="{{paymentOptions}}"
+				 wx:key="value"
+				 data-value="{{item.value}}"
+				 bindtap="onFilterPaymentTap"
+				>
+					{{item.label}}
+				</view>
+			</view>
+		</view>
+		<view class="filter-group">
+			<view class="filter-group-label">团队档期</view>
+			<view class="filter-switch-row">
+				<span>查看团队档期</span>
+				<switch checked="{{tempFilterTeam}}" bindchange="onFilterTeamChange" color="var(--color-primary)" />
+			</view>
+		</view>
+	</view>
+	<view class="filter-sheet-footer">
+		<view class="filter-btn-reset" bindtap="onFilterReset">重置</view>
+		<view class="filter-btn-confirm" bindtap="onFilterConfirm">确定</view>
+	</view>
+</view>

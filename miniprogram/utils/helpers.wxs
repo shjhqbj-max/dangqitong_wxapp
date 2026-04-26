@@ -1,0 +1,187 @@
+// WXS 辅助函数（WXML 视图层运行）
+function getDay(dateStr) {
+  if (!dateStr) return ''
+  return dateStr.substring(8, 10)
+}
+
+function formatDateShort(dateStr) {
+  if (!dateStr) return ''
+  var m = dateStr.substring(5, 7)
+  var d = dateStr.substring(8, 10)
+  if (m.charAt(0) === '0') m = m.substring(1)
+  if (d.charAt(0) === '0') d = d.substring(1)
+  return m + '月' + d + '日'
+}
+
+function getLocationShort(location) {
+  if (!location) return ''
+  var idx = location.indexOf('区')
+  if (idx > 0) return location.substring(0, idx + 1)
+  return location
+}
+
+function getYear(dateStr) {
+  if (!dateStr) return ''
+  return dateStr.substring(0, 4)
+}
+
+function getMonth(dateStr) {
+  if (!dateStr) return ''
+  var m = dateStr.substring(5, 7)
+  if (m.charAt(0) === '0') m = m.substring(1)
+  return m
+}
+
+function getDayNum(dateStr) {
+  if (!dateStr) return ''
+  var d = dateStr.substring(8, 10)
+  if (d.charAt(0) === '0') d = d.substring(1)
+  return d
+}
+
+function isAssigned(list, uid) {
+  if (!list || !uid) return false
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].user_id === uid) return true
+  }
+  return false
+}
+
+function timeAgo(dateStr) {
+  if (!dateStr) return ''
+  var t = getDate(dateStr).getTime()
+  var now = getDate().getTime()
+  var diff = now - t
+  if (diff < 60000) return '刚刚'
+  if (diff < 3600000) return Math.floor(diff / 60000) + '分钟前'
+  if (diff < 86400000) return Math.floor(diff / 3600000) + '小时前'
+  if (diff < 2592000000) return Math.floor(diff / 86400000) + '天前'
+  return Math.floor(diff / 2592000000) + '月前'
+}
+
+// 工单时间格式化：今天/明天/后天/周X + 时间段
+function formatOrderTime(dateStr, startTime, endTime) {
+  if (!dateStr) return ''
+  var timeStr = ''
+  if (startTime) timeStr = startTime
+  if (endTime) timeStr = timeStr + '-' + endTime
+
+  var now = getDate()
+  var pad = function(n) { return n < 10 ? '0' + n : '' + n }
+  var noon = getDate(now.getFullYear() + '/' + pad(now.getMonth() + 1) + '/' + pad(now.getDate()) + ' 12:00:00')
+  var parts = dateStr.split('-')
+  var target = getDate(parts[0] + '/' + parts[1] + '/' + parts[2] + ' 12:00:00')
+  var diff = Math.round((target.getTime() - noon.getTime()) / 86400000)
+
+  var days = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+  var prefix = ''
+  if (diff === 0) prefix = '今天'
+  else if (diff === 1) prefix = '明天'
+  else if (diff === 2) prefix = '后天'
+  else if (diff > 2 && diff <= 7) prefix = days[target.getDay()]
+  else {
+    var m = dateStr.substring(5, 7)
+    var d = dateStr.substring(8, 10)
+    if (m.charAt(0) === '0') m = m.substring(1)
+    if (d.charAt(0) === '0') d = d.substring(1)
+    prefix = m + '月' + d + '日'
+  }
+
+  if (timeStr) return prefix + ' ' + timeStr
+  return prefix
+}
+
+// 职业 → CSS 类名
+function getProClass(pro) {
+  if (!pro) return ''
+  var map = {
+    '主持': 'pro-host', '主持人': 'pro-host',
+    '化妆': 'pro-makeup',
+    '摄像': 'pro-video',
+    '摄影': 'pro-photo',
+    '督导': 'pro-director',
+    '花艺': 'pro-floral',
+    '灯光': 'pro-lighting',
+    '场布': 'pro-setup',
+    '车队': 'pro-car',
+    '演出': 'pro-show'
+  }
+  return map[pro] || ''
+}
+
+// 截止时间相对文案："3天后" "5小时后" "已截止"
+function deadlineText(deadlineStr) {
+  if (!deadlineStr) return ''
+  var t = getDate(deadlineStr).getTime()
+  var now = getDate().getTime()
+  var diff = t - now
+  if (diff <= 0) return '已截止'
+  var hours = Math.floor(diff / 3600000)
+  if (hours < 1) return '不足1小时'
+  if (hours < 24) return hours + '小时后'
+  var days = Math.floor(hours / 24)
+  return days + '天后'
+}
+
+function formatPrice(price) {
+  if (!price || price === 0|| price == "" || price == null) return '价格详聊'
+  var s = '' + price
+  var result = ''
+  var count = 0
+  for (var i = s.length - 1; i >= 0; i--) {
+    result = s.charAt(i) + result
+    count++
+    if (count % 3 === 0 && i > 0) result = ',' + result
+  }
+  return result
+}
+
+// 我的抢单状态 → 进度文案
+function getGrabStatusText(status) {
+  var map = { 'pending': '抢单中', 'rejected': '抢单失败', 'accepted': '抢单成功', 'completed': '已完成' }
+  return map[status] || '抢单中'
+}
+
+function getTeamStatusText(status) {
+  var map = { 'confirmed': '已定', 'pending': '预定', 'rest': '休息', 'free': '空闲' }
+  return map[status] || status
+}
+
+// 格式化服务类型：支持数组或字符串输入，按逗号/空格/斜杠/顿号分割，用 " / " 连接
+function _splitTypes(str) {
+  var result = []
+  var cur = ''
+  for (var i = 0; i < str.length; i++) {
+    var c = str.charAt(i)
+    if (c === ',' || c === '/' || c === ' ' || c === '，' || c === '、') {
+      if (cur) result.push(cur)
+      cur = ''
+    } else {
+      cur = cur + c
+    }
+  }
+  if (cur) result.push(cur)
+  return result
+}
+
+function formatServiceTypes(types) {
+  if (!types) return '未设置'
+  var arr = []
+  if (typeof types === 'string') {
+    arr = _splitTypes(types)
+  } else if (types.length > 0) {
+    for (var i = 0; i < types.length; i++) {
+      var item = types[i]
+      if (typeof item === 'string') {
+        var parts = _splitTypes(item)
+        for (var j = 0; j < parts.length; j++) {
+          if (parts[j]) arr.push(parts[j])
+        }
+      }
+    }
+  }
+  if (arr.length === 0) return '未设置'
+  return arr.join(' / ')
+}
+
+module.exports = { getDay: getDay, formatDateShort: formatDateShort, getLocationShort: getLocationShort, getYear: getYear, getMonth: getMonth, getDayNum: getDayNum, isAssigned: isAssigned, timeAgo: timeAgo, formatOrderTime: formatOrderTime, getProClass: getProClass, formatPrice: formatPrice, deadlineText: deadlineText, getGrabStatusText: getGrabStatusText, getTeamStatusText: getTeamStatusText, formatServiceTypes: formatServiceTypes }

@@ -1,0 +1,263 @@
+/* 自定义 TabBar — 透明背景 */
+@import '../styles/iconfont.wxss';
+
+.tab-bar-gradient-background {
+  background: linear-gradient(to bottom, transparent, #F8FAFC 120rpx);
+}
+.tab-bar-background{
+  background: #F8FAFC;
+}
+.sheet-background{
+  background: #FFFFFF;
+}
+
+.sheet-icon-schedule {
+  background: #EFF6FF;
+  color: #2563EB;
+}
+
+.sheet-icon-card {
+  background: #F0FDF4;
+  color: #16A34A;
+}
+
+.sheet-icon-work {
+  background: #FEF3C7;
+  color: #D97706;
+}
+
+.sheet-icon-post {
+  background: #FDF2F8;
+  color: #DB2777;
+}
+
+.sheet-icon-share {
+  background: #EFF6FF;
+  color: #2563EB;
+}
+/* 黑夜模式覆盖 */
+@media (prefers-color-scheme: dark) {
+  .tab-bar-background{
+    background: #0F172A;
+  }
+  .tab-bar-gradient-background {
+    background: linear-gradient(to bottom, transparent, #0F172A 120rpx);
+  }
+  .sheet-background{
+    background: #0F172A;
+  }
+  .sheet-icon-schedule {
+    background: #1E293B;
+    color: #2563EB;
+  }
+
+  .sheet-icon-card {
+    background: #1E293B;
+    color: #16A34A;
+  }
+
+  .sheet-icon-work {
+    background: #1E293B;
+    color: #D97706;
+  }
+
+  .sheet-icon-post {
+    background: #1E293B;
+    color: #DB2777;
+  }
+
+  .sheet-icon-share {
+    background: #1E293B;
+    color: #2563EB;
+  }
+  .sheet-desc-color{
+    color: #ecf4ff;
+  }
+}
+/* ====== TabBar ====== */
+.tab-bar-wrap {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 970;
+  pointer-events: none;
+}
+
+.tab-bar-gradient {
+  height: 180rpx;
+  margin-bottom: -45rpx;
+  z-index: 960;
+  pointer-events: none;
+}
+
+.tab-bar {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.tab-bar-inner {
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4rpx;
+  pointer-events: auto;
+}
+
+.tab-icon {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.tab-text {
+  font-size: 20rpx;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+.tab-item.active .tab-text {
+  color: #2563EB;
+}
+
+/* ====== 中间添加按钮 ====== */
+.tab-add {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-add-circle {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: #2563EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -40rpx;
+  box-shadow: 0 6rpx 24rpx rgba(37, 99, 235, 0.4);
+  pointer-events: auto;
+}
+
+.tab-add-icon {
+  font-size: 55rpx;
+  color: #FFFFFF;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.tab-add-open .tab-add-icon {
+  transform: rotate(45deg);
+}
+
+/* ====== 底部弹出菜单 ====== */
+
+.sheet {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 960;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.sheet.show {
+  transform: translateY(0);
+}
+
+.sheet-grid {
+  padding: 40rpx 40rpx 270rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.sheet-row {
+  display: flex;
+  gap: 24rpx;
+}
+
+.sheet-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  flex: 1;
+}
+
+.sheet-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sheet-item-wide .sheet-icon-box {
+  width: 100%;
+  height: 200rpx;
+  border-radius: 20rpx;
+  font-size: 32rpx;
+  gap: 16rpx;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  justify-content: flex-start;
+}
+
+.sheet-item-big .sheet-icon-box {
+  width: 230rpx;
+  height: 100%;
+  border-radius: 24rpx;
+  font-size: 40rpx;
+  flex-direction: row;
+  gap: 12rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  justify-content: flex-start;
+}
+
+.sheet-item-big .sheet-label {
+  font-size: 26rpx;
+}
+
+.sheet-label-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.sheet-desc {
+  font-size: 20rpx;
+  font-weight: 400;
+  line-height: 1.4;
+}
+.sheet-desc-color {
+  color: rgba(0, 0, 0, 0.45);
+}
+.sheet-icon-box {
+  width: 100%;
+  height: 110rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  gap: 8rpx;
+}
+
+
+.sheet-label {
+  font-size: 24rpx;
+  color: inherit;
+  font-weight: 500;
+}

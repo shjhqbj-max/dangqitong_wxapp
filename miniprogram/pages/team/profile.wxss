@@ -5,13 +5,18 @@
   min-height: 100vh;
 }
 
-/* ====== Hero 封面 ====== */
-.tp-hero {
+/* ====== 固定头部 ====== */
+.tp-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 50;
+}
+
+/* ====== Hero 封面 ====== */
+.tp-hero {
+  position: relative;
 }
 
 .tp-cover {

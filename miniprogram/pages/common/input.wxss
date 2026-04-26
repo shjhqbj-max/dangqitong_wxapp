@@ -1,110 +1,96 @@
 /* 公共输入页 */
 
-.ci-page {
-  background: var(--color-bg-page);
-  min-height: 100vh;
+/* ====== 页面 ====== */
+page {
+  background: var(--color-bg-card);
 }
 
-/* ====== 顶栏 ====== */
-.ci-nav {
+.ci-page {
+  padding: var(--space-4) var(--space-4) 0;
+}
+
+/* ====== 单行输入框 ====== */
+.ci-field {
   display: flex;
   align-items: center;
-  height: 44px;
-  position: relative;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-lg);
+  padding: 0 var(--space-3);
+  height: 96rpx;
+  box-sizing: border-box;
 }
 
-.ci-nav-back {
-  width: 64rpx;
-  height: 64rpx;
+.ci-input {
+  flex: 1;
+  font-size: var(--font-md);
+  color: var(--color-text-primary);
+  height: 96rpx;
+  line-height: 96rpx;
+  background: transparent;
+}
+
+.ci-clear {
+  flex-shrink: 0;
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: var(--radius-full);
+  background: var(--color-text-tertiary);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: var(--space-2);
 }
 
-.ci-nav-icon {
-  font-size: var(--font-lg);
-  color: var(--color-text-primary);
-}
-
-.ci-nav-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: var(--font-md);
-  font-weight: var(--weight-semibold);
-  color: var(--color-text-primary);
-}
-
-.ci-nav-save {
-  position: absolute;
-  right: var(--space-4);
-  font-size: var(--font-base);
-  color: var(--color-primary);
-  font-weight: var(--weight-medium);
-  padding: var(--space-1) var(--space-2);
-}
-
-.ci-nav-save:active {
-  opacity: 0.6;
-}
-
-/* ====== 输入区 ====== */
-.ci-body {
-  padding: var(--space-3) var(--space-4);
-}
-
-.ci-card {
-  padding: var(--space-3) var(--space-4) !important;
-}
-
-/* 单行输入 */
-.ci-input-wrap {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.ci-input {
-  flex: 1;
-  font-size: var(--font-base);
-  color: var(--color-text-primary);
-  padding: var(--space-2) 0;
-}
-
-.ci-clear {
-  flex-shrink: 0;
-  width: 40rpx;
-  height: 40rpx;
-  border-radius: var(--radius-full);
-  background: var(--color-bg-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .ci-clear-icon {
-  font-size: var(--font-xs);
-  color: var(--color-text-tertiary);
+  font-size: 20rpx;
+  color: var(--color-on-primary);
 }
 
-/* 多行输入 */
-.ci-textarea-wrap {
-  position: relative;
+/* ====== 多行输入框 ====== */
+.ci-textarea-field {
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
 }
 
 .ci-textarea {
   width: 100%;
-  font-size: var(--font-base);
+  font-size: var(--font-md);
   color: var(--color-text-primary);
-  line-height: 1.6;
-  min-height: 200rpx;
-  padding: var(--space-2) 0;
+  line-height: var(--leading-relaxed);
+  min-height: 240rpx;
+  background: transparent;
 }
 
 .ci-count {
   text-align: right;
   font-size: var(--font-xs);
   color: var(--color-text-tertiary);
-  margin-top: var(--space-1);
+  margin-top: var(--space-2);
+}
+
+/* ====== 底部固定操作栏 ====== */
+.ci-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: var(--space-3) var(--space-4);
+  padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+  background: var(--color-bg-card);
+}
+
+.ci-save {
+  text-align: center;
+  font-size: var(--font-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-primary);
+}
+
+.ci-save:active {
+  opacity: 0.85;
 }

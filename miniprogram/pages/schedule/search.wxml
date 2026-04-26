@@ -1,0 +1,60 @@
+<wxs module="h" src="../../utils/helpers.wxs" />
+
+<!-- 搜索头部（与 nav-bar 一体） -->
+<view class="search-header card-top">
+  <view class="search-input-wrap {{searchFocused ? 'focus' : ''}}">
+    <span class="iconfont icon-search search-input-icon"></span>
+    <input
+     class="search-input"
+     placeholder="搜索档期备注或地点"
+     placeholder-class="search-placeholder"
+     value="{{keyword}}"
+     bindinput="onSearchInput"
+     bindfocus="onSearchFocus"
+     bindblur="onSearchBlur"
+     confirm-type="search"
+     focus="{{true}}"
+    />
+    <span wx:if="{{keyword}}" class="iconfont icon-close search-clear" bindtap="onClear"></span>
+  </view>
+</view>
+
+<!-- 搜索结果区域 -->
+<view class="search-body">
+  <!-- 加载中 -->
+  <view class="search-loading" wx:if="{{loading}}">
+    <span class="search-loading-text">搜索中...</span>
+  </view>
+
+  <!-- 结果列表 -->
+  <block wx:if="{{!loading && resultList.length > 0}}">
+    <view
+     class="schedule-item"
+     wx:for="{{resultList}}"
+     wx:key="id"
+     data-id="{{item.id}}"
+     bindtap="onResultTap"
+    >
+      <view class="schedule-item-info">
+        <span class="schedule-item-title">
+          {{h.formatDateShort(item.date)}} {{item.notes || item.location || '档期'}}
+        </span>
+        <span class="schedule-item-meta">
+          {{h.getLocationShort(item.location)}} · {{item.start_time || '--'}}-{{item.end_time || '--'}}
+        </span>
+      </view>
+      <view class="schedule-item-badge badge-{{item.status}}">{{getStatusText(item.status)}}</view>
+      <view class="schedule-item-badge badge-{{item.completion_status}}" wx:if="{{item.status !== 'rest' && item.completion_status}}">
+        {{getCompletionText(item.completion_status)}}
+      </view>
+    </view>
+  </block>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && keyword && resultList.length === 0}}">
+    <span class="iconfont icon-search search-empty-icon"></span>
+    <span class="empty-title">未找到相关档期</span>
+  </view>
+</view>
+
+<view class="safe-bottom" />

@@ -1,0 +1,144 @@
+/* 聊天详情页 */
+
+page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--color-bg-page);
+}
+
+.ch-detail-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ch-scroll {
+  flex: 1;
+  min-height: 0;
+  padding: var(--space-3);
+}
+
+/* ====== 时间分割线 ====== */
+.ch-msg-time {
+  text-align: center;
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+  padding: var(--space-2) 0 var(--space-3);
+}
+
+/* ====== 系统消息 ====== */
+.ch-msg-system {
+  text-align: center;
+  padding: var(--space-1) 0;
+}
+
+.ch-msg-system-text {
+  display: inline-block;
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+}
+
+/* ====== 消息行 ====== */
+.ch-msg-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.ch-msg-self {
+  flex-direction: row-reverse;
+}
+
+.ch-msg-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+/* ====== 消息气泡 ====== */
+.ch-msg-bubble {
+  max-width: 65%;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-card);
+  font-size: var(--font-base);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.ch-msg-self .ch-msg-bubble {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+/* 图片消息 */
+.ch-msg-img {
+  width: 360rpx;
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+/* 位置消息 */
+.ch-msg-location {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.ch-msg-location-icon {
+  font-size: var(--font-md);
+  color: var(--color-primary);
+}
+
+.ch-msg-self .ch-msg-location-icon {
+  color: var(--color-on-primary);
+}
+
+.ch-msg-location-text {
+  font-size: var(--font-sm);
+}
+
+/* ====== 底部输入栏 ====== */
+.ch-input-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  padding-bottom: calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
+  background: var(--color-bg-card);
+  border-top: 1rpx solid var(--color-border-light);
+}
+
+.ch-input {
+  flex: 1;
+  height: 72rpx;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-full);
+  padding: 0 var(--space-3);
+  font-size: var(--font-base);
+  color: var(--color-text-primary);
+}
+
+.ch-input-icons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ch-input-icon {
+  font-size: var(--font-xl);
+  color: var(--color-text-secondary);
+  padding: var(--space-1);
+}
+
+.ch-input-icon:active {
+  opacity: 0.6;
+}

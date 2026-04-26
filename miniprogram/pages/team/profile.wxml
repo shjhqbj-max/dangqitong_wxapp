@@ -2,32 +2,32 @@
 
 <!-- 团队对外展示页 -->
 <view class="tp-page" wx:if="{{team}}">
-  <!-- Hero 封面图 -->
-  <view class="tp-hero" style="padding-top: {{heroPaddingTop}}">
-    <image class="tp-cover" src="{{team.cover_url}}" mode="aspectFill" />
-    <view class="tp-hero-mask"></view>
-    <view class="tp-hero-back" bindtap="onBack">
-      <view class="iconfont icon-arrow-left tp-hero-back-icon"></view>
-    </view>
-  </view>
-
-  <!-- Hero 占位 -->
-  <view style="height: {{heroHeight}}px"></view>
-
-  <!-- 信息 + Tab 栏 -->
-  <view class="tp-info-bar">
-    <view class="tp-info-left">
-      <view class="tp-team-name">{{team.name}}</view>
-      <view class="tp-team-meta" wx:if="{{team.city}}">
-        <text>{{team.city}}</text>
-        <text wx:if="{{team.member_count}}"> · {{team.member_count}}人</text>
+  <!-- 固定头部：封面 + 信息栏 -->
+  <view class="tp-header">
+    <view class="tp-hero">
+      <image class="tp-cover" src="{{team.cover_url}}" mode="aspectFill" />
+      <view class="tp-hero-mask"></view>
+      <view class="tp-hero-back" style="top: {{backBtnTop}}px" bindtap="onBack">
+        <view class="iconfont icon-arrow-left tp-hero-back-icon"></view>
       </view>
     </view>
-    <view class="tp-tabs">
-      <view class="tp-tab {{activeTab === 'works' ? 'tp-tab-active' : ''}}" bindtap="onTabTap" data-tab="works">作品</view>
-      <view class="tp-tab {{activeTab === 'members' ? 'tp-tab-active' : ''}}" bindtap="onTabTap" data-tab="members">成员</view>
+    <view class="tp-info-bar">
+      <view class="tp-info-left">
+        <view class="tp-team-name">{{team.name}}</view>
+        <view class="tp-team-meta" wx:if="{{team.city}}">
+          <text>{{team.city}}</text>
+          <text wx:if="{{team.member_count}}"> · {{team.member_count}}人</text>
+        </view>
+      </view>
+      <view class="tp-tabs">
+        <view class="tp-tab {{activeTab === 'works' ? 'tp-tab-active' : ''}}" bindtap="onTabTap" data-tab="works">作品</view>
+        <view class="tp-tab {{activeTab === 'members' ? 'tp-tab-active' : ''}}" bindtap="onTabTap" data-tab="members">成员</view>
+      </view>
     </view>
   </view>
+
+  <!-- 头部占位 -->
+  <view style="height: {{headerHeight}}px"></view>
 
   <!-- 内容区 -->
   <view class="tp-body">

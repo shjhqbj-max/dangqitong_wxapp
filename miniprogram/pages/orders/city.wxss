@@ -1,0 +1,267 @@
+page {
+  height: 100vh;
+  background: var(--color-bg-page);
+}
+
+.city-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ===== 搜索区域（与 nav-bar 一体） ===== */
+.city-search {
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  background: var(--color-bg-card);
+  flex-shrink: 0;
+}
+
+.city-search-box {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-3);
+  border: 2rpx solid transparent;
+  transition: border-color 0.25s, background 0.25s;
+}
+
+.city-search-box.focus {
+  border-color: var(--color-primary);
+  background: var(--color-bg-card);
+}
+
+.city-search-icon {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  margin-right: var(--space-1);
+}
+
+.city-search-input {
+  flex: 1;
+  font-size: var(--font-base);
+  color: var(--color-text-primary);
+  height: var(--space-6);
+  line-height: var(--space-6);
+}
+
+.city-search-placeholder {
+  color: var(--color-text-placeholder);
+  font-size: var(--font-base);
+}
+
+.city-search-clear {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  padding: var(--space-0-5);
+}
+
+/* ===== 固定区域（当前城市 + 热门城市） ===== */
+.city-fixed {
+  flex-shrink: 0;
+  padding-bottom: var(--space-1);
+}
+
+.city-section {
+  padding: 0 var(--space-4);
+}
+
+.city-section-label {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  padding: var(--space-2) 0 var(--space-1);
+  display: block;
+}
+
+/* ===== 当前城市卡片 ===== */
+.city-current {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-sm);
+}
+
+.city-current-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.location-icon {
+  width: var(--space-10);
+  height: var(--space-10);
+  background: var(--color-primary-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.location-icon .iconfont {
+  font-size: var(--font-md);
+  color: var(--color-primary);
+}
+
+.city-current-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+}
+
+.city-current-name {
+  font-size: var(--font-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.city-current-sub {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+.city-relocate {
+  display: flex;
+  align-items: center;
+  gap: var(--space-0-5);
+  font-size: var(--font-sm);
+  color: var(--color-primary);
+  padding: var(--space-1) var(--space-2);
+}
+
+.city-relocate-icon {
+  font-size: var(--font-xs);
+}
+
+/* ===== 热门城市 ===== */
+.city-hot-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.city-hot-item {
+  font-size: var(--font-base);
+  color: var(--color-text-primary);
+  padding: var(--space-1) 0;
+  width: calc((100% - var(--space-8)) / 5);
+  text-align: center;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-full);
+  border: 2rpx solid var(--color-border);
+  box-sizing: border-box;
+}
+
+.city-hot-item:active {
+  background: var(--color-bg-hover);
+}
+
+.city-hot-item.active {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+/* ===== 可滚动区域 ===== */
+.city-scroll {
+  flex: 1;
+  height: 0;
+}
+
+/* ===== 字母分组 ===== */
+.city-letter-head {
+  padding: var(--space-2) 0 var(--space-1);
+  position: sticky;
+  top: -1px;
+  background: var(--color-bg-page);
+  z-index: 1;
+}
+
+.city-letter-text {
+  font-size: var(--font-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-tertiary);
+}
+
+/* ===== 城市列表项 ===== */
+.city-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) 0;
+  font-size: var(--font-lg-sm);
+  color: var(--color-text-primary);
+  border-bottom: 2rpx solid var(--color-border-light);
+}
+
+.city-item:active {
+  background: var(--color-bg-hover);
+}
+
+.city-item.active {
+  color: var(--color-primary);
+  font-weight: var(--weight-semibold);
+}
+
+.city-item-right {
+  display: flex;
+  align-items: center;
+}
+
+.city-check {
+  font-size: var(--font-lg-sm);
+  color: var(--color-primary);
+}
+
+/* ===== 右侧字母索引 ===== */
+.city-sidebar {
+  position: fixed;
+  right: var(--space-2);
+  top: 68%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
+  padding: var(--space-1) var(--space-0-5);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-muted);
+}
+
+.city-sidebar-item {
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+  padding: var(--space-0-5) var(--space-1);
+  line-height: 1.4;
+  text-align: center;
+  min-width: var(--space-4);
+}
+
+.city-sidebar-item:active {
+  color: var(--color-primary);
+  font-weight: var(--weight-semibold);
+}
+
+/* ===== 字母浮层 ===== */
+.city-letter-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--space-12);
+  height: var(--space-12);
+  background: var(--color-bg-overlay);
+  color: var(--color-text-inverse);
+  font-size: var(--font-3xl);
+  font-weight: var(--weight-bold);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  pointer-events: none;
+}

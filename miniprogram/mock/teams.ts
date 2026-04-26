@@ -158,8 +158,8 @@ export function canAssignInTeam(teamId: string): boolean {
   const team = mockTeams.find(t => t.team_id === teamId)
   if (!team) return false
   if (team.my_role === 'admin') return true
-  const me = mockTeamMembers[teamId]?.find(m => m.user_id === 'u-001')
-  return me?.can_dispatch === true
+  const me = mockTeamMembers[teamId] && mockTeamMembers[teamId].find(m => m.user_id === 'u-001')
+  return me && me.can_dispatch === true
 }
 
 // 团队对外展示数据
@@ -167,16 +167,16 @@ export function getTeamProfile(teamId: string): TeamProfile {
   const team = mockTeams.find(t => t.team_id === teamId)
   return {
     team_id: teamId,
-    name: team?.name || '未知团队',
-    logo_url: team?.logo_url || 'https://i.pravatar.cc/150?img=60',
+    name: team ? team.name : '未知团队',
+    logo_url: team ? team.logo_url : 'https://i.pravatar.cc/150?img=60',
     cover_url: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',
-    description: team?.description || '',
-    city: team?.city || '',
-    service_types: team?.service_types || [],
-    contact_phone: team?.contact_phone || '',
-    member_count: team?.member_count || 0,
+    description: team ? team.description : '',
+    city: team ? team.city : '',
+    service_types: team ? team.service_types : [],
+    contact_phone: team ? team.contact_phone : '',
+    member_count: team ? team.member_count : 0,
     view_count: 13863,
-    created_at: team?.created_at || ''
+    created_at: team ? team.created_at : ''
   }
 }
 

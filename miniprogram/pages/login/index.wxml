@@ -1,0 +1,51 @@
+<view class="page-container login-page">
+  <!-- 装饰背景 -->
+  <view class="login-deco-circle login-deco-1" />
+  <view class="login-deco-circle login-deco-2" />
+
+  <view class="login-content">
+    <view class="login-brand">
+      <view class="login-logo-wrap">
+        <view class="login-logo">
+          <span class="iconfont icon-calendar" />
+        </view>
+        <view class="login-logo-ring" />
+      </view>
+      <view class="login-app-name">档期管理</view>
+      <view class="login-slogan">高效协作，轻松排期</view>
+    </view>
+    <view class="login-features">
+      <view class="login-feature-item">
+        <span class="iconfont icon-calendar login-feature-icon" />
+        <span>智能档期</span>
+      </view>
+      <view class="login-feature-item">
+        <span class="iconfont icon-team login-feature-icon" />
+        <span>团队协作</span>
+      </view>
+      <view class="login-feature-item">
+        <span class="iconfont icon-notification login-feature-icon" />
+        <span>即时提醒</span>
+      </view>
+    </view>
+  </view>
+
+  <view class="login-footer">
+    <button
+      class="login-btn {{loading ? 'loading' : ''}}"
+      open-type="getPhoneNumber"
+      bind:getphonenumber="onGetPhoneNumber"
+      disabled="{{loading}}"
+    >
+      <span wx:if="{{!loading}}" class="iconfont icon-wechat login-btn-icon" />
+      <span>{{loading ? '登录中...' : '微信一键登录'}}</span>
+    </button>
+
+    <view class="login-agreement">
+      登录即表示您同意
+      <span class="login-link" bindtap="onOpenAgreement">《用户协议》</span>
+      和
+      <span class="login-link" bindtap="onOpenPrivacy">《隐私政策》</span>
+    </view>
+  </view>
+</view>

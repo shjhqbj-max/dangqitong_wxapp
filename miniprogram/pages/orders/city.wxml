@@ -1,0 +1,73 @@
+<wxs module="h" src="../../utils/helpers.wxs" />
+
+<view class="city-page">
+  <!-- 搜索区域（与 nav-bar 一体） -->
+  <view class="city-search card-top">
+    <view class="city-search-box {{searchFocused ? 'focus' : ''}}">
+      <span class="iconfont icon-search city-search-icon"></span>
+      <input class="city-search-input" placeholder="搜索城市" placeholder-class="city-search-placeholder" value="{{keyword}}" bindinput="onSearch" bindfocus="onSearchFocus" bindblur="onSearchBlur" confirm-type="search" />
+      <span wx:if="{{keyword}}" class="iconfont icon-close city-search-clear" bindtap="onClearSearch"></span>
+    </view>
+  </view>
+
+  <!-- 当前城市 + 热门城市（固定） -->
+  <view class="city-fixed">
+    <view class="city-section">
+      <span class="city-section-label">当前城市</span>
+      <view class="city-current">
+        <view class="city-current-left">
+          <view class="location-icon">
+            <span class="iconfont icon-location"></span>
+          </view>
+          <view class="city-current-info">
+            <span class="city-current-name">{{currentCityName || '定位中...'}}</span>
+            <span class="city-current-sub">当前定位城市</span>
+          </view>
+        </view>
+        <view class="city-relocate" bindtap="onRelocate">
+          <span class="iconfont icon-location city-relocate-icon"></span>
+          <span>重新定位</span>
+        </view>
+      </view>
+    </view>
+
+    <view class="city-section">
+      <span class="city-section-label">热门城市</span>
+      <view class="city-hot-list">
+        <view class="city-hot-item {{!currentCityId ? 'active' : ''}}" bindtap="onSelectAll">全部城市</view>
+        <view class="city-hot-item {{currentCityId === item.city_id ? 'active' : ''}}" wx:for="{{hotCities}}" wx:key="city_id" bindtap="onSelect" data-city="{{item}}">
+          {{item.name}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 可滚动区域：仅全部城市 -->
+  <scroll-view class="city-scroll" scroll-y scroll-into-view="{{scrollTo}}" scroll-with-animation>
+    <view class="city-section">
+      <view wx:for="{{cityGroups}}" wx:key="letter">
+        <view class="city-letter-head" id="letter-{{item.letter}}">
+          <span class="city-letter-text">{{item.letter}}</span>
+        </view>
+        <view class="city-item {{currentCityId === city.city_id ? 'active' : ''}}" wx:for-item="city" wx:for="{{item.cities}}" wx:key="city_id" bindtap="onSelect" data-city="{{city}}">
+          <span>{{city.name}}</span>
+          <view class="city-item-right" wx:if="{{currentCityId === city.city_id}}">
+            <span class="iconfont icon-check city-check"></span>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 右侧字母索引 -->
+  <view class="city-sidebar" wx:if="{{!hiddenSidebar}}" catchtouchmove="onSidebarTouchMove">
+    <view class="city-sidebar-item" wx:for="{{letters}}" wx:key="*this" bindtap="onLetterTap" data-letter="{{item}}">
+      {{item}}
+    </view>
+  </view>
+
+  <!-- 字母浮层 -->
+  <view class="city-letter-toast" wx:if="{{showLetterToast}}">
+    {{activeLetter}}
+  </view>
+</view>
