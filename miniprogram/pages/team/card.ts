@@ -22,7 +22,6 @@ Page({
     bgGradient: '',
     loading: true,
     heroPaddingTop: '',
-    closeRight: '',
     showWorksFull: false
   },
 
@@ -34,9 +33,7 @@ Page({
       return
     }
     const windowInfo = wx.getWindowInfo()
-    const menuRect = wx.getMenuButtonBoundingClientRect()
-    const closeRight = (windowInfo.screenWidth - menuRect.left) + 'px'
-    this.setData({ heroPaddingTop: windowInfo.statusBarHeight + 'px', closeRight })
+    this.setData({ heroPaddingTop: windowInfo.statusBarHeight + 'px' })
     this.loadCard(userId)
   },
 
@@ -63,6 +60,27 @@ Page({
   onBookSchedule() {
     // TODO: 跳转私聊详情页，目前聊天页为骨架，先切换到消息tab
     wx.switchTab({ url: '/pages/chat/list' })
+  },
+
+  async onShareCard() {
+    if (!this.data.card) return
+    wx.showLoading({ title: '生成中...' })
+    try {
+      const res = await cardApi.getCardImage(this.data.card.user_id)
+      if (res.code !== 200 || !res.data.image_url) {
+        wx.showToast({ title: '图片生成中，请稍后', icon: 'none' })
+        return
+      }
+      const dlRes = await wx.downloadFile({ url: res.data.image_url })
+      if (dlRes.statusCode === 200) {
+        wx.shareImageMessage({
+          imagePath: dlRes.tempFilePath
+        })
+      }
+    } catch (e) {
+      wx.showToast({ title: '分享失败', icon: 'none' })
+    }
+    wx.hideLoading()
   },
 
   onExpandWorks() {
