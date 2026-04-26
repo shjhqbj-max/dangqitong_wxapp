@@ -2,30 +2,23 @@
 
 <!-- 档期卡页面 -->
 <view class="sc-page" wx:if="{{card}}">
-  <!-- 背景渐变 -->
-  <view class="sc-bg" style="background: {{bgGradient}}"></view>
-
-  <!-- 浮动顶栏 -->
-  <view class="sc-topbar" style="{{topbarStyle}}">
-    <view class="sc-topbar-back" bindtap="onBack">
-      <view class="iconfont icon-arrow-left sc-topbar-icon"></view>
+  <!-- 渐变 Hero 区 -->
+  <view class="sc-hero" style="background: {{bgGradient}}; padding-top: {{heroPaddingTop}}">
+    <view class="sc-hero-back" bindtap="onBack">
+      <view class="iconfont icon-arrow-left sc-hero-back-icon"></view>
     </view>
-  </view>
-
-  <!-- 头像 + 基本信息 -->
-  <view class="sc-hero {{heroHidden ? 'sc-hero-hidden' : ''}}" style="{{heroStyle}}">
     <image class="sc-avatar" src="{{card.avatar_url}}" mode="aspectFill" />
     <view class="sc-name">{{card.nickname}}</view>
     <view class="sc-sub">
-      <view>{{card.profession}}</view>
-      <view wx:if="{{card.city}}"> · {{card.city}}</view>
+      <text>{{card.profession}}</text>
+      <text wx:if="{{card.city}}"> · {{card.city}}</text>
     </view>
   </view>
 
-  <!-- 内容区（原生滚动） -->
+  <!-- 内容区 -->
   <view class="sc-body">
     <!-- 信息卡 -->
-    <view class="sc-card-dark">
+    <view class="card sc-info-card">
       <view class="sc-bio" wx:if="{{card.bio}}">{{card.bio}}</view>
       <view class="sc-info-row">
         <view class="sc-info-label">报价</view>
@@ -37,11 +30,34 @@
       </view>
     </view>
 
+    <!-- 档期列表 -->
+    <view class="card" wx:if="{{card.schedules.length > 0}}">
+      <view class="sc-card-title">
+        <view>已定档期</view>
+        <view class="sc-action-btn" bindtap="onBookSchedule">约档期</view>
+      </view>
+      <view class="sc-sch-item" wx:for="{{card.schedules}}" wx:key="index">
+        <view class="sc-sch-date">{{item.date}}</view>
+        <view class="sc-sch-name">{{item.title}}</view>
+        <view class="sc-sch-loc">{{h.getLocationShort(item.location)}}</view>
+      </view>
+      <view class="sc-sch-update">更新于 {{card.updated_at}}</view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="card" wx:if="{{card.schedules.length === 0}}">
+      <view class="sc-card-title">
+        <view>已定档期</view>
+        <view class="sc-action-btn" bindtap="onBookSchedule">约档期</view>
+      </view>
+      <view class="sc-empty">暂无档期安排</view>
+    </view>
+
     <!-- 作品展示 -->
-    <view class="sc-card-dark" wx:if="{{card.works.length > 0}}">
-      <view class="sc-sch-title">
+    <view class="card" wx:if="{{card.works.length > 0}}">
+      <view class="sc-card-title">
         <view>作品展示</view>
-        <view class="sc-works-expand" bindtap="onExpandWorks">展开</view>
+        <view class="sc-action-btn" bindtap="onExpandWorks">展开</view>
       </view>
       <scroll-view class="sc-works-scroll" scroll-x enable-flex>
         <view class="sc-works-list">
@@ -53,32 +69,6 @@
       </scroll-view>
     </view>
 
-
-    <!-- 档期列表 -->
-    <view class="sc-card-dark" wx:if="{{card.schedules.length > 0}}">
-      <view class="sc-sch-title">
-        <view>已定档期</view>
-        <view class="sc-works-expand" bindtap="onBookSchedule">约档期</view>
-      </view>
-      <view class="sc-sch-item" wx:for="{{card.schedules}}" wx:key="index">
-        <view class="sc-sch-date">{{item.date}}</view>
-        <view class="sc-sch-name">{{item.title}}</view>
-        <view class="sc-sch-loc">{{h.getLocationShort(item.location)}}</view>
-      </view>
-      <view class="sc-sch-update">更新于 {{card.updated_at}}</view>
-    </view>
-
-    <!-- 空状态 -->
-    <view class="sc-card-dark" wx:if="{{card.schedules.length === 0}}">
-      <view class="sc-sch-title">
-        <view>已定档期</view>
-        <view class="sc-works-expand" bindtap="onBookSchedule">约档期</view>
-      </view>
-      <view class="sc-empty">暂无档期安排</view>
-    </view>
-
-
-    <!-- 底部占位，避免被固定栏遮挡 -->
     <view class="sc-bottom-spacer"></view>
   </view>
 

@@ -21,9 +21,7 @@ Page({
     card: null as ScheduleCard | null,
     bgGradient: '',
     loading: true,
-    topbarStyle: '',
-    heroStyle: '',
-    heroHidden: false,
+    heroPaddingTop: '',
     showWorksFull: false
   },
 
@@ -34,25 +32,9 @@ Page({
       setTimeout(() => wx.navigateBack(), 1500)
       return
     }
-    this.measureLayout()
-    this.loadCard(userId)
-  },
-
-  measureLayout() {
     const windowInfo = wx.getWindowInfo()
-    const totalHeight = windowInfo.statusBarHeight + 44
-    const heroPadTop = totalHeight + 60
-    this.setData({
-      topbarStyle: 'padding-top:' + windowInfo.statusBarHeight + 'px; height:' + totalHeight + 'px',
-      heroStyle: 'padding-top:' + heroPadTop + 'px'
-    })
-  },
-
-  onPageScroll(e: any) {
-    const shouldHide = e.scrollTop > 100
-    if (shouldHide !== this.data.heroHidden) {
-      this.setData({ heroHidden: shouldHide })
-    }
+    this.setData({ heroPaddingTop: windowInfo.statusBarHeight + 'px' })
+    this.loadCard(userId)
   },
 
   async loadCard(userId: string) {
