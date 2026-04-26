@@ -6,7 +6,7 @@
   <view class="sc-bg" style="background: {{bgGradient}}"></view>
 
   <!-- 浮动顶栏 -->
-  <view class="sc-topbar">
+  <view class="sc-topbar" style="{{topbarStyle}}">
     <view class="sc-topbar-back" bindtap="onBack">
       <view class="iconfont icon-arrow-left sc-topbar-icon"></view>
     </view>
@@ -26,7 +26,7 @@
   </view>
 
   <!-- 内容区 -->
-  <scroll-view class="sc-body" scroll-y>
+  <scroll-view class="sc-body" scroll-y style="{{bodyStyle}}">
     <!-- 信息卡 -->
     <view class="sc-card-dark">
       <view class="sc-bio" wx:if="{{card.bio}}">{{card.bio}}</view>

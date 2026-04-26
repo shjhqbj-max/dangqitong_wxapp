@@ -20,7 +20,9 @@ Page({
   data: {
     card: null as ScheduleCard | null,
     bgGradient: '',
-    loading: true
+    loading: true,
+    topbarStyle: '',
+    bodyStyle: ''
   },
 
   onLoad(options: any) {
@@ -30,7 +32,24 @@ Page({
       setTimeout(() => wx.navigateBack(), 1500)
       return
     }
+    this.measureLayout()
     this.loadCard(userId)
+  },
+
+  measureLayout() {
+    const menuRect = wx.getMenuButtonBoundingClientRect()
+    const sysInfo = wx.getSystemInfoSync()
+    // topbar: 胶囊垂直居中对齐
+    const topbarPadTop = menuRect.top
+    const topbarHeight = menuRect.height + topbarPadTop + 16 // 底部留白
+    // body 高度 = 视口 - hero(约320rpx≈160px) - 底部栏(88rpx+safe≈60px)
+    const heroH = 360 * sysInfo.windowWidth / 750 // hero 区大概高度
+    const bottomH = 100 * sysInfo.windowWidth / 750 // 底部栏大概高度
+    const bodyH = sysInfo.windowHeight - heroH - bottomH
+    this.setData({
+      topbarStyle: 'padding-top:' + topbarPadTop + 'px; height:' + topbarHeight + 'px',
+      bodyStyle: 'height:' + bodyH + 'px'
+    })
   },
 
   async loadCard(userId: string) {

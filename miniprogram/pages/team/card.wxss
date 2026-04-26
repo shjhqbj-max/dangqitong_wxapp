@@ -13,7 +13,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 55vh;
+  bottom: 0;
   z-index: 0;
 }
 
@@ -27,7 +27,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-8) var(--space-4) var(--space-3);
+  padding: 0 var(--space-4);
   background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 100%);
 }
 
@@ -92,8 +92,8 @@
 .sc-body {
   position: relative;
   z-index: 1;
-  padding: 0 var(--space-4);
-  min-height: 45vh;
+  padding: 0 var(--space-4) var(--space-4);
+  overflow: hidden;
 }
 
 /* ====== 深色半透明卡片 ====== */
