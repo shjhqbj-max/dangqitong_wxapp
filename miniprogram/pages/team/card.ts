@@ -34,14 +34,19 @@ Page({
   },
 
   async loadCard(userId: string) {
-    const res = await cardApi.getScheduleCard(userId)
-    if (res.code !== 200 || !res.data) {
+    try {
+      const res = await cardApi.getScheduleCard(userId)
+      if (res.code !== 200 || !res.data) {
+        this.setData({ loading: false })
+        return
+      }
+      const card = res.data
+      const bgGradient = proGradients[card.profession] || proGradients['摄影']
+      this.setData({ card, bgGradient, loading: false })
+    } catch (e) {
       this.setData({ loading: false })
-      return
+      wx.showToast({ title: '加载失败', icon: 'none' })
     }
-    const card = res.data
-    const bgGradient = proGradients[card.profession] || proGradients['摄影']
-    this.setData({ card, bgGradient, loading: false })
   },
 
   onBack() {
