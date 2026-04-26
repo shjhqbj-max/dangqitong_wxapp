@@ -1,0 +1,260 @@
+/* 档期卡页面 — 全屏沉浸式 */
+
+.sc-page {
+  position: relative;
+  min-height: 100vh;
+  background: #1a1a2e;
+  color: #fff;
+}
+
+/* ====== 背景 ====== */
+.sc-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 55vh;
+  z-index: 0;
+}
+
+/* ====== 浮动顶栏 ====== */
+.sc-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-8) var(--space-4) var(--space-3);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 100%);
+}
+
+.sc-topbar-back,
+.sc-topbar-share {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: rgba(0,0,0,0.2);
+}
+
+.sc-topbar-share {
+  border: none;
+  margin: 0;
+  padding: 0;
+  line-height: 64rpx;
+}
+
+.sc-topbar-share::after {
+  border: none;
+}
+
+.sc-topbar-icon {
+  font-size: var(--font-lg);
+  color: #fff;
+}
+
+/* ====== Hero 区 ====== */
+.sc-hero {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 180rpx var(--space-4) var(--space-6);
+}
+
+.sc-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: var(--radius-full);
+  border: 4rpx solid rgba(255,255,255,0.5);
+  margin-bottom: var(--space-3);
+}
+
+.sc-name {
+  font-size: var(--font-xl);
+  font-weight: var(--weight-bold);
+  color: #fff;
+  margin-bottom: var(--space-1);
+}
+
+.sc-sub {
+  font-size: var(--font-sm);
+  color: rgba(255,255,255,0.7);
+}
+
+/* ====== 内容区 ====== */
+.sc-body {
+  position: relative;
+  z-index: 1;
+  padding: 0 var(--space-4);
+  min-height: 45vh;
+}
+
+/* ====== 深色半透明卡片 ====== */
+.sc-card-dark {
+  background: rgba(0,0,0,0.45);
+  border: 1rpx solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+  color: rgba(255,255,255,0.9);
+}
+
+/* 简介 */
+.sc-bio {
+  font-size: var(--font-sm);
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  margin-bottom: var(--space-3);
+}
+
+/* 信息行 */
+.sc-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) 0;
+}
+
+.sc-info-row:not(:last-child) {
+  border-bottom: 1rpx solid rgba(255,255,255,0.08);
+}
+
+.sc-info-label {
+  font-size: var(--font-sm);
+  color: rgba(255,255,255,0.5);
+}
+
+.sc-info-value {
+  font-size: var(--font-base);
+  color: #fff;
+  font-weight: var(--weight-medium);
+}
+
+/* ====== 档期列表 ====== */
+.sc-sch-title {
+  font-size: var(--font-md);
+  font-weight: var(--weight-semibold);
+  color: #fff;
+  margin-bottom: var(--space-3);
+}
+
+.sc-sch-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  font-size: var(--font-sm);
+}
+
+.sc-sch-item:not(:last-child) {
+  border-bottom: 1rpx solid rgba(255,255,255,0.06);
+}
+
+.sc-sch-date {
+  color: rgba(255,255,255,0.6);
+  min-width: 72rpx;
+  flex-shrink: 0;
+}
+
+.sc-sch-name {
+  color: #fff;
+  flex: 1;
+  min-width: 0;
+}
+
+.sc-sch-loc {
+  color: rgba(255,255,255,0.4);
+  flex-shrink: 0;
+  font-size: var(--font-xs);
+}
+
+.sc-sch-update {
+  font-size: var(--font-xs);
+  color: rgba(255,255,255,0.35);
+  margin-top: var(--space-3);
+  text-align: right;
+}
+
+.sc-empty {
+  font-size: var(--font-sm);
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding: var(--space-4) 0;
+}
+
+/* ====== 底部操作栏 ====== */
+.sc-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+}
+
+.sc-btn-save,
+.sc-btn-share {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  height: 88rpx;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-base);
+  font-weight: var(--weight-medium);
+}
+
+.sc-btn-save {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  border: 1rpx solid rgba(255,255,255,0.25);
+}
+
+.sc-btn-save:active {
+  background: rgba(255,255,255,0.25);
+}
+
+.sc-btn-share {
+  background: rgba(255,255,255,0.9);
+  color: #1a1a2e;
+  border: none;
+  margin: 0;
+  padding: 0;
+  line-height: 88rpx;
+  border-radius: var(--radius-lg);
+}
+
+.sc-btn-share::after {
+  border: none;
+}
+
+.sc-btn-share:active {
+  background: rgba(255,255,255,0.75);
+}
+
+.sc-btn-icon {
+  font-size: var(--font-md);
+}
+
+/* ====== 加载状态 ====== */
+.sc-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: var(--font-base);
+  color: rgba(255,255,255,0.5);
+  background: #1a1a2e;
+}
