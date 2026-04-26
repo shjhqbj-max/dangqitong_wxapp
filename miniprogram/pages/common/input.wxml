@@ -1,0 +1,50 @@
+<!-- 公共输入页 -->
+<view class="ci-page">
+  <!-- 顶栏 -->
+  <view class="ci-nav" style="{{navBarStyle}}">
+    <view class="ci-nav-back" bindtap="onBack">
+      <view class="iconfont icon-arrow-left ci-nav-icon"></view>
+    </view>
+    <view class="ci-nav-title">{{title}}</view>
+    <view class="ci-nav-save" bindtap="onSave">保存</view>
+  </view>
+
+  <!-- 输入区 -->
+  <view class="ci-body">
+    <view class="ci-card card">
+      <!-- 单行输入 -->
+      <view class="ci-input-wrap" wx:if="{{type === 'text'}}">
+        <input class="ci-input" value="{{value}}" placeholder="请输入{{title}}"
+          focus="{{true}}" bindinput="onInput" maxlength="50" />
+        <view class="ci-clear" wx:if="{{value.length > 0}}" bindtap="onClear">
+          <view class="iconfont icon-close ci-clear-icon"></view>
+        </view>
+      </view>
+
+      <!-- 多行输入 -->
+      <view class="ci-textarea-wrap" wx:if="{{type === 'textarea'}}">
+        <textarea class="ci-textarea" value="{{value}}" placeholder="请输入{{title}}"
+          focus="{{true}}" bindinput="onInput" maxlength="200" auto-height />
+        <view class="ci-count">{{value.length}} / 200</view>
+      </view>
+
+      <!-- 数字输入 -->
+      <view class="ci-input-wrap" wx:if="{{type === 'number'}}">
+        <input class="ci-input" type="digit" value="{{value}}" placeholder="请输入{{title}}"
+          focus="{{true}}" bindinput="onInput" />
+        <view class="ci-clear" wx:if="{{value.length > 0}}" bindtap="onClear">
+          <view class="iconfont icon-close ci-clear-icon"></view>
+        </view>
+      </view>
+
+      <!-- 手机号输入 -->
+      <view class="ci-input-wrap" wx:if="{{type === 'phone'}}">
+        <input class="ci-input" type="number" value="{{value}}" placeholder="请输入手机号"
+          focus="{{true}}" bindinput="onInput" maxlength="11" />
+        <view class="ci-clear" wx:if="{{value.length > 0}}" bindtap="onClear">
+          <view class="iconfont icon-close ci-clear-icon"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

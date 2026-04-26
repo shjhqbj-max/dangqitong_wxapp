@@ -1,0 +1,110 @@
+/* 公共输入页 */
+
+.ci-page {
+  background: var(--color-bg-page);
+  min-height: 100vh;
+}
+
+/* ====== 顶栏 ====== */
+.ci-nav {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  position: relative;
+}
+
+.ci-nav-back {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--space-2);
+}
+
+.ci-nav-icon {
+  font-size: var(--font-lg);
+  color: var(--color-text-primary);
+}
+
+.ci-nav-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--font-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.ci-nav-save {
+  position: absolute;
+  right: var(--space-4);
+  font-size: var(--font-base);
+  color: var(--color-primary);
+  font-weight: var(--weight-medium);
+  padding: var(--space-1) var(--space-2);
+}
+
+.ci-nav-save:active {
+  opacity: 0.6;
+}
+
+/* ====== 输入区 ====== */
+.ci-body {
+  padding: var(--space-3) var(--space-4);
+}
+
+.ci-card {
+  padding: var(--space-3) var(--space-4) !important;
+}
+
+/* 单行输入 */
+.ci-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ci-input {
+  flex: 1;
+  font-size: var(--font-base);
+  color: var(--color-text-primary);
+  padding: var(--space-2) 0;
+}
+
+.ci-clear {
+  flex-shrink: 0;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ci-clear-icon {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* 多行输入 */
+.ci-textarea-wrap {
+  position: relative;
+}
+
+.ci-textarea {
+  width: 100%;
+  font-size: var(--font-base);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  min-height: 200rpx;
+  padding: var(--space-2) 0;
+}
+
+.ci-count {
+  text-align: right;
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+  margin-top: var(--space-1);
+}
