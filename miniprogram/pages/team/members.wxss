@@ -1,0 +1,219 @@
+/* 成员管理页 */
+
+/* ====== Hero ====== */
+.m-hero {
+  background: var(--color-bg-card);
+  padding: var(--space-3) var(--space-4) var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.m-hero-main {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+}
+
+.m-hero-name {
+  font-size: var(--font-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.m-hero-count {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+}
+
+.m-hero-edit {
+  font-size: var(--font-lg);
+  color: var(--color-text-tertiary);
+  padding: var(--space-1);
+}
+
+/* ====== 分区 ====== */
+.m-section {
+  padding: var(--space-2) var(--space-3);
+}
+
+/* ====== 成员卡片 ====== */
+.m-member-card {
+  padding: var(--space-1) 0 !important;
+}
+
+.m-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+  padding: var(--space-2) var(--space-3);
+}
+
+.m-item:not(:last-child) {
+  border-bottom: 1rpx solid var(--color-border-light);
+}
+
+.m-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.m-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.m-name {
+  font-size: var(--font-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+}
+
+.m-pros {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.m-pro {
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+}
+
+.m-role-badge {
+  flex-shrink: 0;
+}
+
+.m-action {
+  font-size: var(--font-lg);
+  color: var(--color-text-tertiary);
+  padding: var(--space-1);
+  flex-shrink: 0;
+}
+
+/* ====== 设置行 ====== */
+.m-setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.m-setting-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+  flex: 1;
+  min-width: 0;
+}
+
+.m-setting-icon {
+  font-size: var(--font-xl);
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.m-setting-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.m-setting-label {
+  font-size: var(--font-base);
+  color: var(--color-text-primary);
+  font-weight: var(--weight-medium);
+}
+
+.m-setting-desc {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+.m-setting-arrow {
+  flex-shrink: 0;
+}
+
+.m-setting-arrow-icon {
+  font-size: var(--font-md);
+  color: var(--color-text-tertiary);
+}
+
+/* ====== 邀请卡片 ====== */
+.m-invite-card {
+  padding: 0 !important;
+}
+
+.m-invite-row {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3);
+}
+
+.m-invite-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+  min-width: 0;
+}
+
+.m-invite-icon {
+  font-size: var(--font-xl);
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.m-invite-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+  min-width: 0;
+}
+
+.m-invite-label {
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+}
+
+.m-invite-code {
+  font-size: var(--font-md);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  letter-spacing: 4rpx;
+}
+
+.m-invite-link-text {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+}
+
+.m-invite-btn {
+  font-size: var(--font-sm);
+  color: var(--color-primary);
+  font-weight: var(--weight-medium);
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-primary-light);
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.m-invite-divider {
+  height: 1rpx;
+  background: var(--color-border-light);
+  margin: 0 var(--space-3);
+}
+
+/* ====== 退出团队 ====== */
+.m-leave {
+  text-align: center;
+  font-size: var(--font-base);
+  color: var(--color-danger);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+}

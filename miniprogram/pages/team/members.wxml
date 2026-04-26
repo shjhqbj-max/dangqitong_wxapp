@@ -10,6 +10,24 @@
   <span class="iconfont icon-edit m-hero-edit" wx:if="{{isAdmin}}" bindtap="onEditName"></span>
 </view>
 
+<!-- 团队背景 -->
+<view class="m-section" wx:if="{{isAdmin}}">
+  <view class="card">
+    <view class="m-setting-row" bindtap="onUploadCover">
+      <view class="m-setting-left">
+        <span class="iconfont icon-image m-setting-icon"></span>
+        <view class="m-setting-text">
+          <span class="m-setting-label">团队背景</span>
+          <span class="m-setting-desc">上传封面图，展示在团队主页</span>
+        </view>
+      </view>
+      <view class="m-setting-arrow">
+        <span class="iconfont icon-arrow-right m-setting-arrow-icon"></span>
+      </view>
+    </view>
+  </view>
+</view>
+
 <!-- 成员列表 -->
 <view class="m-section">
   <view class="card m-member-card">

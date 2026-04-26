@@ -106,6 +106,28 @@ Page({
     })
   },
 
+  onUploadCover() {
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album', 'camera'],
+      success: async (res) => {
+        const tempFile = res.tempFiles[0]
+        if (!tempFile) return
+        wx.showLoading({ title: '上传中...' })
+        try {
+          // TODO: 替换为真实的上传接口
+          await teamApi.updateTeam(this.data.teamId, { cover_url: tempFile.tempFilePath })
+          wx.showToast({ title: '已更新', icon: 'none' })
+          this.loadData()
+        } catch (e) {
+          wx.showToast({ title: '上传失败', icon: 'none' })
+        }
+        wx.hideLoading()
+      }
+    })
+  },
+
   onMemberTap(e: any) {
     const userId = e.currentTarget.dataset.uid
     if (!userId) return
