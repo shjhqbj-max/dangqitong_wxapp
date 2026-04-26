@@ -22,6 +22,7 @@ Page({
     bgGradient: '',
     loading: true,
     topbarStyle: '',
+    shareStyle: '',
     heroStyle: ''
   },
 
@@ -38,10 +39,14 @@ Page({
 
   measureLayout() {
     const windowInfo = wx.getWindowInfo()
+    const capsule = wx.getMenuButtonBoundingClientRect()
     const totalHeight = windowInfo.statusBarHeight + 44
-    const heroPadTop = totalHeight + 60 // hero 距顶栏下方 60px
+    const heroPadTop = totalHeight + 60
+    // 分享按钮避开胶囊：右边缘 = 胶囊左边距 - 间距
+    const shareRight = windowInfo.screenWidth - capsule.left - 8
     this.setData({
       topbarStyle: 'padding-top:' + windowInfo.statusBarHeight + 'px; height:' + totalHeight + 'px',
+      shareStyle: 'right:' + shareRight + 'px',
       heroStyle: 'padding-top:' + heroPadTop + 'px'
     })
   },

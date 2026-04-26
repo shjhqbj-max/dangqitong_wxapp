@@ -10,7 +10,7 @@
     <view class="sc-topbar-back" bindtap="onBack">
       <view class="iconfont icon-arrow-left sc-topbar-icon"></view>
     </view>
-    <button class="sc-topbar-share" open-type="share">
+    <button class="sc-topbar-share" open-type="share" style="{{shareStyle}}">
       <view class="iconfont icon-share sc-topbar-icon"></view>
     </button>
   </view>
