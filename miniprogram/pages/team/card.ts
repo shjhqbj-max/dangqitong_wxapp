@@ -93,6 +93,11 @@ Page({
     wx.hideLoading()
   },
 
+  onBookSchedule() {
+    // TODO: 跳转私聊详情页，目前聊天页为骨架，先切换到消息tab
+    wx.switchTab({ url: '/pages/chat/list' })
+  },
+
   onExpandWorks() {
     this.setData({ showWorksFull: true })
   },

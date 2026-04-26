@@ -37,23 +37,6 @@
       </view>
     </view>
 
-    <!-- 档期列表 -->
-    <view class="sc-card-dark" wx:if="{{card.schedules.length > 0}}">
-      <view class="sc-sch-title">已定档期</view>
-      <view class="sc-sch-item" wx:for="{{card.schedules}}" wx:key="index">
-        <view class="sc-sch-date">{{item.date}}</view>
-        <view class="sc-sch-name">{{item.title}}</view>
-        <view class="sc-sch-loc">{{h.getLocationShort(item.location)}}</view>
-      </view>
-      <view class="sc-sch-update">更新于 {{card.updated_at}}</view>
-    </view>
-
-    <!-- 空状态 -->
-    <view class="sc-card-dark" wx:if="{{card.schedules.length === 0}}">
-      <view class="sc-sch-title">已定档期</view>
-      <view class="sc-empty">暂无档期安排</view>
-    </view>
-
     <!-- 作品展示 -->
     <view class="sc-card-dark" wx:if="{{card.works.length > 0}}">
       <view class="sc-sch-title">
@@ -69,6 +52,31 @@
         </view>
       </scroll-view>
     </view>
+
+
+    <!-- 档期列表 -->
+    <view class="sc-card-dark" wx:if="{{card.schedules.length > 0}}">
+      <view class="sc-sch-title">
+        <view>已定档期</view>
+        <view class="sc-works-expand" bindtap="onBookSchedule">约档期</view>
+      </view>
+      <view class="sc-sch-item" wx:for="{{card.schedules}}" wx:key="index">
+        <view class="sc-sch-date">{{item.date}}</view>
+        <view class="sc-sch-name">{{item.title}}</view>
+        <view class="sc-sch-loc">{{h.getLocationShort(item.location)}}</view>
+      </view>
+      <view class="sc-sch-update">更新于 {{card.updated_at}}</view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="sc-card-dark" wx:if="{{card.schedules.length === 0}}">
+      <view class="sc-sch-title">
+        <view>已定档期</view>
+        <view class="sc-works-expand" bindtap="onBookSchedule">约档期</view>
+      </view>
+      <view class="sc-empty">暂无档期安排</view>
+    </view>
+
 
     <!-- 底部占位，避免被固定栏遮挡 -->
     <view class="sc-bottom-spacer"></view>
