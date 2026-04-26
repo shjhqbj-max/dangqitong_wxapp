@@ -25,8 +25,8 @@
     </view>
   </view>
 
-  <!-- 内容区 -->
-  <scroll-view class="sc-body" scroll-y style="{{bodyStyle}}">
+  <!-- 内容区（原生滚动） -->
+  <view class="sc-body">
     <!-- 信息卡 -->
     <view class="sc-card-dark">
       <view class="sc-bio" wx:if="{{card.bio}}">{{card.bio}}</view>
@@ -56,10 +56,13 @@
       <view class="sc-sch-title">已定档期</view>
       <view class="sc-empty">暂无档期安排</view>
     </view>
-  </scroll-view>
+
+    <!-- 底部占位，避免被固定栏遮挡 -->
+    <view class="sc-bottom-spacer"></view>
+  </view>
 
   <!-- 底部操作栏 -->
-  <view class="sc-bottom safe-bottom">
+  <view class="sc-bottom">
     <view class="sc-btn-save" bindtap="onSaveImage">
       <view class="iconfont icon-image sc-btn-icon"></view>
       <view>保存图片</view>
