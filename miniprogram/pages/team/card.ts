@@ -22,8 +22,9 @@ Page({
     bgGradient: '',
     loading: true,
     topbarStyle: '',
-    shareStyle: '',
-    heroStyle: ''
+    heroStyle: '',
+    heroHidden: false,
+    showWorksFull: false
   },
 
   onLoad(options: any) {
@@ -39,16 +40,19 @@ Page({
 
   measureLayout() {
     const windowInfo = wx.getWindowInfo()
-    const capsule = wx.getMenuButtonBoundingClientRect()
     const totalHeight = windowInfo.statusBarHeight + 44
     const heroPadTop = totalHeight + 60
-    // 分享按钮避开胶囊：右边缘 = 胶囊左边距 - 间距
-    const shareRight = windowInfo.screenWidth - capsule.left - 8
     this.setData({
       topbarStyle: 'padding-top:' + windowInfo.statusBarHeight + 'px; height:' + totalHeight + 'px',
-      shareStyle: 'right:' + shareRight + 'px',
       heroStyle: 'padding-top:' + heroPadTop + 'px'
     })
+  },
+
+  onPageScroll(e: any) {
+    const shouldHide = e.scrollTop > 100
+    if (shouldHide !== this.data.heroHidden) {
+      this.setData({ heroHidden: shouldHide })
+    }
   },
 
   async loadCard(userId: string) {
@@ -87,6 +91,14 @@ Page({
       wx.showToast({ title: '保存失败', icon: 'none' })
     }
     wx.hideLoading()
+  },
+
+  onExpandWorks() {
+    this.setData({ showWorksFull: true })
+  },
+
+  onCloseWorksFull() {
+    this.setData({ showWorksFull: false })
   },
 
   onShareAppMessage() {

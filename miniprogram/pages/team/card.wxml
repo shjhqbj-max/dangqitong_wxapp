@@ -10,13 +10,10 @@
     <view class="sc-topbar-back" bindtap="onBack">
       <view class="iconfont icon-arrow-left sc-topbar-icon"></view>
     </view>
-    <button class="sc-topbar-share" open-type="share" style="{{shareStyle}}">
-      <view class="iconfont icon-share sc-topbar-icon"></view>
-    </button>
   </view>
 
   <!-- 头像 + 基本信息 -->
-  <view class="sc-hero" style="{{heroStyle}}">
+  <view class="sc-hero {{heroHidden ? 'sc-hero-hidden' : ''}}" style="{{heroStyle}}">
     <image class="sc-avatar" src="{{card.avatar_url}}" mode="aspectFill" />
     <view class="sc-name">{{card.nickname}}</view>
     <view class="sc-sub">
@@ -59,7 +56,10 @@
 
     <!-- 作品展示 -->
     <view class="sc-card-dark" wx:if="{{card.works.length > 0}}">
-      <view class="sc-sch-title">作品展示</view>
+      <view class="sc-sch-title">
+        <view>作品展示</view>
+        <view class="sc-works-expand" bindtap="onExpandWorks">展开</view>
+      </view>
       <scroll-view class="sc-works-scroll" scroll-x enable-flex>
         <view class="sc-works-list">
           <view class="sc-work-item" wx:for="{{card.works}}" wx:key="index">
@@ -84,6 +84,22 @@
       <view class="iconfont icon-share sc-btn-icon"></view>
       <view>分享给好友</view>
     </button>
+  </view>
+
+  <!-- 作品全屏弹层 -->
+  <view class="sc-works-overlay" wx:if="{{showWorksFull}}">
+    <view class="sc-works-overlay-bar">
+      <view class="sc-works-overlay-title">作品展示</view>
+      <view class="sc-works-overlay-close" bindtap="onCloseWorksFull">关闭</view>
+    </view>
+    <scroll-view class="sc-works-overlay-scroll" scroll-y enable-flex>
+      <view class="sc-works-overlay-grid">
+        <view class="sc-works-overlay-item" wx:for="{{card.works}}" wx:key="index">
+          <image class="sc-works-overlay-img" src="{{item.image_url}}" mode="aspectFill" />
+          <view class="sc-works-overlay-name" wx:if="{{item.title}}">{{item.title}}</view>
+        </view>
+      </view>
+    </scroll-view>
   </view>
 </view>
 

@@ -74,6 +74,38 @@ Page({
     })
   },
 
+  onShareInvite() {
+    this.setData({ sharePending: true })
+    wx.showToast({ title: '点击右上角转发', icon: 'none' })
+  },
+
+  onShareAppMessage() {
+    var teamId = this.data.teamId
+    var teamName = this.data.team ? this.data.team.name : '我的团队'
+    return {
+      title: '邀请你加入「' + teamName + '」',
+      path: '/pages/team/list?inviteTeam=' + teamId
+    }
+  },
+
+  onEditName() {
+    var curName = this.data.team ? this.data.team.name : ''
+    wx.showModal({
+      title: '修改团队昵称',
+      editable: true,
+      placeholderText: '请输入团队昵称',
+      content: curName,
+      success: async (res) => {
+        if (!res.confirm) return
+        var newName = (res.content || '').trim()
+        if (!newName || newName === curName) return
+        await teamApi.updateTeam(this.data.teamId, { name: newName })
+        wx.showToast({ title: '已修改', icon: 'none' })
+        this.loadData()
+      }
+    })
+  },
+
   onMemberTap(e: any) {
     const userId = e.currentTarget.dataset.uid
     if (!userId) return
