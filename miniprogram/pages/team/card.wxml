@@ -75,8 +75,8 @@
   <view class="sc-works-overlay" wx:if="{{showWorksFull}}">
     <view class="sc-works-overlay-bar" style="padding-top: calc(24rpx + {{heroPaddingTop}})">
       <view class="sc-works-overlay-title">作品展示</view>
-      <view class="sc-works-overlay-close" bindtap="onCloseWorksFull">关闭</view>
     </view>
+    <view class="sc-works-overlay-close" style="top: calc(24rpx + {{heroPaddingTop}}); right: {{closeRight}}" bindtap="onCloseWorksFull">关闭</view>
     <scroll-view class="sc-works-overlay-scroll" scroll-y enable-flex>
       <view class="sc-works-overlay-grid">
         <view class="sc-works-overlay-item" wx:for="{{card.works}}" wx:key="index">

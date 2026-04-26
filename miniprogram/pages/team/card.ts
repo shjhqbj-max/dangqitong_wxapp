@@ -22,6 +22,7 @@ Page({
     bgGradient: '',
     loading: true,
     heroPaddingTop: '',
+    closeRight: '',
     showWorksFull: false
   },
 
@@ -33,7 +34,9 @@ Page({
       return
     }
     const windowInfo = wx.getWindowInfo()
-    this.setData({ heroPaddingTop: windowInfo.statusBarHeight + 'px' })
+    const menuRect = wx.getMenuButtonBoundingClientRect()
+    const closeRight = (windowInfo.screenWidth - menuRect.left) + 'px'
+    this.setData({ heroPaddingTop: windowInfo.statusBarHeight + 'px', closeRight })
     this.loadCard(userId)
   },
 
