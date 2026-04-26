@@ -1,0 +1,106 @@
+<wxs module="h" src="../../utils/helpers.wxs" />
+<nav-bar left-text="管理团队" bindlefttap="onGoManage" />
+
+<!-- 团队切换器 -->
+<view class="t-hero card-top">
+  <view class="t-team-switcher" bindtap="onToggleTeamPicker">
+    <span class="t-team-name">{{teams[currentTeamIdx].name || '我的团队'}}</span>
+    <span class="iconfont icon-arrow-down t-team-arrow {{showTeamPicker ? 't-team-arrow-up' : ''}}"></span>
+  </view>
+  <view class="t-team-tags" wx:if="{{teams[currentTeamIdx].service_types}}">
+    <view class="t-team-tag" wx:for="{{teams[currentTeamIdx].service_types}}" wx:key="*this">{{item}}</view>
+  </view>
+</view>
+
+<!-- 团队下拉遮罩 -->
+<view class="t-picker-mask" wx:if="{{showTeamPicker}}" bindtap="onCloseTeamPicker"></view>
+
+<!-- 团队下拉列表 -->
+<view class="t-team-dropdown {{showTeamPicker ? 't-team-dropdown-open card-top' : ''}}" style="top: {{dropTop}}px">
+  <view class="t-team-option {{currentTeamIdx === idx ? 't-team-option-active' : ''}}"
+        wx:for="{{teams}}" wx:key="team_id" wx:for-index="idx"
+        data-idx="{{idx}}" bindtap="onTeamSelect">
+    <span class="t-team-option-name">{{item.name}}</span>
+    <span class="t-team-option-meta">{{item.member_count}}人 · {{item.my_role === 'admin' ? '管理员' : '成员'}}</span>
+  </view>
+</view>
+
+<!-- 周日历 -->
+<view class="card t-week-cal">
+  <view class="t-week-arrow" bindtap="onWeekPrev">
+    <span class="iconfont icon-arrow-left t-week-arrow-icon"></span>
+  </view>
+  <view class="t-week-scroll-wrap">
+    <scroll-view class="t-week-scroll" scroll-x enable-flex
+      scroll-into-view="{{scrollTarget}}" scroll-with-animation bindscroll="onWeekScroll">
+      <view class="t-week-cell {{item.isToday ? 't-cell-today' : ''}} {{item.isSelected ? 't-cell-selected' : ''}}"
+            wx:for="{{dateList}}" wx:key="date" id="day-{{item.date}}"
+            data-date="{{item.date}}" bindtap="onDayTap">
+        <span class="t-week-day">{{item.weekday}}</span>
+        <span class="t-week-num">{{item.day}}</span>
+      </view>
+    </scroll-view>
+    <span class="t-week-month">{{currentMonth}}</span>
+  </view>
+  <view class="t-week-arrow" bindtap="onWeekNext">
+    <span class="iconfont icon-arrow-right t-week-arrow-icon"></span>
+  </view>
+</view>
+
+<!-- 已排期成员 -->
+<view class="t-section" wx:if="{{busyMembers.length > 0}}">
+  <view class="t-section-header">
+    <span class="t-section-title">已排期</span>
+    <span class="t-section-count">{{busyMembers.length}}人</span>
+  </view>
+  <view class="card t-member-card" wx:for="{{busyMembers}}" wx:key="user_id"
+      data-uid="{{item.user_id}}" bindtap="onMemberTap">
+    <image class="t-member-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
+    <view class="t-member-body">
+      <view class="t-member-top">
+        <span class="t-member-name">{{item.nickname}}</span>
+        <view class="t-member-pro pro-{{h.getProClass(item.professions[0])}}">
+          <span>{{item.professions[0]}}</span>
+        </view>
+        <view class="badge t-status-badge-{{item.status}}">{{h.getTeamStatusText(item.status)}}</view>
+      </view>
+      <view class="t-member-bottom" wx:if="{{item.start_time || item.location}}">
+        <view class="t-member-detail" wx:if="{{item.start_time}}">
+          <span class="iconfont icon-clock t-detail-icon"></span>
+          <span>{{item.start_time}}-{{item.end_time}}</span>
+        </view>
+        <view class="t-member-detail" wx:if="{{item.location}}">
+          <span class="iconfont icon-location t-detail-icon"></span>
+          <span>{{h.getLocationShort(item.location)}}</span>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 空闲成员 -->
+<view class="t-section" wx:if="{{freeMembers.length > 0}}">
+  <view class="t-section-header">
+    <span class="t-section-title">空闲</span>
+    <span class="t-section-count">{{freeMembers.length}}人</span>
+  </view>
+  <view class="card t-free-card">
+    <view class="t-free-item" wx:for="{{freeMembers}}" wx:key="user_id"
+      data-uid="{{item.user_id}}" bindtap="onMemberTap">
+      <image class="t-free-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
+      <view class="t-free-info">
+        <span class="t-free-name">{{item.nickname}}</span>
+        <span class="t-free-pro pro-{{h.getProClass(item.professions[0])}}">{{item.professions[0]}}</span>
+      </view>
+      <view class="badge badge-free">空闲</view>
+    </view>
+  </view>
+</view>
+
+<!-- 空状态 -->
+<view class="empty-state" wx:if="{{!loading && scheduleList.length === 0}}">
+  <span class="iconfont icon-calendar empty-icon"></span>
+  <span class="empty-title">当日无排期</span>
+</view>
+
+<view class="safe-bottom" />
