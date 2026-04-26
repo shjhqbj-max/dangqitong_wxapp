@@ -1,0 +1,77 @@
+<wxs module="h" src="../../utils/helpers.wxs" />
+
+<!-- 档期卡页面 -->
+<view class="sc-page" wx:if="{{card}}">
+  <!-- 背景渐变 -->
+  <view class="sc-bg" style="background: {{bgGradient}}"></view>
+
+  <!-- 浮动顶栏 -->
+  <view class="sc-topbar">
+    <view class="sc-topbar-back" bindtap="onBack">
+      <span class="iconfont icon-arrow-left sc-topbar-icon"></span>
+    </view>
+    <view class="sc-topbar-share" catchtap="onShareAppMessage">
+      <span class="iconfont icon-share sc-topbar-icon"></span>
+    </view>
+  </view>
+
+  <!-- 头像 + 基本信息 -->
+  <view class="sc-hero">
+    <image class="sc-avatar" src="{{card.avatar_url}}" mode="aspectFill" />
+    <view class="sc-name">{{card.nickname}}</view>
+    <view class="sc-sub">
+      <span>{{card.profession}}</span>
+      <span wx:if="{{card.city}}"> · {{card.city}}</span>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <scroll-view class="sc-body" scroll-y>
+    <!-- 信息卡 -->
+    <view class="sc-card-dark">
+      <view class="sc-bio" wx:if="{{card.bio}}">{{card.bio}}</view>
+      <view class="sc-info-row">
+        <span class="sc-info-label">报价</span>
+        <span class="sc-info-value">{{card.price_text}}</span>
+      </view>
+      <view class="sc-info-row" wx:if="{{card.phone}}">
+        <span class="sc-info-label">电话</span>
+        <span class="sc-info-value">{{card.phone}}</span>
+      </view>
+    </view>
+
+    <!-- 档期列表 -->
+    <view class="sc-card-dark" wx:if="{{card.schedules.length > 0}}">
+      <view class="sc-sch-title">已定档期</view>
+      <view class="sc-sch-item" wx:for="{{card.schedules}}" wx:key="date">
+        <span class="sc-sch-date">{{item.date}}</span>
+        <span class="sc-sch-name">{{item.title}}</span>
+        <span class="sc-sch-loc">{{h.getLocationShort(item.location)}}</span>
+      </view>
+      <view class="sc-sch-update">更新于 {{card.updated_at}}</view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="sc-card-dark" wx:if="{{card.schedules.length === 0}}">
+      <view class="sc-sch-title">已定档期</view>
+      <view class="sc-empty">暂无档期安排</view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部操作栏 -->
+  <view class="sc-bottom safe-bottom">
+    <view class="sc-btn-save" bindtap="onSaveImage">
+      <span class="iconfont icon-download sc-btn-icon"></span>
+      <span>保存图片</span>
+    </view>
+    <button class="sc-btn-share" open-type="share">
+      <span class="iconfont icon-share sc-btn-icon"></span>
+      <span>分享给好友</span>
+    </button>
+  </view>
+</view>
+
+<!-- 加载中 -->
+<view class="sc-loading" wx:if="{{loading}}">
+  <span>加载中...</span>
+</view>
