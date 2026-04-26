@@ -134,6 +134,24 @@ Page({
     wx.navigateTo({ url: '/pages/team/card?userId=' + userId })
   },
 
+  onEditServiceTypes() {
+    const curTypes = this.data.team?.service_types || []
+    wx.showModal({
+      title: '服务类型',
+      editable: true,
+      placeholderText: '用逗号分隔，如：婚礼摄影,婚礼摄像,航拍',
+      content: curTypes.join(','),
+      success: async (res) => {
+        if (!res.confirm) return
+        const input = (res.content || '').trim()
+        const types = input ? input.split(/[,，]/).map(s => s.trim()).filter(Boolean) : []
+        await teamApi.updateTeam(this.data.teamId, { service_types: types })
+        wx.showToast({ title: '已更新', icon: 'none' })
+        this.loadData()
+      }
+    })
+  },
+
   onLeaveTeam() {
     wx.showModal({
       title: '退出团队',

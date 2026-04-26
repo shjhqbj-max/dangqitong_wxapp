@@ -142,6 +142,12 @@
   color: var(--color-text-tertiary);
 }
 
+.m-setting-divider {
+  height: 1rpx;
+  background: var(--color-border-light);
+  margin: 0 var(--space-3);
+}
+
 /* ====== 邀请卡片 ====== */
 .m-invite-card {
   padding: 0 !important;
