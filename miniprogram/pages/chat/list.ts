@@ -12,7 +12,6 @@ Page({
     unreadNotiCount: 0,
     defaultAvatar: 'https://i.pravatar.cc/150?img=60',
     loading: false,
-    showSearch: false,
     searchKey: '',
     navBarHeight: 0
   },
@@ -25,7 +24,8 @@ Page({
 
   onShow() {
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-      this.getTabBar().setData({ active: 2, bgColor: '#F8FAFC', showGradient: true })
+      var theme = (wx.getSystemInfoSync().theme || 'light')
+      this.getTabBar().setData({ active: 2, bgColor: theme === 'dark' ? '#0F172A' : '#F8FAFC', showGradient: true })
     }
     this.loadData()
   },
@@ -56,16 +56,7 @@ Page({
   },
 
   onNotifyCardTap() {
-    // 标记所有通知已读
-    const notifications = this.data.notifications.map(n => {
-      if (!n.is_read) {
-        chatApi.markRead(n.notification_id)
-        return Object.assign({}, n, { is_read: true })
-      }
-      return n
-    })
-    this.setData({ notifications, unreadNotiCount: 0 })
-    wx.showToast({ title: '已读全部', icon: 'none' })
+    wx.navigateTo({ url: '/pages/chat/system' })
   },
 
   onNavBarHeight(e: any) {
@@ -73,11 +64,7 @@ Page({
   },
 
   onSearchTap() {
-    this.setData({ showSearch: true })
-  },
-
-  onSearchClose() {
-    this.setData({ showSearch: false, searchKey: '' })
+    this.setData({ searchKey: '' })
   },
 
   onSearchInput(e: any) {

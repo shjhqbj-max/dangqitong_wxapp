@@ -10,25 +10,9 @@
 }
 
 /* ====== 默认态：系统消息 ====== */
-.ch-hero-default {
-  display: flex;
-  align-items: center;
-}
 
-.ch-hero-default .ch-notify-entry {
-  flex: 1;
-  min-width: 0;
-}
-
-/* ====== 搜索态 ====== */
-.ch-hero-search {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.ch-search-active {
-  flex: 1;
+/* ====== 搜索输入框（无未读消息时） ====== */
+.ch-search-bar {
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -66,13 +50,6 @@
 .ch-search-clear-icon {
   font-size: 20rpx;
   color: var(--color-on-primary);
-}
-
-.ch-search-cancel {
-  font-size: var(--font-base);
-  color: var(--color-primary);
-  flex-shrink: 0;
-  white-space: nowrap;
 }
 
 /* ====== 系统消息入口 ====== */
@@ -191,6 +168,10 @@
 
 .ch-avatar-temp {
   background: var(--color-warning, #f0a020);
+}
+
+.ch-avatar-system {
+  background: var(--color-info, #3b82f6);
 }
 
 .ch-item-body {

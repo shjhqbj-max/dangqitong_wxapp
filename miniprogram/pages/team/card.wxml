@@ -7,7 +7,7 @@
     <view class="sc-hero-back" style="top: {{heroPaddingTop}}" bindtap="onBack">
       <view class="iconfont icon-arrow-left sc-hero-back-icon"></view>
     </view>
-    <image class="sc-avatar" src="{{card.avatar_url}}" mode="aspectFill" />
+    <image class="sc-avatar" src="{{card.avatar_url || '../../images/avatar.png'}}" mode="aspectFill" />
     <view class="sc-name">{{card.nickname}}</view>
     <view class="sc-sub">
       <text>{{card.profession}}</text>

@@ -3,6 +3,17 @@
   min-height: 100vh;
 }
 
+/* ====== 遮罩层 ====== */
+.detail-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 40;
+  background: rgba(0, 0, 0, 0.4);
+}
+
 /* ====== Hero 头部 ====== */
 .detail-hero {
   position: fixed;
@@ -11,7 +22,6 @@
   right: 0;
   z-index: 50;
   background: var(--color-bg-card);
-  box-shadow: var(--shadow-b);
 }
 
 .hero-content {
@@ -67,8 +77,8 @@
 }
 
 .badge-active {
-  background: rgba(34, 197, 94, 0.1);
-  color: #22c55e;
+  background: var(--color-success-bg);
+  color: var(--color-success);
 }
 
 .badge-grabbed {
@@ -246,7 +256,7 @@
 /* 抢单列表 */
 .grabber-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-2);
   padding: var(--space-2) 0;
   border-bottom: 1rpx solid var(--color-border-light);
@@ -344,7 +354,7 @@
   width: 12rpx;
   height: 12rpx;
   border-radius: var(--radius-full);
-  background: var(--color-success, #22c55e);
+  background: var(--color-success);
 }
 
 .role-dot-full {
@@ -372,4 +382,115 @@
 
 .action-link-icon {
   font-size: var(--font-sm);
+}
+
+/* 抢单列表 — 报价行 */
+.grabber-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.grabber-price {
+  font-size: var(--font-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+}
+
+.grabber-intro {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+  line-height: 1.5;
+  margin-top: 4rpx;
+}
+
+/* ====== 内联抢单表单 ====== */
+.grab-form {
+  margin: var(--space-3) 0;
+  background: var(--color-bg-card);
+  border-top: 1rpx solid var(--color-border-light);
+  padding-top: var(--space-3);
+}
+
+.grab-form-title {
+  font-size: var(--font-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.grab-form-row {
+  margin-bottom: var(--space-2);
+}
+
+.grab-form-label {
+  display: block;
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+  margin-bottom: 6rpx;
+}
+
+.grab-form-input {
+  width: 100%;
+  height: 68rpx;
+  background: var(--color-bg-page);
+  border: 1rpx solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: 0 var(--space-2);
+  font-size: var(--font-sm);
+  color: var(--color-text-primary);
+  box-sizing: border-box;
+}
+
+.grab-form-textarea {
+  width: 100%;
+  height: 120rpx;
+  background: var(--color-bg-page);
+  border: 1rpx solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-sm);
+  color: var(--color-text-primary);
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+.grab-form-btns {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.grab-form-cancel {
+  flex: 1;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-muted);
+  color: var(--color-text-secondary);
+  font-size: var(--font-sm);
+  font-weight: var(--weight-medium);
+  border-radius: var(--radius-md);
+}
+
+.grab-form-cancel:active {
+  opacity: 0.7;
+}
+
+.grab-form-submit {
+  flex: 2;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: var(--font-sm);
+  font-weight: var(--weight-bold);
+  border-radius: var(--radius-md);
+}
+
+.grab-form-submit:active {
+  opacity: 0.7;
 }

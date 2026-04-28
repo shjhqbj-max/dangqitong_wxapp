@@ -21,7 +21,12 @@ Page({
     professionMatch: false,
     matchedSlots: [] as ProfessionSlot[],
     isGuest: true,
-    heroH: 0
+    heroH: 0,
+    // 抢单表单
+    showGrabForm: false,
+    grabProfession: '',
+    grabFormPrice: '',
+    grabFormIntro: ''
   },
 
   onLoad(options: any) {
@@ -89,7 +94,7 @@ Page({
     }
   },
 
-  async onGrab() {
+  onGrab() {
     if (this.data.isGuest) {
       wx.navigateTo({ url: '/pages/login/index?redirect=' + encodeURIComponent('/pages/orders/detail?id=' + this.data.orderId) })
       return
@@ -106,10 +111,9 @@ Page({
     }
 
     var matched = this.data.matchedSlots
-    var targetProfession = ''
 
     if (matched.length === 1) {
-      targetProfession = matched[0].profession
+      this._openGrabForm(matched[0].profession, matched[0].price)
     } else {
       // 多个可抢角色，弹出选择
       var items = matched.map(function(s) { return s.profession + ' ¥' + s.price })
@@ -117,23 +121,45 @@ Page({
       wx.showActionSheet({
         itemList: items,
         success: function(res) {
-          var prof = matched[res.tapIndex].profession
-          self._doGrab(prof)
+          var slot = matched[res.tapIndex]
+          self._openGrabForm(slot.profession, slot.price)
         }
       })
-      return
     }
-
-    this._doGrab(targetProfession)
   },
 
-  async _doGrab(profession: string) {
-    var res = await ordersApi.grabOrder(this.data.orderId, profession)
+  _openGrabForm(profession: string, defaultPrice: number) {
+    this.setData({
+      showGrabForm: true,
+      grabProfession: profession,
+      grabFormPrice: defaultPrice > 0 ? String(defaultPrice) : '',
+      grabFormIntro: ''
+    })
+  },
+
+  onCancelGrabForm() {
+    this.setData({ showGrabForm: false })
+  },
+
+  onGrabFormPriceInput(e: any) {
+    this.setData({ grabFormPrice: e.detail.value })
+  },
+
+  onGrabFormIntroInput(e: any) {
+    this.setData({ grabFormIntro: e.detail.value })
+  },
+
+  async onSubmitGrab() {
+    var price = Number(this.data.grabFormPrice) || 0
+    var intro = this.data.grabFormIntro.trim()
+    var profession = this.data.grabProfession
+
+    this.setData({ showGrabForm: false })
+
+    var res = await ordersApi.grabOrder(this.data.orderId, profession, price, intro)
     if (res.code === 200) {
       this.setData({ hasGrabbed: true })
-      wx.showToast({ title: '抢单成功（' + profession + '）', icon: 'none' })
-
-      // 抢单成功后建临时群
+      wx.showToast({ title: '抢单成功', icon: 'none' })
       this._createGrabChat(profession)
       this.loadOrder(this.data.orderId)
     }

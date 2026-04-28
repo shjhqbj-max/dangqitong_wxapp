@@ -2,7 +2,7 @@
   <!-- 单行输入 -->
   <view class="ci-field" wx:if="{{type === 'text'}}">
     <input class="ci-input" value="{{value}}" placeholder="请输入{{title}}"
-      focus="{{true}}" bindinput="onInput" maxlength="50" />
+      focus="{{true}}" bindinput="onInput" maxlength="50" adjust-position="{{false}}" />
     <view class="ci-clear" wx:if="{{value.length > 0}}" bindtap="onClear">
       <span class="iconfont icon-close ci-clear-icon"></span>
     </view>
@@ -11,14 +11,14 @@
   <!-- 多行输入 -->
   <view class="ci-textarea-field" wx:if="{{type === 'textarea'}}">
     <textarea class="ci-textarea" value="{{value}}" placeholder="请输入{{title}}"
-      focus="{{true}}" bindinput="onInput" maxlength="200" auto-height />
+      focus="{{true}}" bindinput="onInput" maxlength="200" auto-height adjust-position="{{false}}" />
     <view class="ci-count">{{value.length}} / 200</view>
   </view>
 
   <!-- 数字输入 -->
   <view class="ci-field" wx:if="{{type === 'number'}}">
     <input class="ci-input" type="digit" value="{{value}}" placeholder="请输入{{title}}"
-      focus="{{true}}" bindinput="onInput" />
+      focus="{{true}}" bindinput="onInput" adjust-position="{{false}}" />
     <view class="ci-clear" wx:if="{{value.length > 0}}" bindtap="onClear">
       <span class="iconfont icon-close ci-clear-icon"></span>
     </view>
@@ -27,14 +27,48 @@
   <!-- 手机号输入 -->
   <view class="ci-field" wx:if="{{type === 'phone'}}">
     <input class="ci-input" type="number" value="{{value}}" placeholder="请输入手机号"
-      focus="{{true}}" bindinput="onInput" maxlength="11" />
+      focus="{{true}}" bindinput="onInput" maxlength="11" adjust-position="{{false}}" />
     <view class="ci-clear" wx:if="{{value.length > 0}}" bindtap="onClear">
       <span class="iconfont icon-close ci-clear-icon"></span>
     </view>
   </view>
+
+  <!-- 发布作品：图片预览 + 标题 -->
+  <block wx:if="{{type === 'work'}}">
+    <view class="ci-work-image-wrap" wx:if="{{imageUrl}}">
+      <image class="ci-work-image" src="{{imageUrl}}" mode="aspectFill" bindtap="onReplaceImage" />
+      <view class="ci-work-image-tip">
+        <span class="iconfont icon-camera ci-work-image-tip-icon"></span>
+        <span>点击更换图片</span>
+      </view>
+    </view>
+    <view class="ci-work-no-image" wx:if="{{!imageUrl}}" bindtap="chooseImage">
+      <span class="iconfont icon-camera ci-work-no-image-icon"></span>
+      <span class="ci-work-no-image-text">选择图片</span>
+    </view>
+    <view class="ci-field ci-work-title-field">
+      <input class="ci-input" value="{{workTitle}}" placeholder="输入作品标题（选填）"
+        bindinput="onWorkTitleInput" maxlength="30" />
+    </view>
+  </block>
+
+  <!-- 发布动态：视频链接 -->
+  <block wx:if="{{type === 'post'}}">
+    <view class="ci-post-hint">
+      <span class="iconfont icon-video ci-post-hint-icon"></span>
+      <span>支持抖音、优酷、土豆等视频平台链接</span>
+    </view>
+    <view class="ci-field">
+      <input class="ci-input" value="{{videoUrl}}" placeholder="请粘贴视频链接"
+        focus="{{true}}" bindinput="onVideoUrlInput" />
+      <view class="ci-clear" wx:if="{{videoUrl.length > 0}}" bindtap="onClearVideo">
+        <span class="iconfont icon-close ci-clear-icon"></span>
+      </view>
+    </view>
+  </block>
 </view>
 
 <!-- 底部固定操作栏 -->
 <view class="ci-footer">
-  <view class="ci-save" bindtap="onSave">保存</view>
+  <view class="ci-save {{saving ? 'ci-save-disabled' : ''}}" bindtap="onSave">{{saving ? '保存中...' : '保存'}}</view>
 </view>

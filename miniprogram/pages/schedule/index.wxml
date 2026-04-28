@@ -145,19 +145,6 @@
 <view class="c-body">
 	<!-- 档期列表 -->
 	<block wx:for="{{scheduleList}}" wx:key="id" wx:for-index="idx">
-		<!-- 广场入口 -->
-		<view class="c-mini-banner" wx:if="{{orderCount > 0 && !bannerClosed && !searchKeyword && !filterStatus && !filterPayment && !filterCompletion && filterTeam && idx === bannerIdx}}" bindtap="onGoSquare">
-			<view class="c-ban-content">
-				<view>
-					<span class="c-ban-title">工单广场</span>
-					<span class="c-ban-desc">附近 {{orderCount}} 条工单</span>
-				</view>
-				<view class="c-ban-right">
-					<view class="c-ban-btn">去看看</view>
-					<span class="iconfont icon-close c-ban-close" catchtap="onCloseBanner" />
-				</view>
-			</view>
-		</view>
 		<!-- 档期项 -->
 		<view class="schedule-item" data-id="{{item.id}}" bindtap="onScheduleTap">
 			<view class="schedule-item-info">
@@ -174,6 +161,19 @@
 			</view>
 		</view>
 	</block>
+	<!-- 广场入口 -->
+	<view class="c-mini-banner" bindtap="onGoSquare">
+		<view class="c-ban-content">
+			<view>
+				<span class="c-ban-title">工单广场</span>
+				<span class="c-ban-desc" wx:if="{{orderCount > 0}}">附近 {{orderCount}} 条工单</span>
+				<span class="c-ban-desc" wx:else>查看附近工单</span>
+			</view>
+			<view class="c-ban-right">
+				<view class="c-ban-btn">去看看</view>
+			</view>
+		</view>
+	</view>
 	<!-- 空状态 -->
 	<view class="empty-state" wx:if="{{scheduleList.length === 0}}">
 		<span class="iconfont icon-calendar empty-icon"></span>

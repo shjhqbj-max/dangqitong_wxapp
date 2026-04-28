@@ -24,6 +24,10 @@ Component({
     rightText: {
       type: String,
       value: ''
+    },
+    leftIcon: {
+      type: String,
+      value: ''
     }
   },
   data: {

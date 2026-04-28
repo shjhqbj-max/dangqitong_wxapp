@@ -1,8 +1,65 @@
 <wxs module="h" src="../../utils/helpers.wxs" />
-<nav-bar title="{{chatName}}" />
 
-<view class="ch-detail-body">
-  <!-- 消息列表 -->
+<!-- 顶部信息卡片 -->
+<view class="ch-header-card  card-top" wx:if="{{chatType}}">
+  <!-- 档期群卡片：左侧基本信息 + 右侧成员按钮 -->
+  <view class="ch-card-schedule" wx:if="{{chatType === 'schedule_temp' && scheduleInfo}}">
+    <view class="ch-schedule-main">
+      <view class="ch-schedule-info">
+        <view class="ch-card-row">
+          <span class="ch-card-title">{{h.formatDateShort(scheduleInfo.date)}}</span>
+          <span class="ch-card-sub" wx:if="{{scheduleInfo.location}}">{{scheduleInfo.location}}</span>
+        </view>
+        <view class="ch-card-meta" wx:if="{{scheduleInfo.start_time && scheduleInfo.end_time}}">
+          <span class="ch-card-tag">{{scheduleInfo.start_time}} ~ {{scheduleInfo.end_time}}</span>
+        </view>
+      </view>
+      <view class="ch-member-btn" bindtap="onToggleMemberPanel">
+        <span class="ch-member-btn-text">成员列表</span>
+        <span class="iconfont icon-arrow-down ch-member-btn-icon"></span>
+      </view>
+    </view>
+  </view>
+  <!-- 团队群卡片：左侧统计 + 右侧团队主页链接 -->
+  <view class="ch-card-team" wx:if="{{chatType === 'team'}}">
+    <view class="ch-team-stats">
+      <view class="ch-team-stats-row">总档期 {{teamStats.total}} 个，完成 {{teamStats.done}} 个，待处理 {{teamStats.pending}} 个</view>
+      <view class="ch-team-stats-sub">团队成员 {{memberCount}} 人</view>
+    </view>
+    <view class="ch-team-link" bindtap="onGoTeamProfile">
+      <span class="ch-team-link-text">主页</span>
+      <span class="iconfont icon-chevron-right ch-team-link-icon"></span>
+    </view>
+  </view>
+  <!-- 私聊安全提醒 -->
+  <view class="ch-card-private" wx:if="{{chatType === 'private'}}">
+    <view class="ch-card-warn">
+      <span class="iconfont icon-lightning ch-card-warn-icon"></span>
+      <span class="ch-card-warn-text">请守约守时，保护个人隐私，勿轻信转账要求</span>
+    </view>
+  </view>
+</view>
+
+<!-- 成员列表弹出面板 -->
+<view class="ch-member-panel-mask" wx:if="{{showMemberPanel}}" bindtap="onToggleMemberPanel"></view>
+<view class="ch-member-panel {{showMemberPanel ? 'ch-member-panel-show' : ''}}">
+  <view class="ch-member-panel-header">
+    <span class="ch-member-panel-title">群成员</span>
+    <span class="iconfont icon-close ch-member-panel-close" bindtap="onToggleMemberPanel"></span>
+  </view>
+  <view class="ch-member-panel-list">
+    <view class="ch-member-panel-item" wx:for="{{members}}" wx:key="user_id" data-uid="{{item.user_id}}" bindtap="onMemberTap">
+      <image class="ch-member-panel-avatar" src="{{item.avatar_url || '../../images/avatar.png'}}" mode="aspectFill" />
+      <view class="ch-member-panel-body">
+        <span class="ch-member-panel-name">{{item.nickname}}</span>
+        <span class="ch-member-panel-pro" wx:if="{{item.professions.length > 0}}">{{item.professions[0]}}</span>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 消息列表 -->
+<view class="ch-scroll-wrap">
   <scroll-view class="ch-scroll" scroll-y scroll-top="{{scrollTop}}" scroll-with-animation>
     <view class="ch-msg-group" wx:for="{{messages}}" wx:key="message_id">
       <!-- 时间分割线 -->
@@ -15,9 +72,9 @@
       </view>
       <!-- 普通消息气泡 -->
       <view wx:elif="{{item.msg_type !== 'system'}}" class="ch-msg-row {{item.isSelf ? 'ch-msg-self' : ''}}">
-        <image wx:if="{{!item.isSelf}}" class="ch-msg-avatar" src="{{item.sender_avatar}}" mode="aspectFill" />
+        <image wx:if="{{!item.isSelf}}" class="ch-msg-avatar" src="{{item.sender_avatar || '../../images/avatar.png'}}" mode="aspectFill" />
         <view class="ch-msg-bubble">
-          <text wx:if="{{item.msg_type === 'text'}}">{{item.content}}</text>
+          <span wx:if="{{item.msg_type === 'text'}}">{{item.content}}</span>
           <image wx:if="{{item.msg_type === 'image'}}" class="ch-msg-img" src="{{item.content}}" mode="widthFix"
                  bindtap="onPreviewImage" data-src="{{item.content}}" />
           <view wx:if="{{item.msg_type === 'location'}}" class="ch-msg-location" bindtap="onOpenLocation" data-addr="{{item.content}}">
@@ -25,17 +82,17 @@
             <span class="ch-msg-location-text">{{item.content}}</span>
           </view>
         </view>
-        <image wx:if="{{item.isSelf}}" class="ch-msg-avatar" src="{{item.sender_avatar}}" mode="aspectFill" />
       </view>
     </view>
   </scroll-view>
 </view>
 
 <!-- 底部输入栏 -->
-<view class="ch-input-bar">
-  <input class="ch-input" placeholder="输入消息" value="{{inputValue}}"
-         bindinput="onInput" bindconfirm="onSendText" confirm-type="send" />
-  <view class="ch-input-icons">
+<view class="ch-input-bar" style="padding-bottom: calc(var(--space-2) + {{keyboardHeight}}px{{keyboardHeight === 0 ? ' + env(safe-area-inset-bottom, 0px)' : ''}})">
+  <input class="ch-input" placeholder="输入消息..." value="{{inputValue}}"
+         bindinput="onInput" bindconfirm="onSendText" confirm-type="send"
+         bindfocus="onInputFocus" bindblur="onInputBlur" adjust-position="{{false}}" />
+  <view class="ch-input-actions" wx:if="{{!inputFocused}}">
     <span class="iconfont icon-image ch-input-icon" bindtap="onSendImage"></span>
     <span class="iconfont icon-location ch-input-icon" bindtap="onSendLocation"></span>
   </view>

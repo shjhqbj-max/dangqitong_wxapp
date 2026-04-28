@@ -19,15 +19,23 @@
             </view>
           </view>
         </view>
-        <view class="completion-pill {{assignedToMe ? 'completion-pill-disabled' : ''}} {{completionExpanded ? 'completion-pill-expanded' : ''}}" wx:if="{{schedule.status !== 'rest'}}">
-          <view class="completion-pill-trigger" bindtap="onCompletionToggle">
+        <view class="completion-pill {{assignedToMe ? 'completion-pill-disabled' : ''}} {{completionExpanded ? 'completion-pill-expanded' : ''}}" wx:if="{{schedule.status !== 'rest'}}" bindtap="onCompletionToggle">
+          <!-- 收起态 -->
+          <view class="completion-pill-collapsed" wx:if="{{!completionExpanded}}">
+            <span class="iconfont icon-arrow-left completion-pill-arrow" wx:if="{{isMine}}"></span>
             <span>{{completionLabel}}</span>
-            <span class="iconfont icon-arrow-down completion-pill-arrow {{completionExpanded ? 'completion-pill-arrow-up' : ''}}"></span>
           </view>
-          <view class="completion-pill-options" wx:if="{{completionExpanded}}">
-            <view class="completion-pill-option" bindtap="onCompletionSelect" data-value="uncompleted">未完成</view>
+          <!-- 展开态：选项菜单 -->
+          <view class="completion-pill-menu" wx:else>
+            <view class="completion-pill-option completion-pill-option--active" bindtap="onCompletionSelect" data-value="uncompleted">未完成</view>
+            <view class="completion-pill-divider"></view>
             <view class="completion-pill-option" bindtap="onCompletionSelect" data-value="completed">已完成</view>
+            <view class="completion-pill-divider"></view>
             <view class="completion-pill-option" bindtap="onCompletionSelect" data-value="cancelled">已取消</view>
+            <view class="completion-pill-divider"></view>
+            <view class="completion-pill-close" catchtap="onCompletionClose">
+              <span class="iconfont icon-chevron-right completion-pill-close-icon"></span>
+            </view>
           </view>
         </view>
       </view>
@@ -159,8 +167,7 @@
         </view>
         <view class="assign-member {{m.checked ? 'assign-member-checked' : ''}}" wx:for="{{item.members}}" wx:for-item="m" wx:key="user_id" bindtap="onToggleMember" data-id="{{m.user_id}}">
           <view class="assign-member-avatar">
-            <span wx:if="{{!m.avatar_url}}" class="assign-member-initial">{{m.nickname.charAt(0)}}</span>
-            <image wx:else src="{{m.avatar_url}}" class="assign-member-img" />
+            <image src="{{m.avatar_url || '../../images/avatar.png'}}" class="assign-member-img" />
           </view>
           <view class="assign-member-info">
             <span class="assign-member-name">{{m.nickname}}</span>

@@ -3,14 +3,23 @@ Component({
     active: 0,
     visible: true,
     showSheet: false,
-    bgColor: '#F8FAFC',
+    bgColor: (wx.getAppBaseInfo().theme || 'light') === 'dark' ? '#0F172A' : '#F8FAFC',
     showGradient: false,
+    msgDot: false,
     list: [
       { pagePath: '/pages/schedule/index', text: '档期', iconPath: '/images/tab/schedule.png', selectedIconPath: '/images/tab/schedule-active.png' },
       { pagePath: '/pages/team/list', text: '团队', iconPath: '/images/tab/team.png', selectedIconPath: '/images/tab/team-active.png' },
       { pagePath: '/pages/chat/list', text: '消息', iconPath: '/images/tab/message.png', selectedIconPath: '/images/tab/message-active.png' },
       { pagePath: '/pages/profile/index', text: '我的', iconPath: '/images/tab/profile.png', selectedIconPath: '/images/tab/profile-active.png' }
     ]
+  },
+
+  lifetimes: {
+    attached() {
+      wx.onThemeChange((res) => {
+        this.setData({ bgColor: res.theme === 'dark' ? '#0F172A' : '#F8FAFC' })
+      })
+    }
   },
 
   methods: {
@@ -41,13 +50,19 @@ Component({
           wx.navigateTo({ url: '/pages/orders/publish' })
           break
         case 'schedule-share':
-          wx.showToast({ title: '分享档期卡开发中', icon: 'none' })
+          const shareInfo = wx.getStorageSync('userInfo')
+          const shareId = shareInfo ? shareInfo.id : ''
+          if (shareId) {
+            wx.navigateTo({ url: '/pages/team/card?userId=' + shareId })
+          } else {
+            wx.showToast({ title: '请先登录', icon: 'none' })
+          }
           break
         case 'work':
-          wx.showToast({ title: '作品功能开发中', icon: 'none' })
+          wx.navigateTo({ url: '/pages/common/input?type=work&saveAction=card' })
           break
         case 'post':
-          wx.showToast({ title: '动态功能开发中', icon: 'none' })
+          wx.navigateTo({ url: '/pages/common/input?type=post&saveAction=card' })
           break
       }
     }

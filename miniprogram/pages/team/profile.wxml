@@ -39,7 +39,7 @@
           data-uid="{{item.user_id}}" bindtap="onMemberTap">
           <image class="tp-work-img" src="{{item.image_url}}" mode="aspectFill" />
           <view class="tp-work-info">
-            <image class="tp-work-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
+            <image class="tp-work-avatar" src="{{item.avatar_url || '../../images/avatar.png'}}" mode="aspectFill" />
             <view class="tp-work-meta">
               <view class="tp-work-nick">{{item.nickname}}</view>
               <view class="tp-work-title" wx:if="{{item.title}}">{{item.title}}</view>
@@ -53,7 +53,7 @@
     <block wx:if="{{activeTab === 'members'}}">
       <view class="card tp-member-card" wx:for="{{members}}" wx:key="user_id"
         data-uid="{{item.user_id}}" bindtap="onMemberTap">
-        <image class="tp-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
+        <image class="tp-avatar" src="{{item.avatar_url || '../../images/avatar.png'}}" mode="aspectFill" />
         <view class="tp-member-body">
           <view class="tp-member-top">
             <text class="tp-member-name">{{item.nickname}}</text>

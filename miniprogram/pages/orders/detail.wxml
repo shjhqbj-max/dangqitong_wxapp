@@ -2,6 +2,9 @@
 <wxs module="h" src="../../utils/helpers.wxs" />
 
 <view class="detail-page">
+  <!-- 遮罩层（表单展开时覆盖全屏） -->
+  <view class="detail-mask" wx:if="{{showGrabForm}}" bindtap="onCancelGrabForm"></view>
+
   <!-- Hero 头部（与 nav-bar 一体） -->
   <view class="detail-hero card-top">
     <view class="hero-content">
@@ -34,7 +37,24 @@
           <span class="hero-time-text">{{order.location}}</span>
         </view>
       </view>
-      <view class="hero-actions" wx:if="{{order.status === 'active'}}">
+      <!-- 抢单表单（内联展开） -->
+      <view class="grab-form" wx:if="{{showGrabForm}}">
+        <view class="grab-form-title">抢单 — {{grabProfession}}</view>
+        <view class="grab-form-row">
+          <span class="grab-form-label">报价（元）</span>
+          <input class="grab-form-input" type="digit" value="{{grabFormPrice}}" placeholder="输入你的报价" bindinput="onGrabFormPriceInput" />
+        </view>
+        <view class="grab-form-row">
+          <span class="grab-form-label">一句话介绍</span>
+          <textarea class="grab-form-textarea" value="{{grabFormIntro}}" placeholder="例：5年婚礼摄影经验，自带设备，出片快" maxlength="100" bindinput="onGrabFormIntroInput" />
+        </view>
+        <view class="grab-form-btns">
+          <view class="grab-form-cancel" bindtap="onCancelGrabForm">取消</view>
+          <view class="grab-form-submit" bindtap="onSubmitGrab">确认抢单</view>
+        </view>
+      </view>
+
+      <view class="hero-actions" wx:if="{{order.status === 'active' && !showGrabForm}}">
         <!-- 游客：始终显示「立即抢单」→ 跳转登录 -->
         <block wx:if="{{isGuest}}">
           <view class="hero-action-btn hero-action-btn-grab" bindtap="onGrab">
@@ -111,7 +131,7 @@
         <span class="info-card-title">发布者</span>
       </view>
       <view class="publisher-row">
-        <image class="publisher-avatar" src="{{order.publisher.avatar_url}}" mode="aspectFill" />
+        <image class="publisher-avatar" src="{{order.publisher.avatar_url || '../../images/avatar.png'}}" mode="aspectFill" />
         <view class="publisher-info">
           <span class="publisher-name">{{order.publisher.nickname}}</span>
           <span class="publisher-time">{{h.timeAgo(order.created_at)}} 发布</span>
@@ -139,10 +159,14 @@
         <span class="info-card-title">抢单列表（{{order.grabbers.length}}人）</span>
       </view>
       <view class="grabber-item" wx:for="{{order.grabbers}}" wx:key="user_id">
-        <image class="grabber-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
+        <image class="grabber-avatar" src="{{item.avatar_url || '../../images/avatar.png'}}" mode="aspectFill" />
         <view class="grabber-info">
-          <span class="grabber-name">{{item.nickname}}</span>
+          <view class="grabber-name-row">
+            <span class="grabber-name">{{item.nickname}}</span>
+            <span class="grabber-price" wx:if="{{item.quote_price}}">¥{{item.quote_price}}</span>
+          </view>
           <span class="grabber-meta">{{item.professions.join('、')}} · {{item.city}}</span>
+          <span class="grabber-intro" wx:if="{{item.intro}}">{{item.intro}}</span>
         </view>
         <span class="grabber-time">{{h.timeAgo(item.grabbed_at)}}</span>
       </view>
@@ -157,4 +181,5 @@
 
     <view class="safe-bottom"></view>
   </view>
+
 </view>

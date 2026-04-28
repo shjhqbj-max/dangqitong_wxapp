@@ -1,0 +1,52 @@
+<wxs module="h" src="../../utils/helpers.wxs" />
+<nav-bar title="我的档期" bindheight="onNavBarHeight" />
+
+<!-- 统计简报（固定顶部） -->
+<view class="ps-stats card-top" style="top: {{navBarHeight-1}}px">
+  <view class="ps-stat-item">
+    <span class="ps-stat-val">{{stats.total}}</span>
+    <span class="ps-stat-label">总档期</span>
+  </view>
+  <view class="ps-stat-item">
+    <span class="ps-stat-val ps-stat-conf">{{stats.confirmed}}</span>
+    <span class="ps-stat-label">已定</span>
+  </view>
+  <view class="ps-stat-item">
+    <span class="ps-stat-val ps-stat-pend">{{stats.pending}}</span>
+    <span class="ps-stat-label">预定</span>
+  </view>
+  <view class="ps-stat-item">
+    <span class="ps-stat-val ps-stat-rest">{{stats.rest}}</span>
+    <span class="ps-stat-label">休息</span>
+  </view>
+</view>
+
+<!-- 档期列表 -->
+<view class="ps-body">
+  <view class="ps-item card" wx:for="{{scheduleList}}" wx:key="id" data-id="{{item.id}}" bindtap="onScheduleTap">
+    <view class="ps-item-date">
+      <span class="ps-item-day">{{h.getDayNum(item.date)}}</span>
+      <span class="ps-item-month">{{h.getMonth(item.date)}}月</span>
+    </view>
+    <view class="ps-item-info">
+      <span class="ps-item-loc" wx:if="{{item.location}}">{{item.location}}</span>
+      <span class="ps-item-time" wx:if="{{item.start_time}}">{{item.start_time}} - {{item.end_time}}</span>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="ps-loading" wx:if="{{loadingMore}}">
+    <span>加载中...</span>
+  </view>
+  <view class="ps-no-more" wx:if="{{!hasMore && scheduleList.length > 0}}">
+    <span>没有更多了</span>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && scheduleList.length === 0}}">
+    <span class="iconfont icon-calendar empty-icon"></span>
+    <span class="empty-title">暂无档期</span>
+  </view>
+
+  <view class="safe-bottom" />
+</view>

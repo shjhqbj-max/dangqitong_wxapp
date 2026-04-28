@@ -5,7 +5,7 @@ import { Schedule, CalendarDayMap } from './types'
 export const mockSchedules: Schedule[] = [
   // ===== 4月档期（20条） =====
   {
-    id: '1',
+    id: 's-1',
     date: '2026-04-01',
     start_time: '', end_time: '',
     status: 'rest', completion_status: '', source: '',
@@ -15,7 +15,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-03-25T10:00:00'
   },
   {
-    id: '2',
+    id: 's-2',
     date: '2026-04-03',
     start_time: '08:00', end_time: '18:00',
     status: 'confirmed', completion_status: 'completed', source: 'self',
@@ -26,7 +26,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-03-26T10:00:00'
   },
   {
-    id: '3',
+    id: 's-3',
     date: '2026-04-05',
     start_time: '07:00', end_time: '20:00',
     status: 'confirmed', completion_status: 'completed', source: 'team_dispatch',
@@ -41,7 +41,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-03-28T10:00:00'
   },
   {
-    id: '4',
+    id: 's-4',
     date: '2026-04-07',
     start_time: '09:00', end_time: '17:00',
     status: 'pending', completion_status: 'uncompleted', source: 'self',
@@ -51,7 +51,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-03-30T10:00:00'
   },
   {
-    id: '5',
+    id: 's-5',
     date: '2026-04-08',
     start_time: '', end_time: '',
     status: 'rest', completion_status: '', source: '',
@@ -61,7 +61,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-03-31T10:00:00'
   },
   {
-    id: '6',
+    id: 's-6',
     date: '2026-04-10',
     start_time: '08:00', end_time: '16:00',
     status: 'confirmed', completion_status: 'completed', source: 'platform',
@@ -71,7 +71,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-02T10:00:00'
   },
   {
-    id: '7',
+    id: 's-7',
     date: '2026-04-12',
     start_time: '10:00', end_time: '18:00',
     status: 'pending', completion_status: 'uncompleted', source: 'team_dispatch',
@@ -82,7 +82,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-04T10:00:00'
   },
   {
-    id: '8',
+    id: 's-8',
     date: '2026-04-13',
     start_time: '06:30', end_time: '21:00',
     status: 'confirmed', completion_status: 'delayed', source: 'self',
@@ -97,7 +97,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-05T10:00:00'
   },
   {
-    id: '9',
+    id: 's-9',
     date: '2026-04-15',
     start_time: '09:00', end_time: '17:00',
     status: 'pending', completion_status: 'uncompleted', source: 'self',
@@ -107,7 +107,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-07T10:00:00'
   },
   {
-    id: '10',
+    id: 's-10',
     date: '2026-04-17',
     start_time: '08:00', end_time: '18:00',
     status: 'confirmed', completion_status: 'completed', source: 'team_dispatch',
@@ -121,7 +121,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-09T10:00:00'
   },
   {
-    id: '11',
+    id: 's-11',
     date: '2026-04-19',
     start_time: '08:00', end_time: '18:00',
     status: 'pending', completion_status: 'uncompleted', source: 'platform',
@@ -131,7 +131,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-11T10:00:00'
   },
   {
-    id: '12',
+    id: 's-12',
     date: '2026-04-20',
     start_time: '07:00', end_time: '19:00',
     status: 'confirmed', completion_status: 'completed', source: 'self',
@@ -145,7 +145,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-12T10:00:00'
   },
   {
-    id: '13',
+    id: 's-13',
     date: '2026-04-21',
     start_time: '09:00', end_time: '18:00',
     status: 'pending', completion_status: 'delayed', source: 'self',
@@ -155,7 +155,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-13T10:00:00'
   },
   {
-    id: '14',
+    id: 's-14',
     date: '2026-04-22',
     start_time: '08:00', end_time: '16:00',
     status: 'confirmed', completion_status: 'completed', source: 'team_dispatch',
@@ -165,7 +165,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-14T10:00:00'
   },
   {
-    id: '15',
+    id: 's-15',
     date: '2026-04-23',
     start_time: '10:00', end_time: '17:00',
     status: 'confirmed', completion_status: 'completed', source: 'self',
@@ -175,7 +175,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-15T10:00:00'
   },
   {
-    id: '16',
+    id: 's-16',
     date: '2026-04-24',
     start_time: '14:00', end_time: '20:00',
     status: 'pending', completion_status: 'uncompleted', source: 'platform',
@@ -185,7 +185,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-16T10:00:00'
   },
   {
-    id: '17',
+    id: 's-17',
     date: '2026-04-25',
     start_time: '', end_time: '',
     status: 'rest', completion_status: '', source: '',
@@ -195,7 +195,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-17T10:00:00'
   },
   {
-    id: '18',
+    id: 's-18',
     date: '2026-04-26',
     start_time: '07:30', end_time: '19:00',
     status: 'confirmed', completion_status: 'delayed', source: 'self',
@@ -205,7 +205,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-18T10:00:00'
   },
   {
-    id: '19',
+    id: 's-19',
     date: '2026-04-28',
     start_time: '08:00', end_time: '18:00',
     status: 'confirmed', completion_status: 'completed', source: 'team_dispatch',
@@ -219,7 +219,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-20T10:00:00'
   },
   {
-    id: '20',
+    id: 's-20',
     date: '2026-04-30',
     start_time: '09:00', end_time: '17:00',
     status: 'pending', completion_status: 'uncompleted', source: 'self',
@@ -231,7 +231,7 @@ export const mockSchedules: Schedule[] = [
 
   // ===== 5月档期 =====
   {
-    id: '101',
+    id: 's-101',
     date: '2026-05-02',
     start_time: '08:00', end_time: '18:00',
     status: 'confirmed', completion_status: 'completed', source: 'self',
@@ -241,7 +241,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-20T10:00:00'
   },
   {
-    id: '102',
+    id: 's-102',
     date: '2026-05-05',
     start_time: '09:00', end_time: '17:00',
     status: 'pending', completion_status: 'uncompleted', source: 'team_dispatch',
@@ -251,7 +251,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-21T10:00:00'
   },
   {
-    id: '103',
+    id: 's-103',
     date: '2026-05-08',
     start_time: '', end_time: '',
     status: 'rest', completion_status: '', source: '',
@@ -261,7 +261,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-22T10:00:00'
   },
   {
-    id: '104',
+    id: 's-104',
     date: '2026-05-13',
     start_time: '08:00', end_time: '18:00',
     status: 'confirmed', completion_status: 'completed', source: 'self',
@@ -272,7 +272,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-20T10:00:00'
   },
   {
-    id: '105',
+    id: 's-105',
     date: '2026-05-16',
     start_time: '06:30', end_time: '21:00',
     status: 'confirmed', completion_status: 'delayed', source: 'self',
@@ -282,7 +282,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-19T10:00:00'
   },
   {
-    id: '106',
+    id: 's-106',
     date: '2026-05-16',
     start_time: '10:00', end_time: '16:00',
     status: 'confirmed', completion_status: 'completed', source: 'team_dispatch',
@@ -292,7 +292,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-18T10:00:00'
   },
   {
-    id: '107',
+    id: 's-107',
     date: '2026-05-18',
     start_time: '08:00', end_time: '20:00',
     status: 'pending', completion_status: 'uncompleted', source: 'platform',
@@ -302,7 +302,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-22T10:00:00'
   },
   {
-    id: '108',
+    id: 's-108',
     date: '2026-05-20',
     start_time: '09:00', end_time: '18:00',
     status: 'pending', completion_status: 'uncompleted', source: 'self',
@@ -312,7 +312,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-23T10:00:00'
   },
   {
-    id: '109',
+    id: 's-109',
     date: '2026-05-25',
     start_time: '', end_time: '',
     status: 'rest', completion_status: '', source: '',
@@ -322,7 +322,7 @@ export const mockSchedules: Schedule[] = [
     created_at: '2026-04-23T10:00:00'
   },
   {
-    id: '110',
+    id: 's-110',
     date: '2026-05-27',
     start_time: '07:00', end_time: '19:00',
     status: 'confirmed', completion_status: 'uncompleted', source: 'team_dispatch',
@@ -380,6 +380,17 @@ export function getMonthSchedules(year: number, month: number): Schedule[] {
   return mockSchedules
     .filter(s => s.date.startsWith(prefix) && s.status !== 'rest')
     .sort((a, b) => a.date.localeCompare(b.date))
+}
+
+// 获取本月档期（分页）
+export function getMonthSchedulesPaged(year: number, month: number, page?: number, pageSize?: number): { list: Schedule[], total: number, hasMore: boolean } {
+  var all = getMonthSchedules(year, month)
+  var total = all.length
+  var p = page || 1
+  var ps = pageSize || 20
+  var start = (p - 1) * ps
+  var paged = all.slice(start, start + ps)
+  return { list: paged, total: total, hasMore: start + ps < total }
 }
 
 // 按 ID 获取档期

@@ -10,12 +10,12 @@ export function getCalendar(year: number, month: number): Promise<ApiResponse<Ca
   return api.get('/api/schedules/calendar', { year, month })
 }
 
-// 获取档期列表（本月/筛选）
-export function getScheduleList(year: number, month: number): Promise<ApiResponse<{ list: Schedule[] }>> {
+// 获取档期列表（本月/筛选/分页）
+export function getScheduleList(year: number, month: number, page?: number, pageSize?: number): Promise<ApiResponse<{ list: Schedule[], total: number, hasMore: boolean }>> {
   if (USE_MOCK) {
-    return Promise.resolve({ code: 200, data: { list: mock.getMonthSchedules(year, month) } })
+    return Promise.resolve({ code: 200, data: mock.getMonthSchedulesPaged(year, month, page, pageSize) })
   }
-  return api.get('/api/schedules', { year, month })
+  return api.get('/api/schedules', { year, month, page, pageSize })
 }
 
 // 按日期获取档期

@@ -13,7 +13,13 @@
     "pages/team/members",
     "pages/team/profile",
     "pages/chat/list",
+    "pages/chat/detail",
+    "pages/chat/system",
     "pages/profile/index",
+    "pages/profile/edit",
+    "pages/profile/schedule",
+    "pages/profile/grab",
+    "pages/profile/grab-detail",
     "pages/login/index",
     "pages/common/input"
   ],

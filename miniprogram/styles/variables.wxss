@@ -43,6 +43,11 @@ page, :host {
   --color-completed-bg: #A7F3D0;
   --color-uncompleted-bg: #E2E8F0;
 
+  /* 状态标签背景 */
+  --color-warning-bg: rgba(245, 158, 11, 0.1);
+  --color-danger-bg: rgba(239, 68, 68, 0.1);
+  --color-success-bg: rgba(34, 197, 94, 0.1);
+
   /* ====== 颜色 - 档期状态色 ====== */
   --color-schedule-confirmed: #ff3b30;
   --color-schedule-pending: #F59E0B;
@@ -180,6 +185,11 @@ page, :host {
     --color-completed-bg: #064E3B;
     --color-uncompleted-bg: #334155;
 
+    /* 状态标签背景 */
+    --color-warning-bg: rgba(251, 191, 36, 0.15);
+    --color-danger-bg: rgba(248, 113, 113, 0.15);
+    --color-success-bg: rgba(52, 211, 153, 0.15);
+
     /* 颜色 - 档期状态色 */
     --color-schedule-confirmed: #F87171;
     --color-schedule-pending: #FBBF24;
@@ -213,5 +223,17 @@ page, :host {
     --shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.4);
     --shadow-primary: 0 4rpx 20rpx rgba(96, 165, 250, 0.3);
     --shadow-b: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+
+    /* 职业标识色（提亮对比度） */
+    --role-host: #60A5FA;
+    --role-makeup: #FB7185;
+    --role-video: #A78BFA;
+    --role-photo: #22D3EE;
+    --role-director: #34D399;
+    --role-floral: #FBBF24;
+    --role-lighting: #FB923C;
+    --role-setup: #A78BFA;
+    --role-car: #2DD4BF;
+    --role-show: #F472B6;
   }
 }

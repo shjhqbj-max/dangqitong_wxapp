@@ -67,6 +67,13 @@ export function leaveTeam(teamId: string): Promise<ApiResponse<null>> {
 }
 
 // 创建团队
+function _genCode(len: number) {
+  var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+  var code = ''
+  for (var i = 0; i < len; i++) code += chars.charAt(Math.floor(Math.random() * chars.length))
+  return code
+}
+
 export function createTeam(data: { name: string; service_types?: string[] }): Promise<ApiResponse<Team>> {
   if (USE_MOCK) {
     var newTeam: Team = {
@@ -79,6 +86,7 @@ export function createTeam(data: { name: string; service_types?: string[] }): Pr
       contact_phone: '',
       member_count: 1,
       my_role: 'admin',
+      invite_code: _genCode(6),
       created_at: new Date().toISOString()
     }
     return Promise.resolve({ code: 200, data: newTeam })

@@ -67,7 +67,7 @@
 		 data-uid="{{item.user_id}}"
 		 bindtap="onMemberTap"
 		>
-			<image class="m-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
+			<image class="m-avatar" src="{{item.avatar_url || '../../images/avatar.png'}}" mode="aspectFill" />
 			<view class="m-info">
 				<span class="m-name">{{item.nickname}}</span>
 				<view class="m-pros">

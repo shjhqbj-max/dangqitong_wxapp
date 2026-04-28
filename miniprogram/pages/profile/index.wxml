@@ -1,2 +1,84 @@
-<!--pages/profile/index.wxml-->
-<text>pages/profile/index.wxml</text>
+<wxs module="h" src="../../utils/helpers.wxs" />
+<nav-bar left-text="我的" bindheight="onNavBarHeight" />
+
+<!-- 用户信息 hero 区域 -->
+<view class="pr-hero card-top" style="top: {{navBarHeight-1}}px" wx:if="{{profile}}">
+  <view class="pr-hero-top">
+    <image class="pr-avatar" src="{{profile.avatar_url || '../../images/avatar.png'}}" mode="aspectFill" />
+    <view class="pr-info">
+      <view class="pr-name-row">
+        <span class="pr-name">{{profile.nickname}}</span>
+        <span class="pr-city" wx:if="{{profile.city}}">{{profile.city}}</span>
+      </view>
+      <view class="pr-pros">
+        <span wx:for="{{profile.professions}}" wx:key="*this"
+              class="pr-pro pro-{{h.getProClass(item)}}">{{item}}</span>
+      </view>
+      <span class="pr-price" wx:if="{{profile.price_desc}}">{{profile.price_desc}}</span>
+    </view>
+  </view>
+  <view class="pr-bio" wx:if="{{profile.bio}}">{{profile.bio}}</view>
+  <view class="pr-hero-actions">
+    <view class="pr-hero-btn" bindtap="onGoCard">
+      <span class="iconfont icon-profile pr-hero-btn-icon"></span>
+      <span>我的名片</span>
+    </view>
+    <view class="pr-hero-btn" bindtap="onEditProfile">
+      <span class="iconfont icon-edit pr-hero-btn-icon"></span>
+      <span>编辑资料</span>
+    </view>
+  </view>
+</view>
+
+<!-- 功能菜单 -->
+<view class="pr-body">
+  <view class="pr-menu-card card">
+    <view class="pr-menu-item" bindtap="onGoMySchedule">
+      <span class="iconfont icon-calendar pr-menu-icon"></span>
+      <span class="pr-menu-label">我的档期</span>
+      <span class="iconfont icon-arrow-right pr-menu-arrow"></span>
+    </view>
+    <view class="pr-menu-divider"></view>
+    <view class="pr-menu-item" bindtap="onGoPublished">
+      <span class="iconfont icon-buy pr-menu-icon"></span>
+      <span class="pr-menu-label">抢单列表</span>
+      <span class="iconfont icon-arrow-right pr-menu-arrow"></span>
+    </view>
+    <view class="pr-menu-divider"></view>
+    <view class="pr-menu-item" bindtap="onGoFavorites">
+      <span class="iconfont icon-favorite pr-menu-icon"></span>
+      <span class="pr-menu-label">我的收藏</span>
+      <span class="iconfont icon-arrow-right pr-menu-arrow"></span>
+    </view>
+  </view>
+
+  <view class="pr-menu-card card">
+    <view class="pr-menu-item" bindtap="onGoSubscription">
+      <span class="iconfont icon-notification pr-menu-icon"></span>
+      <span class="pr-menu-label">订阅中心</span>
+      <span class="iconfont icon-arrow-right pr-menu-arrow"></span>
+    </view>
+    <view class="pr-menu-divider"></view>
+    <view class="pr-menu-item" bindtap="onGoService">
+      <span class="iconfont icon-profile pr-menu-icon"></span>
+      <span class="pr-menu-label">联系客服</span>
+      <span class="iconfont icon-arrow-right pr-menu-arrow"></span>
+    </view>
+    <view class="pr-menu-divider"></view>
+    <view class="pr-menu-item" bindtap="onGoFeedback">
+      <span class="iconfont icon-edit pr-menu-icon"></span>
+      <span class="pr-menu-label">意见反馈</span>
+      <span class="iconfont icon-arrow-right pr-menu-arrow"></span>
+    </view>
+    <view class="pr-menu-divider"></view>
+    <view class="pr-menu-item" bindtap="onGoAbout">
+      <span class="iconfont icon-help pr-menu-icon"></span>
+      <span class="pr-menu-label">关于我们</span>
+      <span class="iconfont icon-arrow-right pr-menu-arrow"></span>
+    </view>
+  </view>
+
+  <view class="pr-logout" bindtap="onLogout">退出登录</view>
+
+  <view class="safe-bottom" />
+</view>

@@ -1,0 +1,120 @@
+/* 抢单列表页 */
+
+page {
+  background: var(--color-bg-page);
+}
+
+/* ====== 统计简报（固定顶部） ====== */
+.pg-stats {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2-5) var(--space-3);
+  background: var(--color-bg-card);
+  border-bottom: 1rpx solid var(--color-border-light);
+}
+
+.pg-stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rpx;
+}
+
+.pg-stat-val {
+  font-size: var(--font-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.pg-stat-label {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+.pg-stat-active {
+  color: var(--color-primary);
+}
+
+.pg-stat-grabbed {
+  color: var(--color-warning);
+}
+
+.pg-stat-done {
+  color: var(--color-success);
+}
+
+/* ====== 工单列表 ====== */
+.pg-body {
+  padding: var(--space-3);
+}
+
+.pg-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) !important;
+  margin-bottom: var(--space-2);
+}
+
+.pg-item-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80rpx;
+  flex-shrink: 0;
+}
+
+.pg-item-day {
+  font-size: var(--font-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.pg-item-month {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+.pg-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+  flex: 1;
+  min-width: 0;
+}
+
+.pg-item-title {
+  font-size: var(--font-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--weight-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pg-item-loc {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pg-item-grab {
+  font-size: var(--font-xs);
+  color: var(--color-primary);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ====== 加载状态 ====== */
+.pg-loading,
+.pg-no-more {
+  text-align: center;
+  padding: var(--space-3) 0;
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}

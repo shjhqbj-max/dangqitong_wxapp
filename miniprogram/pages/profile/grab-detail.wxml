@@ -1,0 +1,72 @@
+<wxs module="h" src="../../utils/helpers.wxs" />
+
+<!-- 顶部订单信息 -->
+<view class="gd-header card-top" wx:if="{{order}}">
+  <view class="gd-title-row">
+    <span class="gd-title-text">{{h.formatOrderTime(order.date, order.start_time, order.end_time)}}</span>
+  </view>
+  <view class="gd-sub-row" wx:if="{{order.location || order.total_price > 0}}">
+    <span class="iconfont icon-location gd-sub-icon" wx:if="{{order.location}}"></span>
+    <span class="gd-sub-text" wx:if="{{order.location}}">{{order.location}}</span>
+  </view>
+  <view class="gd-deadline" wx:if="{{order.deadline}}">
+    <span class="iconfont icon-history gd-sub-icon"></span>截止：{{h.formatDateShort(order.deadline)}} {{h.formatTime(order.deadline)}}
+  </view>
+</view>
+
+<!-- 抢单列表 -->
+<view class="gd-body">
+  <view class="gd-list-header">
+    <span class="gd-list-title">抢单列表</span>
+    <span class="gd-list-count" wx:if="{{grabbers.length > 0}}">（{{grabbers.length}}人）</span>
+  </view>
+
+  <view class="gd-grabber card-small  gd-grabber--{{item.grab_status}}" wx:for="{{grabbers}}" wx:key="user_id" data-uid="{{item.user_id}}" bindtap="onGrabberTap">
+    <image class="gd-grabber-avatar" src="{{item.avatar_url || '../../images/avatar.png'}}" mode="aspectFill" />
+    <view class="gd-grabber-info">
+      <view class="gd-grabber-name-row">
+        <span class="gd-grabber-name">{{item.nickname}}</span>
+      </view>
+      <span class="gd-grabber-pro">{{item.grabbed_profession}} · {{item.city}}</span>
+      <span class="gd-grabber-intro" wx:if="{{item.intro}}">{{item.intro}}</span>
+    </view>
+    <!-- 待处理：价格胶囊（可展开） -->
+    <view class="gd-grabber-action {{expandedIdx === index ? 'gd-grabber-action--expanded' : ''}}" wx:if="{{item.grab_status === 'pending' || (!item.grab_status && order.status === 'active')}}" data-idx="{{index}}" catchtap="onPriceTap">
+      <!-- 收起态：价格+箭头 -->
+      <view class="gd-action-collapsed" wx:if="{{expandedIdx !== index}}">
+        <span class="iconfont icon-arrow-left gd-action-arrow"></span>
+        <span class="gd-action-price" wx:if="{{item.quote_price}}">¥{{item.quote_price}}</span>
+        <span class="gd-action-price" wx:else>报价</span>
+      </view>
+      <!-- 展开态：接受+回拒+关闭 -->
+      <view class="gd-action-expanded" wx:else>
+        <view class="gd-action-accept" data-idx="{{index}}" catchtap="onAcceptTap">接受报价</view>
+        <view class="gd-action-divider"></view>
+        <view class="gd-action-reject" data-idx="{{index}}" catchtap="onRejectTap">回拒</view>
+        <view class="gd-action-close" data-idx="{{index}}" catchtap="onCloseTap">
+          <span class="iconfont icon-chevron-right gd-action-close-icon"></span>
+        </view>
+      </view>
+    </view>
+    <!-- 已接受：胶囊标签 -->
+    <view class="gd-grabber-accepted" wx:elif="{{item.grab_status === 'accepted'}}">
+      <span class="gd-tag-accepted">¥{{item.quote_price || '面议'}}</span>
+    </view>
+    <!-- 已回拒：灰色遮罩标签 -->
+    <view class="gd-grabber-rejected" wx:elif="{{item.grab_status === 'rejected'}}">
+      <span class="gd-tag-rejected">已回拒</span>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="gd-empty" wx:if="{{grabbers.length === 0}}">
+    <span class="gd-empty-text">暂未有人抢单</span>
+  </view>
+
+  <view class="safe-bottom" />
+</view>
+
+<!-- 底部操作 -->
+<view class="gd-footer" wx:if="{{order && order.status === 'active'}}">
+  <view class="gd-delete" bindtap="onDelete">删除工单</view>
+</view>

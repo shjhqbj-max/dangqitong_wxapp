@@ -19,7 +19,10 @@
         </view>
       </view>
       <view class="tab-item {{active === 2 ? 'active' : ''}}" wx:if="{{!showSheet}}" data-index="2" bindtap="switchTab">
-        <image class="tab-icon" src="{{active === 2 ? list[2].selectedIconPath : list[2].iconPath}}" mode="aspectFit" />
+        <view class="tab-icon-wrap">
+          <image class="tab-icon" src="{{active === 2 ? list[2].selectedIconPath : list[2].iconPath}}" mode="aspectFit" />
+          <view class="tab-dot" wx:if="{{msgDot}}"></view>
+        </view>
         <span class="tab-text">{{list[2].text}}</span>
       </view>
       <view class="tab-item {{active === 3 ? 'active' : ''}}" wx:if="{{!showSheet}}" data-index="3" bindtap="switchTab">
@@ -67,8 +70,8 @@
         </view>
         <view class="sheet-item" data-action="post" bindtap="onAddAction">
           <view class="sheet-icon-box sheet-icon-post">
-            <span class="iconfont icon-edit"></span>
-            <span class="sheet-label">发布动态</span>
+            <span class="iconfont icon-video"></span>
+            <span class="sheet-label">发布视频</span>
           </view>
         </view>
       </view>

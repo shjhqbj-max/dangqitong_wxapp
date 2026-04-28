@@ -17,3 +17,19 @@ export function getCardImage(userId: string): Promise<ApiResponse<{ image_url: s
   }
   return api.get('/api/cards/' + userId + '/image')
 }
+
+// 发布作品
+export function publishWork(data: { image_url: string; title: string }): Promise<ApiResponse<{ work_id: string }>> {
+  if (USE_MOCK) {
+    return Promise.resolve({ code: 200, data: mockCards.publishWork(data) })
+  }
+  return api.post('/api/works', data)
+}
+
+// 发布动态（视频链接）
+export function publishPost(data: { video_url: string }): Promise<ApiResponse<{ post_id: string }>> {
+  if (USE_MOCK) {
+    return Promise.resolve({ code: 200, data: mockCards.publishPost(data) })
+  }
+  return api.post('/api/posts', data)
+}

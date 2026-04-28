@@ -1,10 +1,9 @@
 /* DQT 图标字体 — iconfont.cn */
-/* Project id 5161591 */
 @font-face {
   font-family: "iconfont"; /* Project id 5161591 */
-  src: url('//at.alicdn.com/t/c/font_5161591_yok220s30pm.woff2?t=1777177507233') format('woff2'),
-       url('//at.alicdn.com/t/c/font_5161591_yok220s30pm.woff?t=1777177507233') format('woff'),
-       url('//at.alicdn.com/t/c/font_5161591_yok220s30pm.ttf?t=1777177507233') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_5161591_fn8cebbrl18.woff2?t=1777209029139') format('woff2'),
+       url('//at.alicdn.com/t/c/font_5161591_fn8cebbrl18.woff?t=1777209029139') format('woff'),
+       url('//at.alicdn.com/t/c/font_5161591_fn8cebbrl18.ttf?t=1777209029139') format('truetype');
 }
 
 .iconfont {
@@ -19,7 +18,9 @@
 .icon-switch:before {
   content: "\e606";
 }
-
+.icon-video:before {
+  content: "\e62f";
+}
 .icon-back:before         { content: "\e60d"; } /* 返回 */
 .icon-chevron-right:before { content: "\e62e"; } /* 右箭头 */
 .icon-arrow-down:before   { content: "\e610"; } /* 下箭头 */

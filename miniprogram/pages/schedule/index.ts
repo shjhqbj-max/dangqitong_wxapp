@@ -2,6 +2,7 @@
 import authGuard from '../../behaviors/auth-guard'
 import * as scheduleApi from '../../apis/schedule'
 import * as ordersApi from '../../apis/orders'
+import * as chatApi from '../../apis/chat'
 import { Schedule, CalendarDayMap } from '../../mock/types'
 
 type CalDay = { day: number, date: string, isToday: boolean, isSelected: boolean, statuses: string[], isOther: boolean }
@@ -103,9 +104,24 @@ Page({
 
   onShow() {
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-      this.getTabBar().setData({ active: 0, bgColor: '#F8FAFC', showGradient: true })
+      var theme = (wx.getAppBaseInfo().theme || 'light')
+      this.getTabBar().setData({ active: 0, bgColor: theme === 'dark' ? '#0F172A' : '#F8FAFC', showGradient: true })
     }
     this.loadData()
+    this._syncMsgDot()
+  },
+
+  async _syncMsgDot() {
+    try {
+      var [chatRes, notiRes] = await Promise.all([chatApi.getChatList(), chatApi.getNotifications()])
+      var chats = chatRes.code === 200 ? chatRes.data : []
+      var notifications = notiRes.code === 200 ? notiRes.data : []
+      var unread = notifications.filter(function(n: any) { return !n.is_read }).length
+      var chatUnread = chats.reduce(function(s: number, c: any) { return s + c.unread_count }, 0)
+      if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+        this.getTabBar().setData({ msgDot: unread > 0 || chatUnread > 0 })
+      }
+    } catch (e) { /* 静默 */ }
   },
 
   onNavBarHeight(e: any) {

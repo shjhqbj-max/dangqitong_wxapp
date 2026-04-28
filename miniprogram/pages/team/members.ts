@@ -41,7 +41,7 @@ Page({
       team,
       members,
       isAdmin: team.my_role === 'admin',
-      inviteCode: team.team_id.toUpperCase()
+      inviteCode: team.invite_code || team.team_id.toUpperCase()
     })
   },
 
@@ -219,17 +219,15 @@ Page({
   },
 
   onCreateTeam() {
+    var userInfo = wx.getStorageSync('userInfo')
+    var defaultName = (userInfo && userInfo.nickname ? userInfo.nickname : '我') + '的团队'
     wx.showModal({
       title: '创建团队',
       editable: true,
-      placeholderText: '请输入团队名称',
+      placeholderText: defaultName,
       success: async (res) => {
         if (!res.confirm) return
-        var name = (res.content || '').trim()
-        if (!name) {
-          wx.showToast({ title: '请输入名称', icon: 'none' })
-          return
-        }
+        var name = (res.content || '').trim() || defaultName
         try {
           const result = await teamApi.createTeam({ name })
           if (result.code === 200 && result.data) {

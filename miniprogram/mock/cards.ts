@@ -6,7 +6,7 @@ const mockCards: Record<string, ScheduleCard> = {
     card_id: 'c-001',
     user_id: 'u-001',
     nickname: '我自己',
-    avatar_url: 'https://i.pravatar.cc/150?img=11',
+    avatar_url: '',
     profession: '摄影',
     city: '杭州',
     phone: '13800138001',
@@ -31,7 +31,7 @@ const mockCards: Record<string, ScheduleCard> = {
     card_id: 'c-002',
     user_id: 'u-002',
     nickname: '张三',
-    avatar_url: 'https://i.pravatar.cc/150?img=12',
+    avatar_url: '',
     profession: '摄像',
     city: '杭州',
     phone: '13800138002',
@@ -54,7 +54,7 @@ const mockCards: Record<string, ScheduleCard> = {
     card_id: 'c-003',
     user_id: 'u-003',
     nickname: '李四',
-    avatar_url: 'https://i.pravatar.cc/150?img=13',
+    avatar_url: '',
     profession: '摄影',
     city: '杭州',
     phone: '13800138003',
@@ -75,7 +75,7 @@ const mockCards: Record<string, ScheduleCard> = {
     card_id: 'c-004',
     user_id: 'u-004',
     nickname: '王五',
-    avatar_url: 'https://i.pravatar.cc/150?img=14',
+    avatar_url: '',
     profession: '化妆',
     city: '杭州',
     phone: '13800138004',
@@ -98,7 +98,7 @@ const mockCards: Record<string, ScheduleCard> = {
     card_id: 'c-005',
     user_id: 'u-005',
     nickname: '赵六',
-    avatar_url: 'https://i.pravatar.cc/150?img=15',
+    avatar_url: '',
     profession: '摄像',
     city: '杭州',
     phone: '13800138005',
@@ -117,7 +117,7 @@ const mockCards: Record<string, ScheduleCard> = {
     card_id: 'c-006',
     user_id: 'u-006',
     nickname: '孙七',
-    avatar_url: 'https://i.pravatar.cc/150?img=16',
+    avatar_url: '',
     profession: '灯光',
     city: '杭州',
     phone: '13800138006',
@@ -135,7 +135,7 @@ const mockCards: Record<string, ScheduleCard> = {
     card_id: 'c-007',
     user_id: 'u-007',
     nickname: '周八',
-    avatar_url: 'https://i.pravatar.cc/150?img=20',
+    avatar_url: '',
     profession: '化妆',
     city: '上海',
     phone: '13900139001',
@@ -160,7 +160,7 @@ const mockCards: Record<string, ScheduleCard> = {
     card_id: 'c-008',
     user_id: 'u-008',
     nickname: '吴九',
-    avatar_url: 'https://i.pravatar.cc/150?img=21',
+    avatar_url: '',
     profession: '花艺',
     city: '上海',
     phone: '13900139002',
@@ -181,7 +181,7 @@ const mockCards: Record<string, ScheduleCard> = {
     card_id: 'c-009',
     user_id: 'u-009',
     nickname: '郑十',
-    avatar_url: 'https://i.pravatar.cc/150?img=22',
+    avatar_url: '',
     profession: '摄影',
     city: '上海',
     phone: '13900139003',
@@ -204,7 +204,7 @@ const mockCards: Record<string, ScheduleCard> = {
     card_id: 'c-010',
     user_id: 'u-010',
     nickname: '冯十一',
-    avatar_url: 'https://i.pravatar.cc/150?img=23',
+    avatar_url: '',
     profession: '主持',
     city: '上海',
     phone: '13900139004',
@@ -225,10 +225,22 @@ const mockCards: Record<string, ScheduleCard> = {
 
 // 获取指定用户的档期卡
 export function getScheduleCard(userId: string): ScheduleCard | null {
+  // 兼容登录系统返回的数字 ID
+  if (userId === '10001') return mockCards['u-001'] || null
   return mockCards[userId] || null
 }
 
 // 获取档期卡图片（mock 返回空字符串）
 export function getCardImage(_userId: string): { image_url: string } {
   return { image_url: '' }
+}
+
+// 发布作品（mock 直接返回成功）
+export function publishWork(data: { image_url: string; title: string }): { work_id: string } {
+  return { work_id: 'w-' + Date.now() }
+}
+
+// 发布动态（mock 直接返回成功）
+export function publishPost(data: { video_url: string }): { post_id: string } {
+  return { post_id: 'p-' + Date.now() }
 }

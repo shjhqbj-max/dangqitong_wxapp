@@ -36,6 +36,12 @@
   white-space: nowrap;
 }
 
+.nav-bar-left-icon {
+  font-size: var(--font-lg);
+  color: var(--color-text-secondary);
+  margin-left: var(--space-2);
+}
+
 .nav-bar-title {
   position: absolute;
   left: 50%;

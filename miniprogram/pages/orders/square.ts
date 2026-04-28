@@ -44,7 +44,8 @@ Page({
 
   onShow() {
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-      this.getTabBar().setData({ active: 0, bgColor: '#F8FAFC', showGradient: true })
+      var theme = (wx.getSystemInfoSync().theme || 'light')
+      this.getTabBar().setData({ active: 0, bgColor: theme === 'dark' ? '#0F172A' : '#F8FAFC', showGradient: true })
     }
   },
 

@@ -13,7 +13,12 @@
   background: var(--color-bg-card);
   box-shadow: var(--shadow-b);
 }
-
+.completion-pill-close-icon{
+  color: var(--color-text-secondary);
+}
+.completion-pill{
+  padding: 0 var(--space-1);
+}
 .hero-content {
   padding: var(--space-4) var(--space-4) var(--space-3);
 }

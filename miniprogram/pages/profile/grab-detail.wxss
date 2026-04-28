@@ -1,0 +1,296 @@
+/* 抢单详情页 */
+
+page {
+  background: var(--color-bg-page);
+}
+.icon-history{
+    margin-right: var(--space-1);
+}
+/* ====== 顶部订单信息 ====== */
+.gd-header {
+  background: var(--color-bg-card);
+  padding: var(--space-3);
+  border-bottom: 1rpx solid var(--color-border-light);
+}
+
+.gd-title-row {
+  margin-bottom: var(--space-2);
+}
+
+.gd-title-text {
+  font-size: var(--font-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+
+.gd-sub-row {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  margin-bottom: var(--space-2);
+}
+
+.gd-sub-icon {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.gd-sub-text {
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+}
+
+.gd-sub-dot {
+  font-size: var(--font-sm);
+  color: var(--color-text-quaternary);
+  margin: 0 6rpx;
+}
+
+.gd-desc {
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-2);
+}
+
+.gd-deadline {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* ====== 抢单列表 ====== */
+.gd-body {
+  margin: var(--space-3);
+}
+
+.gd-list-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: var(--space-2);
+}
+
+.gd-list-title {
+  font-size: var(--font-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+}
+
+.gd-list-count {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+}
+
+.gd-grabber {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2-5) var(--space-3);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-2);
+}
+
+.gd-grabber:active {
+  opacity: 0.7;
+}
+
+/* 已回拒：整卡变灰 */
+.gd-grabber--rejected {
+  background: var(--color-bg-muted);
+  opacity: 0.65;
+}
+
+.gd-grabber-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.gd-grabber-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rpx;
+}
+
+.gd-grabber-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.gd-grabber-name {
+  font-size: var(--font-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+}
+
+.gd-grabber-pro {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+.gd-grabber-intro {
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ====== 右侧操作区 ====== */
+
+/* 待处理：价格胶囊 */
+.gd-grabber-action {
+  flex-shrink: 0;
+  border-radius: var(--radius-lg);
+  background: var(--color-primary-light, rgba(82,145,255,0.08));
+  overflow: hidden;
+}
+
+.gd-action-collapsed {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  padding: 8rpx 14rpx;
+}
+
+.gd-action-collapsed:active {
+  opacity: 0.7;
+}
+
+.gd-action-price {
+  font-size: var(--font-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+}
+
+.gd-action-arrow {
+  font-size: var(--font-xs);
+  color: var(--color-primary);
+  opacity: 0.6;
+}
+
+/* 展开态：胶囊菜单 */
+.gd-grabber-action--expanded {
+  background: var(--color-bg-card);
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.08);
+}
+
+.gd-action-expanded {
+  display: flex;
+  align-items: center;
+}
+
+.gd-action-accept {
+  font-size: var(--font-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-primary);
+  padding: 10rpx 18rpx;
+  white-space: nowrap;
+}
+
+.gd-action-accept:active {
+  opacity: 0.7;
+}
+
+.gd-action-divider {
+  width: 1rpx;
+  height: 28rpx;
+  background: var(--color-border-light);
+  flex-shrink: 0;
+}
+
+.gd-action-reject {
+  font-size: var(--font-xs);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-tertiary);
+  padding: 10rpx 18rpx;
+  white-space: nowrap;
+}
+
+.gd-action-reject:active {
+  opacity: 0.7;
+}
+
+.gd-action-close {
+  padding: 10rpx 12rpx;
+}
+
+.gd-action-close:active {
+  opacity: 0.7;
+}
+
+.gd-action-close-icon {
+  font-size: var(--font-xs);
+  color: var(--color-text-quaternary);
+}
+
+/* 已接受：胶囊标签 */
+.gd-tag-accepted {
+  font-size: 20rpx;
+  font-weight: var(--weight-medium);
+  color: var(--color-success);
+  background: var(--color-success-light, rgba(76,175,80,0.1));
+  padding: 6rpx 14rpx;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+/* 已回拒：标签 */
+.gd-tag-rejected {
+  font-size: 20rpx;
+  font-weight: var(--weight-medium);
+  color: var(--color-text-quaternary);
+  background: var(--color-bg-card);
+  padding: 6rpx 14rpx;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+/* 空状态 */
+.gd-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6) 0;
+}
+
+.gd-empty-text {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* 底部操作 */
+.gd-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: var(--space-2) var(--space-4);
+  padding-bottom: calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
+  background: var(--color-bg-card);
+  border-top: 1rpx solid var(--color-border-light);
+}
+
+.gd-delete {
+  background: var(--color-danger);
+  color: #fff;
+  font-size: var(--font-sm);
+  font-weight: var(--weight-medium);
+  padding: var(--space-2) 0;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  flex: 1;
+}
+
+.gd-delete:active {
+  opacity: 0.7;
+}

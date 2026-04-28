@@ -247,56 +247,85 @@ page {
 
 /* ====== 下拉选择胶囊（detail/edit 共用） ====== */
 .completion-pill {
-  position: relative;
   flex-shrink: 0;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-muted);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  height: 52rpx;
 }
 
-.completion-pill-trigger {
+.completion-pill-collapsed {
   display: inline-flex;
   align-items: center;
   gap: 4rpx;
   font-size: var(--font-xs);
-  padding: var(--space-0-5) var(--space-2);
-  border-radius: var(--radius-full);
-  background: var(--color-bg-muted);
+  padding: 0 14rpx;
   color: var(--color-text-tertiary);
   white-space: nowrap;
-  position: relative;
-  z-index: 1;
+  height: 100%;
+}
+
+.completion-pill-collapsed:active {
+  opacity: 0.7;
+}
+.completion-pill-arrow {
+  font-size: var(--font-xs);
+  color: var(--color-text-quaternary);
 }
 
 .completion-pill-arrow {
-  font-size: 16rpx;
-  transition: transform 0.25s;
+  font-size: var(--font-xs);
+  color: var(--color-text-quaternary);
 }
 
-.completion-pill-arrow-up {
-  transform: rotate(180deg);
+.completion-pill-expanded {
+  display: flex;
+  align-items: center;
 }
 
-.completion-pill-options {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding-top: 52rpx;
-  background: var(--color-bg-muted);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  z-index: 0;
+.completion-pill-menu {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .completion-pill-option {
   font-size: var(--font-xs);
-  padding: var(--space-2);
+  font-weight: var(--weight-medium);
   color: var(--color-text-tertiary);
+  padding: 0 14rpx;
   white-space: nowrap;
-  border-top: 1rpx solid var(--color-border-light);
-  text-align: center;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .completion-pill-option:active {
-  background: var(--color-bg-hover);
+  opacity: 0.7;
+}
+
+.completion-pill-option--active {
+  color: var(--color-primary);
+}
+
+.completion-pill-divider {
+  width: 1rpx;
+  height: 24rpx;
+  background: var(--color-border-light);
+  flex-shrink: 0;
+}
+
+.completion-pill-close {
+  padding: 0 14rpx;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.completion-pill-close:active {
+  opacity: 0.7;
 }
 
 .completion-pill-disabled {

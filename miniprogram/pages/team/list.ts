@@ -62,6 +62,20 @@ Page({
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({ active: 1 , showGradient: true })
     }
+    this._syncMsgDot()
+  },
+
+  async _syncMsgDot() {
+    try {
+      var [chatRes, notiRes] = await Promise.all([chatApi.getChatList(), chatApi.getNotifications()])
+      var chats = chatRes.code === 200 ? chatRes.data : []
+      var notifications = notiRes.code === 200 ? notiRes.data : []
+      var unread = notifications.filter(function(n: any) { return !n.is_read }).length
+      var chatUnread = chats.reduce(function(s: number, c: any) { return s + c.unread_count }, 0)
+      if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+        this.getTabBar().setData({ msgDot: unread > 0 || chatUnread > 0 })
+      }
+    } catch (e) { /* 静默 */ }
   },
 
   async loadTeams() {

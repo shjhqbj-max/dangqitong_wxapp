@@ -1,7 +1,9 @@
 // 聊天详情页
 import authGuard from '../../behaviors/auth-guard'
 import * as chatApi from '../../apis/chat'
-import { Message, Chat } from '../../mock/types'
+import * as scheduleApi from '../../apis/schedule'
+import * as teamApi from '../../apis/team'
+import { Message, Chat, Schedule, TeamMember } from '../../mock/types'
 
 interface DisplayMessage extends Message {
   isSelf: boolean
@@ -14,28 +16,63 @@ Page({
   data: {
     chatId: '',
     chatName: '',
+    chatType: '' as Chat['chat_type'],
+    memberCount: 0,
+    scheduleInfo: null as Schedule | null,
+    members: [] as TeamMember[],
+    showMemberPanel: false,
+    teamId: '',
+    teamStats: { total: 0, done: 0, pending: 0 },
     messages: [] as DisplayMessage[],
     inputValue: '',
-    scrollTop: 0
+    scrollTop: 0,
+    keyboardHeight: 0,
+    inputFocused: false
   },
+
+  _keyboardHandler: null as WechatMiniprogram.OnKeyboardHeightChangeCallback | null,
 
   onLoad(options: any) {
     const chatId = options.chatId || ''
+    console.log(chatId);
+    
     this.setData({ chatId })
     this.loadData()
+
+    this._keyboardHandler = (res) => {
+      this.setData({ keyboardHeight: res.height })
+    }
+    wx.onKeyboardHeightChange(this._keyboardHandler)
+  },
+
+  onUnload() {
+    if (this._keyboardHandler) {
+      wx.offKeyboardHeightChange(this._keyboardHandler)
+    }
   },
 
   async loadData() {
     const { chatId } = this.data
     if (!chatId) return
 
-    // 获取会话名称
+    // 获取会话信息
     const chatRes = await chatApi.getChatList()
     if (chatRes.code === 200) {
       const chat = chatRes.data.find((c: Chat) => c.chat_id === chatId)
       if (chat) {
-        this.setData({ chatName: chat.chat_name })
+        this.setData({
+          chatName: chat.chat_name,
+          chatType: chat.chat_type,
+          memberCount: chat.member_count,
+          teamId: chat.team_id
+        })
         wx.setNavigationBarTitle({ title: chat.chat_name })
+        if (chat.chat_type === 'schedule_temp' && chat.schedule_id) {
+          const schRes = await scheduleApi.getScheduleDetail(chat.schedule_id)
+          if (schRes.code === 200) {
+            this.setData({ scheduleInfo: schRes.data })
+          }
+        }
       }
     }
 
@@ -53,6 +90,31 @@ Page({
       this.setData({ messages: list })
       this.scrollToBottom()
     }
+
+    // 获取群成员
+    if (this.data.chatType !== 'private') {
+      const memRes = await chatApi.getChatMembers(chatId)
+      if (memRes.code === 200) {
+        this.setData({ members: memRes.data })
+      }
+    }
+
+    // 团队群：获取本月档期统计
+    if (this.data.chatType === 'team' && this.data.teamId) {
+      var now = new Date()
+      var monthStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0')
+      const schRes = await teamApi.getTeamSchedule(this.data.teamId, monthStr)
+      if (schRes.code === 200) {
+        var total = schRes.data.length
+        var done = 0
+        var pending = 0
+        for (var i = 0; i < schRes.data.length; i++) {
+          if (schRes.data[i].status === 'confirmed') done++
+          else if (schRes.data[i].status === 'pending') pending++
+        }
+        this.setData({ teamStats: { total: total, done: done, pending: pending } })
+      }
+    }
   },
 
   diffMinutes(a: string, b: string): number {
@@ -69,6 +131,14 @@ Page({
 
   onInput(e: any) {
     this.setData({ inputValue: e.detail.value })
+  },
+
+  onInputFocus() {
+    this.setData({ inputFocused: true })
+  },
+
+  onInputBlur() {
+    this.setData({ inputFocused: false, keyboardHeight: 0 })
   },
 
   async onSendText() {
@@ -145,5 +215,23 @@ Page({
 
   onOpenLocation(e: any) {
     wx.showToast({ title: e.currentTarget.dataset.addr, icon: 'none' })
+  },
+
+  onMemberTap(e: any) {
+    var uid = e.currentTarget.dataset.uid
+    if (uid) {
+      this.setData({ showMemberPanel: false })
+      wx.navigateTo({ url: '/pages/team/card?userId=' + uid })
+    }
+  },
+
+  onToggleMemberPanel() {
+    this.setData({ showMemberPanel: !this.data.showMemberPanel })
+  },
+
+  onGoTeamProfile() {
+    if (this.data.teamId) {
+      wx.navigateTo({ url: '/pages/team/profile?teamId=' + this.data.teamId })
+    }
   }
 })

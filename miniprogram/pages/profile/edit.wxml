@@ -1,0 +1,100 @@
+<wxs module="h" src="../../utils/helpers.wxs" />
+<view class="pe-page">
+  <!-- Hero 头部（与 nav-bar 一体） -->
+  <view class="pe-hero card-top" wx:if="{{profile}}">
+    <view class="pe-hero-avatar-wrap" bindtap="onChangeAvatar">
+      <image class="pe-hero-avatar" src="{{avatarUrl || profile.avatar_url || '../../images/avatar.png'}}" mode="aspectFill" />
+      <view class="pe-hero-avatar-badge">
+        <span class="iconfont icon-camera pe-hero-avatar-icon"></span>
+      </view>
+    </view>
+    <span class="pe-hero-name">{{profile.nickname}}</span>
+    <view class="pe-hero-pros">
+      <span wx:for="{{displayPros}}" wx:key="*this"
+            class="pe-hero-pro pro-{{h.getProClass(item)}}">{{item}}</span>
+      <span wx:if="{{proOverflow > 0}}" class="pe-hero-pro pe-pro-overflow">+{{proOverflow}}</span>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="pe-body" wx:if="{{profile}}" style="padding-top: {{heroH}}rpx">
+    <!-- 基本信息 -->
+    <view class="info-card">
+      <view class="info-card-header">
+        <span class="iconfont icon-profile info-card-icon"></span>
+        <span class="info-card-title">基本信息</span>
+      </view>
+      <view class="info-card-row" bindtap="onEditNickname">
+        <span class="info-card-label">昵称</span>
+        <view class="info-card-value">
+          <span>{{profile.nickname}}</span>
+          <span class="iconfont icon-chevron-right pe-arrow"></span>
+        </view>
+      </view>
+      <view class="info-card-row" bindtap="onEditProfession">
+        <span class="info-card-label">职业</span>
+        <view class="info-card-value">
+          <view class="pe-pros">
+            <span wx:for="{{displayPros}}" wx:key="*this"
+                  class="pe-pro pro-{{h.getProClass(item)}}">{{item}}</span>
+            <span wx:if="{{proOverflow > 0}}" class="pe-pro pe-pro-overflow">+{{proOverflow}}</span>
+          </view>
+          <span class="iconfont icon-chevron-right pe-arrow"></span>
+        </view>
+      </view>
+      <view class="info-card-row" bindtap="onEditPrice">
+        <span class="info-card-label">收费</span>
+        <view class="info-card-value">
+          <span>{{profile.price_desc || '未设置'}}</span>
+          <span class="iconfont icon-chevron-right pe-arrow"></span>
+        </view>
+      </view>
+      <view class="info-card-row" bindtap="onEditPhone">
+        <span class="info-card-label">电话</span>
+        <view class="info-card-value">
+          <span>{{profile.phone || '未设置'}}</span>
+          <span class="iconfont icon-chevron-right pe-arrow"></span>
+        </view>
+      </view>
+      <view class="info-card-row" bindtap="onEditCity">
+        <span class="info-card-label">城市</span>
+        <view class="info-card-value">
+          <span>{{profile.city || '未设置'}}</span>
+          <span class="iconfont icon-chevron-right pe-arrow"></span>
+        </view>
+      </view>
+    </view>
+
+    <!-- 个人简介 -->
+    <view class="info-card" bindtap="onEditBio">
+      <view class="info-card-header">
+        <span class="iconfont icon-note info-card-icon"></span>
+        <span class="info-card-title">个人简介</span>
+      </view>
+      <view class="pe-bio-preview" wx:if="{{profile.bio}}">{{profile.bio}}</view>
+      <view class="pe-bio-preview pe-bio-empty" wx:else>点击编辑简介</view>
+    </view>
+
+    <!-- 保存按钮 -->
+    <view class="pe-save-btn btn-primary" bindtap="onSave">保存修改</view>
+
+    <view class="safe-bottom"></view>
+  </view>
+</view>
+
+<!-- 职业多选弹窗 -->
+<view class="pe-overlay" wx:if="{{showProPicker}}" bindtap="onCloseProPicker"></view>
+<view class="pe-pro-picker {{showProPicker ? 'pe-pro-picker-open' : ''}}">
+  <view class="pe-pro-picker-header">
+    <span class="pe-pro-picker-cancel" bindtap="onCloseProPicker">取消</span>
+    <span class="pe-pro-picker-title">选择职业</span>
+    <span class="pe-pro-picker-confirm" bindtap="onConfirmPro">确定</span>
+  </view>
+  <view class="pe-pro-picker-grid">
+    <view class="pe-pro-option {{tempPros.indexOf(item.label) >= 0 ? 'pe-pro-option-active' : ''}}"
+          wx:for="{{proOptions}}" wx:key="css"
+          data-label="{{item.label}}" bindtap="onTogglePro">
+      {{item.label}}
+    </view>
+  </view>
+</view>

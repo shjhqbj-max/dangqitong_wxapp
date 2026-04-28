@@ -4,6 +4,13 @@ function getDay(dateStr) {
   return dateStr.substring(8, 10)
 }
 
+function getWeekday(dateStr) {
+  if (!dateStr) return ''
+  var days = ['日', '一', '二', '三', '四', '五', '六']
+  var d = getDate(dateStr)
+  return '周' + days[d.getDay()]
+}
+
 function formatDateShort(dateStr) {
   if (!dateStr) return ''
   var m = dateStr.substring(5, 7)
@@ -184,4 +191,24 @@ function formatServiceTypes(types) {
   return arr.join(' / ')
 }
 
-module.exports = { getDay: getDay, formatDateShort: formatDateShort, getLocationShort: getLocationShort, getYear: getYear, getMonth: getMonth, getDayNum: getDayNum, isAssigned: isAssigned, timeAgo: timeAgo, formatOrderTime: formatOrderTime, getProClass: getProClass, formatPrice: formatPrice, deadlineText: deadlineText, getGrabStatusText: getGrabStatusText, getTeamStatusText: getTeamStatusText, formatServiceTypes: formatServiceTypes }
+// 职业需求摘要：如"主持人一名"、"摄影/摄像等2名"
+function formatProfessionSummary(slots) {
+  if (!slots || slots.length === 0) return '未设置'
+  var total = 0
+  var names = []
+  for (var i = 0; i < slots.length; i++) {
+    names.push(slots[i].profession)
+    total = total + (slots[i].need_count || 1)
+  }
+  if (names.length === 1) return names[0] + total + '名'
+  return names.join('/') + '等' + total + '名'
+}
+
+function formatTime(dateStr) {
+  if (!dateStr) return ''
+  var t = dateStr.indexOf('T')
+  if (t < 0) return ''
+  return dateStr.substring(t + 1, t + 6)
+}
+
+module.exports = { getDay: getDay, getWeekday: getWeekday, formatDateShort: formatDateShort, getLocationShort: getLocationShort, getYear: getYear, getMonth: getMonth, getDayNum: getDayNum, isAssigned: isAssigned, timeAgo: timeAgo, formatOrderTime: formatOrderTime, getProClass: getProClass, formatPrice: formatPrice, deadlineText: deadlineText, getGrabStatusText: getGrabStatusText, getTeamStatusText: getTeamStatusText, formatServiceTypes: formatServiceTypes, formatProfessionSummary: formatProfessionSummary, formatTime: formatTime }

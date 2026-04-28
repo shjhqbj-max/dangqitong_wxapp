@@ -94,3 +94,85 @@ page {
 .ci-save:active {
   opacity: 0.85;
 }
+
+.ci-save-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ====== 发布作品：图片预览 ====== */
+.ci-work-image-wrap {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+}
+
+.ci-work-image {
+  width: 100%;
+  height: 480rpx;
+  display: block;
+}
+
+.ci-work-image-tip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  background: linear-gradient(transparent, rgba(0,0,0,0.5));
+  font-size: var(--font-xs);
+  color: #FFFFFF;
+}
+
+.ci-work-image-tip-icon {
+  font-size: var(--font-sm);
+}
+
+.ci-work-no-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 360rpx;
+  border-radius: var(--radius-lg);
+  border: 2rpx dashed var(--color-border);
+  margin-bottom: var(--space-4);
+}
+
+.ci-work-no-image-icon {
+  font-size: 72rpx;
+  color: var(--color-text-tertiary);
+}
+
+.ci-work-no-image-text {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+}
+
+.ci-work-title-field {
+  margin-top: var(--space-3);
+}
+
+/* ====== 发布动态：视频链接 ====== */
+.ci-post-hint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-muted);
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+}
+
+.ci-post-hint-icon {
+  font-size: var(--font-lg);
+  color: var(--color-primary);
+}

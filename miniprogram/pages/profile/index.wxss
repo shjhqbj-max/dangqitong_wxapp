@@ -1,1 +1,159 @@
-/* pages/profile/index.wxss */
+/* 个人中心页 */
+
+/* ====== hero 区域 ====== */
+.pr-hero {
+  position: sticky;
+  z-index: 50;
+  background: var(--color-bg-card);
+  padding: var(--space-4);
+}
+
+.pr-hero-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.pr-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.pr-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+}
+
+.pr-name-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.pr-name {
+  font-size: var(--font-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.pr-city {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+}
+
+.pr-pros {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.pr-pro {
+  font-size: var(--font-xs);
+  color: var(--color-text-secondary);
+}
+
+.pr-price {
+  font-size: var(--font-sm);
+  color: var(--color-primary);
+  font-weight: var(--weight-medium);
+}
+
+.pr-bio {
+  margin-top: var(--space-3);
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  line-height: var(--leading-relaxed);
+}
+
+/* ====== hero 操作按钮 ====== */
+.pr-hero-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.pr-hero-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-2) 0;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-muted);
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+}
+
+.pr-hero-btn:active {
+  background: var(--color-bg-hover);
+}
+
+.pr-hero-btn-icon {
+  font-size: var(--font-base);
+  color: var(--color-primary);
+}
+
+/* ====== 菜单区域 ====== */
+.pr-body {
+  padding: var(--space-3);
+}
+
+.pr-menu-card {
+  padding: 0 !important;
+  margin-bottom: var(--space-3);
+}
+
+.pr-menu-item {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+}
+
+.pr-menu-item:active {
+  background: var(--color-bg-muted);
+}
+
+.pr-menu-icon {
+  font-size: var(--font-lg);
+  color: var(--color-primary);
+  width: 48rpx;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.pr-menu-label {
+  flex: 1;
+  font-size: var(--font-base);
+  color: var(--color-text-primary);
+}
+
+.pr-menu-arrow {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+}
+
+.pr-menu-divider {
+  height: 1rpx;
+  background: var(--color-border-light);
+  margin: 0 var(--space-4);
+}
+
+/* ====== 退出登录 ====== */
+.pr-logout {
+  text-align: center;
+  font-size: var(--font-base);
+  color: var(--color-danger);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+}
+
+.pr-logout:active {
+  background: var(--color-danger-light);
+}

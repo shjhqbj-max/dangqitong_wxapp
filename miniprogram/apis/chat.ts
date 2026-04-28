@@ -1,5 +1,5 @@
 import { api, USE_MOCK, ApiResponse } from '../utils/request'
-import { Chat, Message, Notification } from '../mock/types'
+import { Chat, Message, Notification, TeamMember } from '../mock/types'
 import * as mockChat from '../mock/chat'
 
 // 获取聊天会话列表
@@ -33,7 +33,7 @@ export function sendMessage(chatId: string, data: { msg_type: string; content: s
       message_id: 'm-new-' + Date.now(),
       sender_id: 'u-001',
       sender_name: '我自己',
-      sender_avatar: 'https://i.pravatar.cc/150?img=11',
+      sender_avatar: '',
       msg_type: data.msg_type as 'text' | 'image' | 'location' | 'system',
       content: data.content,
       sent_at: new Date().toISOString()
@@ -92,4 +92,12 @@ export function closeChat(chatId: string): Promise<ApiResponse<null>> {
     return Promise.resolve({ code: 200, data: null })
   }
   return api.delete('/api/chats/' + chatId)
+}
+
+// 获取聊天成员列表
+export function getChatMembers(chatId: string): Promise<ApiResponse<TeamMember[]>> {
+  if (USE_MOCK) {
+    return Promise.resolve({ code: 200, data: mockChat.getChatMembers(chatId) })
+  }
+  return api.get('/api/chats/' + chatId + '/members')
 }

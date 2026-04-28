@@ -294,6 +294,10 @@ Page({
     this.setData({ completionExpanded: !this.data.completionExpanded })
   },
 
+  onCompletionClose() {
+    this.setData({ completionExpanded: false })
+  },
+
   onCompletionSelect(e: any) {
     var val = e.currentTarget.dataset.value
     var self = this

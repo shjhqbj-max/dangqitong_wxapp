@@ -1,38 +1,49 @@
 <wxs module="h" src="../../utils/helpers.wxs" />
 <nav-bar left-text="消息" left-icon="icon-search" bind:lefttap="onSearchTap" bindheight="onNavBarHeight" />
 
-<!-- 搜索+系统消息 hero 区域 -->
+<!-- 系统消息 + 搜索 hero 区域 -->
 <view class="ch-hero card-top" style="top: {{navBarHeight-1}}px">
-  <!-- 默认：系统消息 -->
-  <view class="ch-hero-default" wx:if="{{!showSearch}}">
-    <view class="ch-notify-entry" bindtap="onNotifyCardTap" wx:if="{{notifications.length > 0}}">
-      <view class="ch-notify-entry-icon-wrap">
-        <span class="iconfont icon-notification ch-notify-entry-icon"></span>
-        <span class="ch-notify-entry-badge" wx:if="{{unreadNotiCount > 0}}">{{unreadNotiCount}}</span>
-      </view>
-      <view class="ch-notify-entry-body">
-        <span class="ch-notify-entry-label">系统消息</span>
-        <span class="ch-notify-entry-latest" wx:if="{{notifications[0]}}">{{notifications[0].title}}</span>
-      </view>
-      <span class="iconfont icon-chevron-right ch-notify-entry-arrow"></span>
+  <!-- 有未读系统消息：显示通知入口 -->
+  <view class="ch-notify-entry" wx:if="{{unreadNotiCount > 0}}" bindtap="onNotifyCardTap">
+    <view class="ch-notify-entry-icon-wrap">
+      <span class="iconfont icon-notification ch-notify-entry-icon"></span>
+      <span class="ch-notify-entry-badge">{{unreadNotiCount}}</span>
     </view>
+    <view class="ch-notify-entry-body">
+      <span class="ch-notify-entry-label">系统消息</span>
+      <span class="ch-notify-entry-latest" wx:if="{{notifications[0]}}">{{notifications[0].title}}</span>
+    </view>
+    <span class="iconfont icon-chevron-right ch-notify-entry-arrow"></span>
   </view>
-  <!-- 搜索态：输入框 + 关闭按钮 -->
-  <view class="ch-hero-search" wx:if="{{showSearch}}">
-    <view class="ch-search-active">
-      <span class="iconfont icon-search ch-search-icon"></span>
-      <input class="ch-search-input" value="{{searchKey}}" placeholder="搜索聊天记录" focus="{{showSearch}}"
-        bindinput="onSearchInput" confirm-type="search" />
-      <view class="ch-search-clear" wx:if="{{searchKey.length > 0}}" bindtap="onSearchClear">
-        <span class="iconfont icon-close ch-search-clear-icon"></span>
-      </view>
+  <!-- 无未读系统消息：显示搜索输入框 -->
+  <view class="ch-search-bar" wx:elif="{{unreadNotiCount === 0}}">
+    <span class="iconfont icon-search ch-search-icon"></span>
+    <input class="ch-search-input" value="{{searchKey}}" placeholder="搜索聊天记录"
+      bindinput="onSearchInput" confirm-type="search" />
+    <view class="ch-search-clear" wx:if="{{searchKey.length > 0}}" bindtap="onSearchClear">
+      <span class="iconfont icon-close ch-search-clear-icon"></span>
     </view>
-    <span class="ch-search-cancel" bindtap="onSearchClose">取消</span>
   </view>
 </view>
 
 <!-- 聊天列表 -->
 <view class="ch-body">
+  <!-- 顶部系统消息隐藏时，在列表中显示系统消息入口 -->
+  <view class="ch-item card ch-item-system" wx:if="{{unreadNotiCount === 0}}" bindtap="onNotifyCardTap">
+    <view class="ch-avatar ch-avatar-icon ch-avatar-system">
+      <span class="iconfont icon-notification"></span>
+    </view>
+    <view class="ch-item-body">
+      <view class="ch-row-top">
+        <span class="ch-name">系统消息</span>
+      </view>
+      <view class="ch-row-bottom">
+        <span class="ch-last-msg" wx:if="{{notifications[0]}}">{{notifications[0].title}}</span>
+        <span class="ch-last-msg" wx:else>暂无系统消息</span>
+      </view>
+    </view>
+  </view>
+
   <view class="ch-item card" wx:for="{{chats}}" wx:key="chat_id"
         data-id="{{item.chat_id}}" bindtap="onChatTap">
     <image wx:if="{{item.chat_type === 'private'}}" class="ch-avatar" src="{{defaultAvatar}}" mode="aspectFill" />

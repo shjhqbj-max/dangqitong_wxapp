@@ -1,0 +1,109 @@
+/* 我的档期页 */
+
+page {
+  background: var(--color-bg-page);
+}
+
+/* ====== 统计简报（固定顶部） ====== */
+.ps-stats {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2-5) var(--space-3);
+  background: var(--color-bg-card);
+  border-bottom: 1rpx solid var(--color-border-light);
+}
+
+.ps-stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rpx;
+}
+
+.ps-stat-val {
+  font-size: var(--font-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.ps-stat-label {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+.ps-stat-conf {
+  color: var(--color-success);
+}
+
+.ps-stat-pend {
+  color: var(--color-warning);
+}
+
+.ps-stat-rest {
+  color: var(--color-text-tertiary);
+}
+
+/* ====== 档期列表 ====== */
+.ps-body {
+  padding: var(--space-3);
+}
+
+.ps-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) !important;
+  margin-bottom: var(--space-2);
+}
+
+.ps-item-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80rpx;
+  flex-shrink: 0;
+}
+
+.ps-item-day {
+  font-size: var(--font-xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.ps-item-month {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+.ps-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+  flex: 1;
+  min-width: 0;
+}
+
+.ps-item-loc {
+  font-size: var(--font-sm);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ps-item-time {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* ====== 加载状态 ====== */
+.ps-loading,
+.ps-no-more {
+  text-align: center;
+  padding: var(--space-3) 0;
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}

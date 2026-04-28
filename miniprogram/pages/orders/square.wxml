@@ -56,7 +56,7 @@
       <!-- 上行：发布者 + 价格 -->
       <view class="order-card-top">
         <view class="order-publisher">
-          <image class="order-avatar" src="{{item.publisher.avatar_url}}" mode="aspectFill" />
+          <image class="order-avatar" src="{{item.publisher.avatar_url || '../../images/avatar.png'}}" mode="aspectFill" />
           <view class="order-publisher-info">
             <span class="order-publisher-name">{{item.publisher.nickname}}</span>
             <span class="order-publisher-time">{{h.timeAgo(item.created_at)}}</span>

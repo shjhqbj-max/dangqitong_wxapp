@@ -13,16 +13,16 @@ export const mockOrders: Order[] = [
     total_price: 2500,
     description: '需要一位婚礼跟拍摄影师，要求自带设备，擅长纪实风格，有3年以上婚礼拍摄经验。',
     status: 'active',
-    publisher: { user_id: 'u-002', nickname: '张三', avatar_url: 'https://i.pravatar.cc/150?img=12' },
-    grab_count: 4,
+    publisher: { user_id: 'u-002', nickname: '张三', avatar_url: '' },
+    grab_count: 3,
     deadline: '2026-04-30T18:00:00',
     created_at: '2026-04-25T10:00:00',
     from_team_name: '杭州光影工作室',
     my_grab_status: 'pending',
     grabbers: [
-      { user_id: 'u-001', nickname: '我自己', avatar_url: 'https://i.pravatar.cc/150?img=11', professions: ['摄影'], grabbed_profession: '摄影', city: '杭州', grabbed_at: '2026-04-25T10:30:00' },
-      { user_id: 'u-003', nickname: '李四', avatar_url: 'https://i.pravatar.cc/150?img=33', professions: ['摄影', '摄像'], grabbed_profession: '摄影', city: '杭州', grabbed_at: '2026-04-25T11:00:00' },
-      { user_id: 'u-009', nickname: '郑十', avatar_url: 'https://i.pravatar.cc/150?img=52', professions: ['摄影'], grabbed_profession: '摄影', city: '上海', grabbed_at: '2026-04-25T14:00:00' }
+      { user_id: 'u-001', nickname: '我自己', avatar_url: '', professions: ['摄影'], grabbed_profession: '摄影', city: '杭州', grabbed_at: '2026-04-25T10:30:00', grab_status: 'pending', quote_price: 2300, intro: '5年婚礼摄影经验，擅长纪实抓拍' },
+      { user_id: 'u-003', nickname: '李四', avatar_url: '', professions: ['摄影', '摄像'], grabbed_profession: '摄影', city: '杭州', grabbed_at: '2026-04-25T11:00:00', grab_status: 'pending', quote_price: 2500, intro: '自带A7M4+24-70GM，出片快' },
+      { user_id: 'u-009', nickname: '郑十', avatar_url: '', professions: ['摄影'], grabbed_profession: '摄影', city: '上海', grabbed_at: '2026-04-25T14:00:00', grab_status: 'pending', quote_price: 2800, intro: '上海本地，可提前到场踩点' }
     ]
   },
   {
@@ -35,7 +35,7 @@ export const mockOrders: Order[] = [
     total_price: 1800,
     description: '新娘全天跟妆，需要轻复古风格，包含试妆。提供化妆间和餐饮。',
     status: 'active',
-    publisher: { user_id: 'u-007', nickname: '周八', avatar_url: 'https://i.pravatar.cc/150?img=44' },
+    publisher: { user_id: 'u-007', nickname: '周八', avatar_url: '' },
     grab_count: 1,
     deadline: '2026-05-01T12:00:00',
     created_at: '2026-04-24T09:00:00',
@@ -51,15 +51,15 @@ export const mockOrders: Order[] = [
     total_price: 3500,
     description: '婚礼双机位拍摄，需要与另一位摄像师配合，要求有稳定器和航拍设备。',
     status: 'grabbed',
-    publisher: { user_id: 'u-005', nickname: '赵六', avatar_url: 'https://i.pravatar.cc/150?img=36' },
-    grab_count: 6,
+    publisher: { user_id: 'u-005', nickname: '赵六', avatar_url: '' },
+    grab_count: 2,
     deadline: '2026-05-03T18:00:00',
     created_at: '2026-04-23T15:00:00',
     from_team_name: '杭州光影工作室',
     my_grab_status: 'rejected',
     grabbers: [
-      { user_id: 'u-001', nickname: '我自己', avatar_url: 'https://i.pravatar.cc/150?img=11', professions: ['摄影', '摄像'], grabbed_profession: '摄像', city: '杭州', grabbed_at: '2026-04-23T16:00:00' },
-      { user_id: 'u-004', nickname: '王五', avatar_url: 'https://i.pravatar.cc/150?img=57', professions: ['摄像'], grabbed_profession: '摄像', city: '杭州', grabbed_at: '2026-04-23T17:00:00' }
+      { user_id: 'u-001', nickname: '我自己', avatar_url: '', professions: ['摄影', '摄像'], grabbed_profession: '摄像', city: '杭州', grabbed_at: '2026-04-23T16:00:00', grab_status: 'rejected', quote_price: 3200, intro: '稳定器+航拍都有，双机位经验丰富' },
+      { user_id: 'u-004', nickname: '王五', avatar_url: '', professions: ['摄像'], grabbed_profession: '摄像', city: '杭州', grabbed_at: '2026-04-23T17:00:00', grab_status: 'pending', quote_price: 3500, intro: '专业婚礼摄像6年，稳定器+滑轨齐全' }
     ]
   },
   {
@@ -72,7 +72,7 @@ export const mockOrders: Order[] = [
     total_price: 2000,
     description: '需要一位有经验的婚礼主持人，风格温馨浪漫，中英文双语优先。',
     status: 'active',
-    publisher: { user_id: 'u-008', nickname: '吴九', avatar_url: 'https://i.pravatar.cc/150?img=48' },
+    publisher: { user_id: 'u-008', nickname: '吴九', avatar_url: '' },
     grab_count: 0,
     deadline: '2026-05-08T18:00:00',
     created_at: '2026-04-26T08:00:00'
@@ -87,7 +87,7 @@ export const mockOrders: Order[] = [
     total_price: 1500,
     description: '大型婚宴灯光布置和现场调控，需要自带基础灯具，场地有部分设备。',
     status: 'active',
-    publisher: { user_id: 'u-006', nickname: '孙七', avatar_url: 'https://i.pravatar.cc/150?img=39' },
+    publisher: { user_id: 'u-006', nickname: '孙七', avatar_url: '' },
     grab_count: 2,
     deadline: '2026-05-06T12:00:00',
     created_at: '2026-04-25T16:00:00',
@@ -103,7 +103,7 @@ export const mockOrders: Order[] = [
     total_price: 0,
     description: '户外婚礼花艺布置，包含拱门、路引、桌花。预算面议，看方案定价格。',
     status: 'active',
-    publisher: { user_id: 'u-010', nickname: '冯十一', avatar_url: 'https://i.pravatar.cc/150?img=56' },
+    publisher: { user_id: 'u-010', nickname: '冯十一', avatar_url: '' },
     grab_count: 4,
     deadline: '2026-05-09T18:00:00',
     created_at: '2026-04-26T10:00:00'
@@ -118,7 +118,7 @@ export const mockOrders: Order[] = [
     total_price: 800,
     description: '婚礼现场执行督导，负责流程把控和人员协调，需要有大型婚礼经验。',
     status: 'active',
-    publisher: { user_id: 'u-004', nickname: '王五', avatar_url: 'https://i.pravatar.cc/150?img=57' },
+    publisher: { user_id: 'u-004', nickname: '王五', avatar_url: '' },
     grab_count: 1,
     deadline: '2026-05-13T18:00:00',
     created_at: '2026-04-24T14:00:00',
@@ -134,13 +134,13 @@ export const mockOrders: Order[] = [
     total_price: 1200,
     description: '凌晨进场搭建，包含舞台、背景板、桌椅布置。需要3-4人团队。',
     status: 'grabbed',
-    publisher: { user_id: 'u-003', nickname: '李四', avatar_url: 'https://i.pravatar.cc/150?img=33' },
-    grab_count: 6,
+    publisher: { user_id: 'u-003', nickname: '李四', avatar_url: '' },
+    grab_count: 1,
     deadline: '2026-05-15T18:00:00',
     created_at: '2026-04-23T11:00:00',
     my_grab_status: 'accepted',
     grabbers: [
-      { user_id: 'u-001', nickname: '我自己', avatar_url: 'https://i.pravatar.cc/150?img=11', professions: ['场布'], grabbed_profession: '场布', city: '杭州', grabbed_at: '2026-04-23T12:00:00' }
+      { user_id: 'u-001', nickname: '我自己', avatar_url: '', professions: ['场布'], grabbed_profession: '场布', city: '杭州', grabbed_at: '2026-04-23T12:00:00', grab_status: 'accepted', quote_price: 1200, intro: '有3人搭建小团队，凌晨可准时到场' }
     ]
   },
   // ===== 已被抢单的工单 =====
@@ -157,15 +157,15 @@ export const mockOrders: Order[] = [
     total_price: 5000,
     description: '需要摄影+摄像套餐，双机位拍摄，含后期精修50张和3-5分钟短片。',
     status: 'grabbed',
-    publisher: { user_id: 'u-001', nickname: '我自己', avatar_url: 'https://i.pravatar.cc/150?img=11' },
-    grab_count: 8,
+    publisher: { user_id: 'u-001', nickname: '我自己', avatar_url: '' },
+    grab_count: 3,
     deadline: '2026-05-17T18:00:00',
     created_at: '2026-04-22T09:00:00',
     from_team_name: '杭州光影工作室',
     grabbers: [
-      { user_id: 'u-002', nickname: '张三', avatar_url: 'https://i.pravatar.cc/150?img=12', professions: ['摄像'], grabbed_profession: '摄像', city: '杭州', grabbed_at: '2026-04-22T10:00:00' },
-      { user_id: 'u-005', nickname: '赵六', avatar_url: 'https://i.pravatar.cc/150?img=36', professions: ['摄像', '航拍'], grabbed_profession: '摄像', city: '杭州', grabbed_at: '2026-04-22T11:00:00' },
-      { user_id: 'u-009', nickname: '郑十', avatar_url: 'https://i.pravatar.cc/150?img=52', professions: ['摄影'], grabbed_profession: '摄影', city: '上海', grabbed_at: '2026-04-22T15:00:00' }
+      { user_id: 'u-002', nickname: '张三', avatar_url: '', professions: ['摄像'], grabbed_profession: '摄像', city: '杭州', grabbed_at: '2026-04-22T10:00:00', grab_status: 'accepted', quote_price: 1800, intro: '3年摄像经验，可配合双机位' },
+      { user_id: 'u-005', nickname: '赵六', avatar_url: '', professions: ['摄像', '航拍'], grabbed_profession: '摄像', city: '杭州', grabbed_at: '2026-04-22T11:00:00', grab_status: 'rejected', quote_price: 2200, intro: '可带航拍设备，一机多用' },
+      { user_id: 'u-009', nickname: '郑十', avatar_url: '', professions: ['摄影'], grabbed_profession: '摄影', city: '上海', grabbed_at: '2026-04-22T15:00:00', grab_status: 'pending', quote_price: 2600, intro: '擅长婚礼纪实，交付300张底片' }
     ]
   },
   {
@@ -178,15 +178,15 @@ export const mockOrders: Order[] = [
     total_price: 3000,
     description: '外滩婚礼航拍，需要持证飞手，提前报备飞行。提供场地许可证。',
     status: 'grabbed',
-    publisher: { user_id: 'u-005', nickname: '赵六', avatar_url: 'https://i.pravatar.cc/150?img=36' },
-    grab_count: 3,
+    publisher: { user_id: 'u-005', nickname: '赵六', avatar_url: '' },
+    grab_count: 2,
     deadline: '2026-05-19T18:00:00',
     created_at: '2026-04-25T08:00:00',
     from_team_name: '杭州光影工作室',
     my_grab_status: 'accepted',
     grabbers: [
-      { user_id: 'u-001', nickname: '我自己', avatar_url: 'https://i.pravatar.cc/150?img=11', professions: ['摄像', '航拍'], grabbed_profession: '摄像', city: '杭州', grabbed_at: '2026-04-25T09:00:00' },
-      { user_id: 'u-006', nickname: '孙七', avatar_url: 'https://i.pravatar.cc/150?img=39', professions: ['灯光'], grabbed_profession: '灯光', city: '杭州', grabbed_at: '2026-04-25T10:00:00' }
+      { user_id: 'u-001', nickname: '我自己', avatar_url: '', professions: ['摄像', '航拍'], grabbed_profession: '摄像', city: '杭州', grabbed_at: '2026-04-25T09:00:00', quote_price: 2800, intro: '持证飞手，有外滩飞行报备经验' },
+      { user_id: 'u-006', nickname: '孙七', avatar_url: '', professions: ['灯光'], grabbed_profession: '灯光', city: '杭州', grabbed_at: '2026-04-25T10:00:00', quote_price: 3000, intro: '灯光+航拍都能接，设备齐全' }
     ]
   },
   // ===== 已完成工单 =====
@@ -200,14 +200,14 @@ export const mockOrders: Order[] = [
     total_price: 2000,
     description: '室内婚纱照拍摄，三套服装换装，需要灯光师配合。',
     status: 'completed',
-    publisher: { user_id: 'u-003', nickname: '李四', avatar_url: 'https://i.pravatar.cc/150?img=33' },
-    grab_count: 4,
+    publisher: { user_id: 'u-003', nickname: '李四', avatar_url: '' },
+    grab_count: 2,
     deadline: '2026-04-13T18:00:00',
     created_at: '2026-04-10T09:00:00',
     my_grab_status: 'completed',
     grabbers: [
-      { user_id: 'u-001', nickname: '我自己', avatar_url: 'https://i.pravatar.cc/150?img=11', professions: ['摄影'], grabbed_profession: '摄影', city: '杭州', grabbed_at: '2026-04-10T10:00:00' },
-      { user_id: 'u-008', nickname: '吴九', avatar_url: 'https://i.pravatar.cc/150?img=48', professions: ['摄影'], grabbed_profession: '摄影', city: '上海', grabbed_at: '2026-04-10T15:00:00' }
+      { user_id: 'u-001', nickname: '我自己', avatar_url: '', professions: ['摄影'], grabbed_profession: '摄影', city: '杭州', grabbed_at: '2026-04-10T10:00:00', grab_status: 'accepted', quote_price: 1800, intro: '室内人像经验丰富，精修出片快' },
+      { user_id: 'u-008', nickname: '吴九', avatar_url: '', professions: ['摄影'], grabbed_profession: '摄影', city: '上海', grabbed_at: '2026-04-10T15:00:00', grab_status: 'rejected', quote_price: 2000, intro: '灯光布置专业，有影楼工作经验' }
     ]
   },
   {
@@ -220,7 +220,7 @@ export const mockOrders: Order[] = [
     total_price: 1200,
     description: '半日跟妆，清新自然风格，新娘+伴娘4人妆发。',
     status: 'completed',
-    publisher: { user_id: 'u-007', nickname: '周八', avatar_url: 'https://i.pravatar.cc/150?img=44' },
+    publisher: { user_id: 'u-007', nickname: '周八', avatar_url: '' },
     grab_count: 1,
     deadline: '2026-04-16T18:00:00',
     created_at: '2026-04-12T14:00:00'
@@ -236,7 +236,7 @@ export const mockOrders: Order[] = [
     total_price: 3600,
     description: '婚礼车队需求，6辆白色奥迪A6L，含司机，路线：小区→酒店→外景→酒店。',
     status: 'closed',
-    publisher: { user_id: 'u-010', nickname: '冯十一', avatar_url: 'https://i.pravatar.cc/150?img=56' },
+    publisher: { user_id: 'u-010', nickname: '冯十一', avatar_url: '' },
     grab_count: 0,
     deadline: '2026-04-20T18:00:00',
     created_at: '2026-04-15T10:00:00'
@@ -252,7 +252,7 @@ export const mockOrders: Order[] = [
     total_price: 5000,
     description: '晚宴暖场演出，需要3-5人小型乐队，风格流行/爵士，自带设备。',
     status: 'active',
-    publisher: { user_id: 'u-008', nickname: '吴九', avatar_url: 'https://i.pravatar.cc/150?img=48' },
+    publisher: { user_id: 'u-008', nickname: '吴九', avatar_url: '' },
     grab_count: 2,
     deadline: '2026-05-25T18:00:00',
     created_at: '2026-04-26T12:00:00'
@@ -267,7 +267,7 @@ export const mockOrders: Order[] = [
     total_price: 0,
     description: '需要一位修图师处理200张婚礼照片，精修30张+基础调色170张，价格面议。',
     status: 'active',
-    publisher: { user_id: 'u-009', nickname: '郑十', avatar_url: 'https://i.pravatar.cc/150?img=52' },
+    publisher: { user_id: 'u-009', nickname: '郑十', avatar_url: '' },
     grab_count: 7,
     deadline: '2026-05-27T18:00:00',
     created_at: '2026-04-26T14:00:00'
@@ -285,7 +285,7 @@ export const mockOrders: Order[] = [
     total_price: 4100,
     description: '户外婚礼灯光+场布打包需求，含搭建和撤场。需要有户外经验。',
     status: 'active',
-    publisher: { user_id: 'u-006', nickname: '孙七', avatar_url: 'https://i.pravatar.cc/150?img=39' },
+    publisher: { user_id: 'u-006', nickname: '孙七', avatar_url: '' },
     grab_count: 0,
     deadline: '2026-05-28T18:00:00',
     created_at: '2026-04-26T16:00:00',
@@ -298,7 +298,7 @@ export const mockOrders: Order[] = [
     profession_slots: [{ profession: '摄像', price: 2200, need_count: 1, filled_count: 0 }],
     total_price: 2200,
     description: '婚礼当天快剪，上午拍摄下午出片，要求有快剪经验。',
-    status: 'active', publisher: { user_id: 'u-004', nickname: '王五', avatar_url: 'https://i.pravatar.cc/150?img=57' },
+    status: 'active', publisher: { user_id: 'u-004', nickname: '王五', avatar_url: '' },
     grab_count: 3, deadline: '2026-05-04T18:00:00', created_at: '2026-04-26T09:00:00'
   },
   {
@@ -307,7 +307,7 @@ export const mockOrders: Order[] = [
     profession_slots: [{ profession: '化妆', price: 1500, need_count: 1, filled_count: 0 }],
     total_price: 1500,
     description: '新娘全天跟妆含妈妈妆，需要韩式清新风格，含试妆一次。',
-    status: 'active', publisher: { user_id: 'u-010', nickname: '冯十一', avatar_url: 'https://i.pravatar.cc/150?img=56' },
+    status: 'active', publisher: { user_id: 'u-010', nickname: '冯十一', avatar_url: '' },
     grab_count: 2, deadline: '2026-05-07T12:00:00', created_at: '2026-04-26T08:30:00'
   },
   {
@@ -316,7 +316,7 @@ export const mockOrders: Order[] = [
     profession_slots: [{ profession: '灯光', price: 3200, need_count: 1, filled_count: 0 }],
     total_price: 3200,
     description: '大型婚宴灯光秀设计和执行，需要光束灯、LED帕灯等设备。',
-    status: 'active', publisher: { user_id: 'u-002', nickname: '张三', avatar_url: 'https://i.pravatar.cc/150?img=12' },
+    status: 'active', publisher: { user_id: 'u-002', nickname: '张三', avatar_url: '' },
     grab_count: 1, deadline: '2026-05-08T18:00:00', created_at: '2026-04-25T20:00:00'
   },
   {
@@ -325,7 +325,7 @@ export const mockOrders: Order[] = [
     profession_slots: [{ profession: '花艺', price: 4500, need_count: 1, filled_count: 0 }],
     total_price: 4500,
     description: '户外草坪婚礼花艺布置含甜品台装饰，森系风格。',
-    status: 'active', publisher: { user_id: 'u-007', nickname: '周八', avatar_url: 'https://i.pravatar.cc/150?img=44' },
+    status: 'active', publisher: { user_id: 'u-007', nickname: '周八', avatar_url: '' },
     grab_count: 5, deadline: '2026-05-12T18:00:00', created_at: '2026-04-25T22:00:00'
   },
   {
@@ -337,7 +337,7 @@ export const mockOrders: Order[] = [
     ],
     total_price: 2800,
     description: '需要主持+DJ组合，现场氛围感强，互动游戏环节多。',
-    status: 'active', publisher: { user_id: 'u-003', nickname: '李四', avatar_url: 'https://i.pravatar.cc/150?img=33' },
+    status: 'active', publisher: { user_id: 'u-003', nickname: '李四', avatar_url: '' },
     grab_count: 0, deadline: '2026-05-14T18:00:00', created_at: '2026-04-26T11:00:00'
   },
   {
@@ -346,7 +346,7 @@ export const mockOrders: Order[] = [
     profession_slots: [{ profession: '场布', price: 1800, need_count: 1, filled_count: 0 }],
     total_price: 1800,
     description: '大型婚礼场布，凌晨3点进场，含舞台背景和花艺摆放。',
-    status: 'active', publisher: { user_id: 'u-009', nickname: '郑十', avatar_url: 'https://i.pravatar.cc/150?img=52' },
+    status: 'active', publisher: { user_id: 'u-009', nickname: '郑十', avatar_url: '' },
     grab_count: 8, deadline: '2026-05-16T18:00:00', created_at: '2026-04-26T13:00:00'
   },
   {
@@ -358,7 +358,7 @@ export const mockOrders: Order[] = [
     ],
     total_price: 4200,
     description: '户外民宿婚礼，需无人机航拍+地面跟拍双机位。',
-    status: 'active', publisher: { user_id: 'u-005', nickname: '赵六', avatar_url: 'https://i.pravatar.cc/150?img=36' },
+    status: 'active', publisher: { user_id: 'u-005', nickname: '赵六', avatar_url: '' },
     grab_count: 3, deadline: '2026-05-18T18:00:00', created_at: '2026-04-26T15:00:00'
   },
   {
@@ -367,7 +367,7 @@ export const mockOrders: Order[] = [
     profession_slots: [{ profession: '摄影', price: 3800, need_count: 1, filled_count: 0 }],
     total_price: 3800,
     description: '老洋房婚礼纪实摄影，要求擅长光影运用，交付300张底片+50张精修。',
-    status: 'active', publisher: { user_id: 'u-008', nickname: '吴九', avatar_url: 'https://i.pravatar.cc/150?img=48' },
+    status: 'active', publisher: { user_id: 'u-008', nickname: '吴九', avatar_url: '' },
     grab_count: 6, deadline: '2026-05-20T18:00:00', created_at: '2026-04-26T17:00:00'
   },
   {
@@ -379,7 +379,7 @@ export const mockOrders: Order[] = [
     ],
     total_price: 1500,
     description: '婚礼全程督导，负责彩排、流程把控、人员调度。',
-    status: 'active', publisher: { user_id: 'u-006', nickname: '孙七', avatar_url: 'https://i.pravatar.cc/150?img=39' },
+    status: 'active', publisher: { user_id: 'u-006', nickname: '孙七', avatar_url: '' },
     grab_count: 2, deadline: '2026-05-21T18:00:00', created_at: '2026-04-26T18:00:00'
   },
   {
@@ -388,7 +388,7 @@ export const mockOrders: Order[] = [
     profession_slots: [{ profession: '花艺', price: 600, need_count: 1, filled_count: 0 }],
     total_price: 600,
     description: '婚车头车花艺装饰，红玫瑰+尤加利叶，需要提前一天准备。',
-    status: 'active', publisher: { user_id: 'u-002', nickname: '张三', avatar_url: 'https://i.pravatar.cc/150?img=12' },
+    status: 'active', publisher: { user_id: 'u-002', nickname: '张三', avatar_url: '' },
     grab_count: 1, deadline: '2026-05-23T18:00:00', created_at: '2026-04-26T19:00:00'
   },
   {
@@ -397,7 +397,7 @@ export const mockOrders: Order[] = [
     profession_slots: [{ profession: '主持', price: 1200, need_count: 1, filled_count: 0 }],
     total_price: 1200,
     description: '回门宴主持，简单温馨风格，流程约2小时。',
-    status: 'active', publisher: { user_id: 'u-010', nickname: '冯十一', avatar_url: 'https://i.pravatar.cc/150?img=56' },
+    status: 'active', publisher: { user_id: 'u-010', nickname: '冯十一', avatar_url: '' },
     grab_count: 0, deadline: '2026-05-24T18:00:00', created_at: '2026-04-26T20:00:00'
   },
   {
@@ -406,7 +406,7 @@ export const mockOrders: Order[] = [
     profession_slots: [{ profession: '摄影', price: 2600, need_count: 1, filled_count: 0 }],
     total_price: 2600,
     description: '婚纱照外景拍摄，3套服装，需要自备反光板。',
-    status: 'active', publisher: { user_id: 'u-004', nickname: '王五', avatar_url: 'https://i.pravatar.cc/150?img=57' },
+    status: 'active', publisher: { user_id: 'u-004', nickname: '王五', avatar_url: '' },
     grab_count: 4, deadline: '2026-05-26T18:00:00', created_at: '2026-04-26T21:00:00'
   },
   {
@@ -415,7 +415,7 @@ export const mockOrders: Order[] = [
     profession_slots: [{ profession: '摄影', price: 1500, need_count: 1, filled_count: 0 }],
     total_price: 1500,
     description: '订婚宴跟拍半天，需要抓拍能力强，交付150张底片。',
-    status: 'active', publisher: { user_id: 'u-007', nickname: '周八', avatar_url: 'https://i.pravatar.cc/150?img=44' },
+    status: 'active', publisher: { user_id: 'u-007', nickname: '周八', avatar_url: '' },
     grab_count: 2, deadline: '2026-05-28T18:00:00', created_at: '2026-04-26T22:00:00'
   },
   {
@@ -427,7 +427,7 @@ export const mockOrders: Order[] = [
     ],
     total_price: 800,
     description: '婚礼现场音响调试+灯光联动，需要有设备操作经验。',
-    status: 'active', publisher: { user_id: 'u-009', nickname: '郑十', avatar_url: 'https://i.pravatar.cc/150?img=52' },
+    status: 'active', publisher: { user_id: 'u-009', nickname: '郑十', avatar_url: '' },
     grab_count: 1, deadline: '2026-05-30T18:00:00', created_at: '2026-04-26T23:00:00'
   }
 ]
@@ -478,6 +478,17 @@ export function getMyGrabbedOrders(): Order[] {
   return mockOrders.filter(o =>
     o.grabbers && o.grabbers.some(function (g) { return g.user_id === 'u-001' })
   )
+}
+
+// 获取我发布的工单（我作为发布者）
+export function getMyPublishedOrders(page?: number, pageSize?: number): { list: Order[], total: number, hasMore: boolean } {
+  var list = mockOrders.filter(o => o.publisher.user_id === 'u-001')
+  var total = list.length
+  var p = page || 1
+  var ps = pageSize || 10
+  var start = (p - 1) * ps
+  var paged = list.slice(start, start + ps)
+  return { list: paged, total: total, hasMore: start + ps < total }
 }
 
 // 模糊搜索工单

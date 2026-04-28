@@ -51,7 +51,7 @@ export function createOrder(params: CreateOrderParams): Promise<ApiResponse<Orde
       total_price: params.total_price,
       description: params.description,
       status: 'active',
-      publisher: { user_id: 'u-001', nickname: '我自己', avatar_url: 'https://i.pravatar.cc/150?img=11' },
+      publisher: { user_id: 'u-001', nickname: '我自己', avatar_url: '' },
       grab_count: 0,
       deadline: params.deadline,
       created_at: new Date().toISOString(),
@@ -63,11 +63,11 @@ export function createOrder(params: CreateOrderParams): Promise<ApiResponse<Orde
 }
 
 // 抢单
-export function grabOrder(id: string, profession: string): Promise<ApiResponse<null>> {
+export function grabOrder(id: string, profession: string, quote_price?: number, intro?: string): Promise<ApiResponse<null>> {
   if (USE_MOCK) {
     return Promise.resolve({ code: 200, data: null })
   }
-  return api.post('/api/orders/' + id + '/grab', { profession: profession })
+  return api.post('/api/orders/' + id + '/grab', { profession: profession, quote_price: quote_price, intro: intro })
 }
 
 // 获取我抢单的工单
@@ -76,6 +76,14 @@ export function getMyGrabbedOrders(): Promise<ApiResponse<{ list: Order[] }>> {
     return Promise.resolve({ code: 200, data: { list: mock.getMyGrabbedOrders() } })
   }
   return api.get('/api/orders', { my_grabbed: true })
+}
+
+// 获取我发布的工单
+export function getMyPublishedOrders(page?: number, pageSize?: number): Promise<ApiResponse<{ list: Order[], total: number, hasMore: boolean }>> {
+  if (USE_MOCK) {
+    return Promise.resolve({ code: 200, data: mock.getMyPublishedOrders(page, pageSize) })
+  }
+  return api.get('/api/orders', { my_published: true, page: page, pageSize: pageSize })
 }
 
 // 获取附近工单数

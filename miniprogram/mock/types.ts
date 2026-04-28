@@ -62,6 +62,7 @@ export interface Team {
   contact_phone: string
   member_count: number
   my_role: 'admin' | 'member'
+  invite_code: string
   created_at: string
 }
 
@@ -125,6 +126,9 @@ export interface Order {
     grabbed_profession: string
     city: string
     grabbed_at: string
+    grab_status?: 'pending' | 'accepted' | 'rejected'
+    quote_price?: number
+    intro?: string
   }>
 }
 

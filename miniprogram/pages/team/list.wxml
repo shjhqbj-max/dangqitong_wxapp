@@ -72,7 +72,7 @@
   </view>
   <view class="card t-member-card" wx:for="{{busyMembers}}" wx:key="user_id"
       data-uid="{{item.user_id}}" bindtap="onMemberTap">
-    <image class="t-member-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
+    <image class="t-member-avatar" src="{{item.avatar_url || '../../images/avatar.png'}}" mode="aspectFill" />
     <view class="t-member-body">
       <view class="t-member-top">
         <span class="t-member-name">{{item.nickname}}</span>
@@ -104,7 +104,7 @@
   <view class="card t-free-card">
     <view class="t-free-item" wx:for="{{freeMembers}}" wx:key="user_id"
       data-uid="{{item.user_id}}" bindtap="onMemberTap">
-      <image class="t-free-avatar" src="{{item.avatar_url}}" mode="aspectFill" />
+      <image class="t-free-avatar" src="{{item.avatar_url || '../../images/avatar.png'}}" mode="aspectFill" />
       <view class="t-free-info">
         <span class="t-free-name">{{item.nickname}}</span>
         <span class="t-free-pro pro-{{h.getProClass(item.professions[0])}}">{{item.professions[0]}}</span>

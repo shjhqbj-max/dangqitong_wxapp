@@ -5,8 +5,9 @@
 		<view class="nav-bar-left" wx:if="{{showBack}}" bindtap="onBack">
 			<span class="iconfont icon-back nav-bar-back" />
 		</view>
-		<view class="nav-bar-left" wx:elif="{{leftText}}" bindtap="onLeftTap">
+		<view class="nav-bar-left" wx:elif="{{leftText || leftIcon}}" bindtap="onLeftTap">
 			<span class="nav-bar-left-text" style="{{titleColor ? 'color:' + titleColor : ''}}">{{leftText}}</span>
+			<span class="iconfont {{leftIcon}} nav-bar-left-icon" wx:if="{{leftIcon}}"></span>
 		</view>
 		<view class="nav-bar-left" wx:else></view>
 
